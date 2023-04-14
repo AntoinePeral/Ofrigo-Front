@@ -1,60 +1,76 @@
 .footer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 60px;
-    background-color: #e8e8e8;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 1;
-  
-    .footer-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  background-color: #e8e8e8;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.footer-container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 20px;
+}
+
+.links-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.links-list {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+}
+
+.link-item {
+  margin: 0 10px;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  a {
+    color: #000;
+    text-decoration: none;
+    position: relative;
+    transition: all 0.2s ease;
+    &:hover {
+      color: #555;
+      transform: scale(1.1);
+    }
+    &:before {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
       width: 100%;
-      max-width: 1200px;
-      padding: 0 20px;
+      height: 2px;
+      background-color: #000;
+      transform: scaleX(0);
+      transition: transform 0.2s ease;
+      transform-origin: left;
     }
-  
-    .links-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-  
-    .links-list {
-      display: flex;
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-      font-size: 16px;
-    }
-  
-    .link-item {
-      margin: 0 10px;
-  
-      &:first-child {
-        margin-left: 0;
-      }
-  
-      &:last-child {
-        margin-right: 0;
-      }
-  
-      a {
-        color: #000;
-        text-decoration: none;
-        transition: color 0.2s ease;
-  
-        &:hover {
-          color: #555;
-        }
-      }
-  
-      span {
-        color: #000;
-        margin: 0 5px;
-      }
+
+    &:hover:before {
+      transform: scaleX(1);
     }
   }
-  
+
+  span {
+    color: #000;
+    margin: 0 5px;
+  }
+}
