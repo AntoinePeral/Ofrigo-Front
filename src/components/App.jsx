@@ -21,7 +21,6 @@ function App() {
         <FilterButton />
         <SearchBar />
         <ShoppingCart />
-        <Toogle />
         <Routes>
           <Route path="/profil" element={<Profile />} />
           <Route path="/accueil" element={<Home />} />
