@@ -10,12 +10,15 @@ import Home from "../pages/Home.jsx";
 import Contact from "../pages/Contact.jsx";
 import Logout from "../pages/Logout.jsx";
 import React from "react";
+import FilterButton from "./Main/FilterButton";
+
 
 function App() {
   return (
     <div>
       <Router>
         <Header />
+        <FilterButton />
         <SearchBar />
         <ShoppingCart />
         <Toogle />
