@@ -21,7 +21,6 @@ import FilterButton from "./Main/FilterButton";
 function App() {
 
   return (
-<<<<<<< HEAD
     <div>
       <Router>
         <Header />
@@ -38,15 +37,6 @@ function App() {
         </Routes>
         <Footer />
       </Router>
-=======
-    <div className="App">
-      <Header />
-      <FilterButton />
-      <SearchBar />
-      <ShoppingCart />
-      <Recipes />
-      <Footer />
->>>>>>> origin/feature_Recipes_Recipe
     </div>
   );
 }
