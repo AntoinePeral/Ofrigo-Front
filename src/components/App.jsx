@@ -1,10 +1,4 @@
-<<<<<<< HEAD
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-=======
-import React from "react";
-
-
->>>>>>> origin/feature_Recipes_Recipe
 import Header from "./Header";
 import SearchBar from "./Main/SearchBar";
 import ShoppingCart from "./Main/ShoppingCart";
