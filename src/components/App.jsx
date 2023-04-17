@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+=======
+import React from "react";
+
+
+>>>>>>> origin/feature_Recipes_Recipe
 import Header from "./Header";
 import SearchBar from "./Main/SearchBar";
 import ShoppingCart from "./Main/ShoppingCart";
-import Toogle from "./Main/Toggle";
 import Recipes from "./Main/Recipes";
 import Footer from "./Footer";
 import Profile from "../pages/Profile.jsx";
@@ -14,7 +19,9 @@ import FilterButton from "./Main/FilterButton";
 
 
 function App() {
+
   return (
+<<<<<<< HEAD
     <div>
       <Router>
         <Header />
@@ -31,6 +38,15 @@ function App() {
         </Routes>
         <Footer />
       </Router>
+=======
+    <div className="App">
+      <Header />
+      <FilterButton />
+      <SearchBar />
+      <ShoppingCart />
+      <Recipes />
+      <Footer />
+>>>>>>> origin/feature_Recipes_Recipe
     </div>
   );
 }

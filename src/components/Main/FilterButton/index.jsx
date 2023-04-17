@@ -84,6 +84,7 @@ function FilterButton () {
       ];
 
     return(
+<<<<<<< HEAD
 
         <div
         className="filterRecipies">
@@ -263,6 +264,9 @@ function FilterButton () {
                     </CardActions>
 
                 </Card>)}
+=======
+        <div>
+>>>>>>> origin/feature_Recipes_Recipe
         </div>
     )
 }
