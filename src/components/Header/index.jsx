@@ -1,48 +1,47 @@
-import { useState } from 'react';
-import logo from '../pictures/frigo.png'; // Importation du logo
-import './style.scss';
-import { Link } from 'react-router-dom';
-import MenuIcon from '@mui/icons-material/Menu';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { AppBar, Toolbar, IconButton, Drawer, List, ListItem, ListItemText } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import Logo from "../pictures/frigo.png";
 
 const Header = () => {
-  const [isActive, setIsActive] = useState(false); // Utilisation de useState pour gérer le menu mobile
+  const [isOpen, setIsOpen] = useState(false);
 
-  const handleMenuToggle = () => {
-    setIsActive(!isActive); // Fonction qui change la valeur de isActive pour afficher ou cacher le menu mobile
+  const handleDrawerOpen = () => {
+    setIsOpen(true);
   };
 
-  const handleLinkClick = () => {
-    setIsActive(false); // Fonction qui masque le menu mobile quand un lien est cliqué
-  }
+  const handleDrawerClose = () => {
+    setIsOpen(false);
+  };
 
   return (
-    <header className="header">
-      <div className="menu-icon" onClick={handleMenuToggle}>
-        <MenuIcon />
-      </div>
-      <div className="logo">
-        <img src={logo} alt="Logo" /> {/* Affichage du logo */}
-      </div>
-      <nav className={`sidenav ${isActive ? "active" : ""}`}>
-        <div className="close" onClick={handleMenuToggle}>
-          &times;
+    <AppBar position="static" sx={{ bgcolor: "grey.200" }}>
+      <Toolbar>
+        <IconButton edge="start" color="inherit" onClick={handleDrawerOpen} sx={{ mr: 2 }}>
+          <MenuIcon />
+        </IconButton>
+        <Drawer open={isOpen} onClose={handleDrawerClose}>
+          <List sx={{ width: 250 }}>
+            <ListItem button component={Link} to="/profil" onClick={handleDrawerClose}>
+              <ListItemText primary="Profil" />
+            </ListItem>
+            <ListItem button component={Link} to="/accueil" onClick={handleDrawerClose}>
+              <ListItemText primary="Accueil" />
+            </ListItem>
+            <ListItem button component={Link} to="/contact" onClick={handleDrawerClose}>
+              <ListItemText primary="Contact" />
+            </ListItem>
+            <ListItem button component={Link} to="/deconnexion" onClick={handleDrawerClose}>
+              <ListItemText primary="Déconnexion" />
+            </ListItem>
+          </List>
+        </Drawer>
+        <div style={{ flex: 1 }}>
+          <img src={Logo} alt="Logo" style={{ height: "50px", margin: "0 auto" }} />
         </div>
-        <ul>
-          <li>
-            <Link to="/profil" onClick={handleLinkClick}>Profil</Link> {/* Lien vers la page Profil */}
-          </li>
-          <li>
-            <Link to="/accueil" onClick={handleLinkClick}>Accueil</Link> {/* Lien vers la page Accueil */}
-          </li>
-          <li>
-            <Link to="/contact" onClick={handleLinkClick}>Contact</Link> {/* Lien vers la page Contact */}
-          </li>
-          <li>
-            <Link to="/deconnexion" onClick={handleLinkClick}>Deconnexion</Link> {/* Lien vers la page Deconnexion */}
-          </li>
-        </ul>
-      </nav>
-    </header>
+      </Toolbar>
+    </AppBar>
   );
 };
 

@@ -28,7 +28,7 @@ function App() {
           }}
     >
       <Router>
-        
+        <Header />
         <FilterButton/>
         <SearchBar />
         <ShoppingCart />
