@@ -22,10 +22,6 @@ const Recipes = () => {
     (state) => state.reducerSearch.listFilter
   );
 
-  const proposedIngredients = useSelector(
-    (state) => state.reducerSearch.proposedIngredient
-  );
-
   const dispatch = useDispatch();
 
   const [isToggled, setIsToggled] = useState(false);
@@ -44,23 +40,23 @@ const Recipes = () => {
       recipe.ingredient
         ? recipe.ingredient.some(
             (ingredient) =>
-              proposedIngredients &&
-              proposedIngredients.includes(ingredient.label)
+              selectedIngredients &&
+              selectedIngredients.includes(ingredient.label)
           )
         : false
     );
     newFilteredRecipes.sort((a, b) =>
       a.ingredient.filter((ingredient) =>
-        proposedIngredients.includes(ingredient.label)
+        selectedIngredients.includes(ingredient.label)
       ).length <
       b.ingredient.filter((ingredient) =>
-        proposedIngredients.includes(ingredient.label)
+        selectedIngredients.includes(ingredient.label)
       ).length
         ? 1
         : -1
     );
     setFilteredRecipes(newFilteredRecipes);
-  }, [proposedIngredients, recipes]);
+  }, [selectedIngredients, recipes]);
 
   return (
     <Container maxWidth="sm">
