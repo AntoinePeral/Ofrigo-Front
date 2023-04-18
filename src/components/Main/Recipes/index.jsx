@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { FETCH_RECIPES } from "../../../store/Recipes/action";
 
 // Import des composants
 import Recipe from "../Recipe";
-
-// Import des actions Redux
-import { toggleRecipesSource } from "../../../store/Recipes/action";
 
 // Import des composants MUI
 import Switch from "@mui/material/Switch";
@@ -14,25 +12,51 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { Container } from "@mui/material";
 
 const Recipes = () => {
+  const test = useSelector((state) => state.reducerSearch);
+  console.log(test);
+
   const recipes = useSelector((state) => state.reducerRecipes.recipes);
-  const currentSource = useSelector((state) => state.reducerRecipes.source);
+  console.log(recipes);
+
+  const selectedIngredients = useSelector(
+    (state) => state.reducerSearch.listFilter
+  );
 
   const dispatch = useDispatch();
 
   const [isToggled, setIsToggled] = useState(false);
+  const [filteredRecipes, setFilteredRecipes] = useState([]);
 
   const handleToggle = () => {
     setIsToggled(!isToggled);
-
-    // Détermination de la nouvelle source de recettes
-    const newSource =
-      currentSource === "testRecipesWithoutAllIngredients"
-        ? "testRecipesWithAllIngredients"
-        : "testRecipesWithoutAllIngredients";
-
-    // Envoi de l'action au store Redux pour mettre à jour la source
-    dispatch(toggleRecipesSource(newSource));
   };
+
+  useEffect(() => {
+    dispatch({ type: FETCH_RECIPES });
+  }, [dispatch]);
+
+  useEffect(() => {
+    const newFilteredRecipes = recipes.filter((recipe) =>
+      recipe.ingredient
+        ? recipe.ingredient.some(
+            (ingredient) =>
+              selectedIngredients &&
+              selectedIngredients.includes(ingredient.label)
+          )
+        : false
+    );
+    newFilteredRecipes.sort((a, b) =>
+      a.ingredient.filter((ingredient) =>
+        selectedIngredients.includes(ingredient.label)
+      ).length <
+      b.ingredient.filter((ingredient) =>
+        selectedIngredients.includes(ingredient.label)
+      ).length
+        ? 1
+        : -1
+    );
+    setFilteredRecipes(newFilteredRecipes);
+  }, [selectedIngredients, recipes]);
 
   return (
     <Container maxWidth="sm">
@@ -48,7 +72,7 @@ const Recipes = () => {
           label={isToggled ? "On" : "Off"}
         />
       </FormGroup>
-      {recipes.map((recipe) => (
+      {filteredRecipes.map((recipe) => (
         <Recipe key={recipe.id} recipe={recipe} />
       ))}
     </Container>
