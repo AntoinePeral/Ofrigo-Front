@@ -1,6 +1,6 @@
 
 
-import { React } from "react";
+import { React, useEffect, useState } from "react";
 import { useSelector, 
          useDispatch, 
    } from "react-redux";
@@ -28,6 +28,7 @@ import {filterIngredient,
         UpdateFilterList,
         ResetFilterList,
         RemoveAnIngredientFromList,
+        FETCH_INGREDIENT,
     } from "../../../store/Search/action";
 
 
@@ -38,11 +39,14 @@ function SearchBar () {
 
     const dispatch = useDispatch();
 
+    const [ reducerSearch ] = useState(null);
+
     const { proposedIngredient,
             listFilter,
             ingredientList,
-            listtest } = useSelector((state => state.reducerSearch));
+            listtest,} = useSelector((state => state.reducerSearch));
 
+            
     const handleClickResetFilter = (event) => {
         dispatch(ResetFilterList())
     }
@@ -85,17 +89,44 @@ function SearchBar () {
     const handleOnChange = (event) =>{
 
         const onChangeInput = event.target.value;
+
+        
         dispatch(filterIngredient(onChangeInput,ingredientList))
-        console.log(onChangeInput)
         console.log(ingredientList)
+
+
     }
 
-    return(
+    useEffect(() => {
+        dispatch({ type: FETCH_INGREDIENT });
+      }, [dispatch]);
 
-        <div>
+
+
+    return(
+        <div
+        style={{
+
+            display: 'flex',
+            flexDirection: "column",
+            justifyContent: 'center',
+            alignItems: 'center'
+            
+                }}
+        >
+        <div
+            style={{
+
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'center'
+                
+                    }}
+        >
+
             <Paper
             component="form"
-            sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+            sx={{ p: '2px 4px', display: 'flex', alignItems: 'center' , maxWidth: 500}}
             >
                 <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
                 
@@ -112,7 +143,18 @@ function SearchBar () {
                 />
             
             </Paper>
+        </div>
+        <div
+            style={{
 
+                display: 'flex',
+                flexDirection: 'row',
+                minWidth: 275,
+                flexWrap: 'wrap',
+                justifyContent: 'space-around',
+                maxWidth: 500,
+        
+            }}>
 
             {proposedIngredient && proposedIngredient.map((ingredient,id) => {
 
@@ -127,31 +169,55 @@ function SearchBar () {
                     
                 )
             })}
+
+        </div>
+        <div
+            style={{
+
+                display: 'flex',
+                flexDirection: 'row',
+                minWidth: 275,
+                flexWrap: 'wrap',
+                justifyContent: 'space-around',
+                maxWidth: 500,
+                
+            }}>
             
-
             {listFilter && listFilter.map((ingredient,id) => {
-
+                
                 return(
+                    
                     <div
-                    onClick={(event) => {handleClickIngredient(event)}}
                     >
 
-                    <Card sx={{ display: 'flex',
-                                flexDirection: 'row',
-                                width: 150 }}>
+                    <Card sx={{ minWidth: 135,
+                                maxWidth: 135,
+                                mb: 2,
+                                }}
+                                onClick={(event) => {handleClickIngredient(event)}}
+                                >
                         
                         <CardMedia
 
                             component="img"
-                            sx={{ width: 50 }}
-                            image="/static/images/cards/live-from-space.jpg"
-                            alt="Live from space album cover"
+                            height="50"
+                            width="50"
+                            image="https://assets.afcdn.com/recipe/20191204/103408_w1000h668c1cx3083cy1808cxb5600cyb3738.webp"
+                            alt={ingredient.label}
 
                         />
                         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                          <CardContent sx={{ flex: '1 0 auto' }}>
-                            <Typography component="div" variant="h5">
-                                {ingredient}
+                          <CardContent sx={{ 
+                            flex: '1 0 auto',
+                            }}>
+                            <Typography 
+                                component="div" 
+                                variant="h7"
+                                align="left"
+                                
+                                
+                            >
+                                {ingredient.label}
                             </Typography>
                   
                           </CardContent>
@@ -167,7 +233,7 @@ function SearchBar () {
  
 
         </div>
-        
+        </div>
     )
 }
 

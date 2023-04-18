@@ -1,4 +1,4 @@
-import { React } from "react";
+import React, { useState, useEffect, } from 'react';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import "./style.scss"
 import { Radio,
@@ -19,6 +19,7 @@ import { useSelector,
 import {toggleFilterOpen, 
         resetNumberFilter,
         udapteFilter,
+        FETCH_TAG,
         } from "../../../store/Filter/action";
 
 
@@ -30,9 +31,11 @@ function FilterButton () {
             grades,
             difficulty,
             time,
+            tags,
          } = useSelector(
         (state) => state.reducerFilter,
       );
+      
 
     const dispatch = useDispatch();
 
@@ -40,7 +43,6 @@ function FilterButton () {
         
         const filterValue = event.target.value;
         const filterTag = "time"
-        console.log(filterValue)
         dispatch(udapteFilter(filterTag, filterValue));
         
         
@@ -56,7 +58,9 @@ function FilterButton () {
 
     const handleClickGrades = (event) => {
         
+        console.log(event)
         const filterValue = event.target.value;
+        
         const filterTag = "grades";
         dispatch(udapteFilter(filterTag, filterValue));
 
@@ -83,19 +87,29 @@ function FilterButton () {
 
       ];
 
+      useEffect(() => {
+        dispatch({ type: FETCH_TAG });
+      }, [dispatch]);
+
     return(
 
         <div
-        className="filterRecipies">
+        className="filterRecipies"
+
+        >
             <div
             className="filterRecipies__title">
-                <Badge badgeContent={parseInt(`${numberFilter}`)} 
+                <Badge
+                
+                badgeContent={parseInt(`${numberFilter}`)
+                } 
                 color="primary">
 
                     <FilterAltIcon
-                   onClick={() => {
+                        
+                        onClick={() => {
 
-                    dispatch(toggleFilterOpen());
+                        dispatch(toggleFilterOpen());
                     
                   }} 
                     />
@@ -128,27 +142,30 @@ function FilterButton () {
                                 <FormControlLabel
         
                                     value="30" 
-                                    control={<Radio />} 
+                                    control={<Radio 
+                                        onClick={(event) => {handleClickTime(event)}}/>} 
                                     label="30min"
-                                    onClick={(event) => {handleClickTime(event)}}
+                                    
                                             
                                 />
         
                                 <FormControlLabel
         
                                     value="60" 
-                                    control={<Radio />} 
+                                    control={<Radio 
+                                        onClick={(event) => {handleClickTime(event)}}/>} 
                                     label="1h"
-                                    onClick={(event) => {handleClickTime(event)}}
+                                    
                                         
                                 />
         
                                 <FormControlLabel 
                                             
                                     value="90" 
-                                    control={<Radio />} 
+                                    control={<Radio 
+                                        onClick={(event) => {handleClickTime(event)}}/>} 
                                     label="1h30min"
-                                    onClick={(event) => {handleClickTime(event)}}
+                                    
                                         
                                 />
                                     
@@ -178,27 +195,31 @@ function FilterButton () {
                                 <FormControlLabel
 
                                     value="Facile" 
-                                    control={<Radio />} 
+                                    control={<Radio 
+                                        onClick={(event) => {handleClickDifficulty(event)}}/>} 
                                     label="Facile"
-                                    onClick={(event) => {handleClickDifficulty(event)}}
+                                    
+                                    
                                     
                                 />
 
                                 <FormControlLabel
 
                                     value="Moyen" 
-                                    control={<Radio />} 
+                                    control={<Radio 
+                                        onClick={(event) => {handleClickDifficulty(event)}}/>} 
                                     label="Moyen"
-                                    onClick={(event) => {handleClickDifficulty(event)}}
+                                    
                                 
                                 />
 
                                 <FormControlLabel 
                                     
-                                    value="Difficile" 
-                                    control={<Radio />} 
-                                    label="Difficile"
-                                    onClick={(event) => {handleClickDifficulty(event)}}
+                                    value="Très facile" 
+                                    control={<Radio 
+                                        onClick={(event) => {handleClickDifficulty(event)}}/>} 
+                                    label="Très facile"
+                                    
                                 
                                 />
                             
@@ -235,7 +256,7 @@ function FilterButton () {
                             precision={0.5}
                             max={5}
                             size="medium"
-                            onClick={(event) => {handleClickGrades(event)}}
+                            onChange={(event) => {handleClickGrades(event)}}
 
                         />
         

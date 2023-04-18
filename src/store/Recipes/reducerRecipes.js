@@ -3,7 +3,9 @@ import {
   testRecipesWithoutAllIngredients,
 } from "../../testData";
 import { TOGGLE_RECIPES } from "../../store/Recipes/action";
+import recipesMiddleware from "../../middleware/recipesMiddleware"
 
+console.log(recipesMiddleware)
 const initialState = {
   recipes: testRecipesWithAllIngredients,
   source: "testRecipesWithoutAllIngredients", // stockage de la source actuelle

@@ -15,10 +15,19 @@ import FilterButton from "./Main/FilterButton";
 function App() {
 
   return (
-    <div>
+    <div
+    style={{
+
+      display: 'flex',
+      flexDirection: "column",
+      justifyContent: 'center',
+      alignItems: 'center'
+      
+          }}
+    >
       <Router>
-        <Header />
-        <FilterButton />
+        
+        <FilterButton/>
         <SearchBar />
         <ShoppingCart />
         <Routes>
