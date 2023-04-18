@@ -6,7 +6,7 @@ export const fetchRecipes = () => ({ type: FETCH_RECIPES });
 
 export const saveRecipes = (recipes) => ({ type: SAVE_RECIPES, recipes });
 
-export const toggleRecipesSource = (source) => ({
+export const toggleRecipesSource = (newSource) => ({
   type: TOGGLE_RECIPES,
-  payload: source,
+  payload: newSource,
 });
