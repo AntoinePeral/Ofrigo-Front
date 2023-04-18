@@ -1,17 +1,15 @@
 import{
   TOGGLE_FILTER_OPEN,
   RESET_NUMBER_FILTER,
-  UPDATE_FILTER
+  UPDATE_FILTER,
+  SAVE_TAGS,
 } from "./action"
 
 const initialState = {
   isFilterOpen: false,
-  Filter :[{
-    difficulty: "",
-    grades: 0,
-    time : "",
-  }],
   difficulty:"",
+  time:"",
+  grades:"",
   numberFilter: 0,
   ingredient : [
 
@@ -92,7 +90,8 @@ const initialState = {
     "Penne",
     "Herbe de provence",
 
-  ]
+  ],
+  tags: [],
 };
 
 function reducerFilter(state = initialState, action) {
@@ -110,10 +109,16 @@ function reducerFilter(state = initialState, action) {
             };
 
     case UPDATE_FILTER:
+      const newState = { ...state, [action.filterTag]: action.filterValue };
+      if (action.filterTag && state[action.filterTag] === '') {
+        return { ...newState, numberFilter: state.numberFilter + 1 };
+      }
+      return newState;
 
-      return { ...state, 
-              [action.filterTag]: action.filterValue,
-              numberFilter: state.numberFilter + 1}
+    case SAVE_TAGS:
+      return{...state,
+        tags: action.tags
+      };
 
     default:
       return state;

@@ -7,6 +7,7 @@ const recipesMiddleware = (store) => (next) => (action) => {
       axios
         .get("http://kevin-lienard-server.eddi.cloud/recipe")
         .then((response) => {
+          
           store.dispatch(saveRecipes(response.data));
         })
         .catch((err) => console.log(err));

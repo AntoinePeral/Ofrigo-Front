@@ -3,11 +3,16 @@ import ReactDOM from "react-dom";
 import { legacy_createStore as createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import reducer from "./store/index";
-import recipesMiddleware from "./middleware/recipesMiddleware";
+import ingredientsMiddleware from "./middleware/ingredientsMiddleware";
+import tagsMiddleware from "./middleware/tagsMiddleware";
+import thunk from "redux-thunk";
 
 import App from "./components/App";
 
-const store = createStore(reducer, applyMiddleware(recipesMiddleware));
+const store = createStore(
+  reducer,
+  applyMiddleware(ingredientsMiddleware, tagsMiddleware, thunk)
+);
 
 ReactDOM.render(
   <Provider store={store}>
