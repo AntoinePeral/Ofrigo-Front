@@ -1,291 +1,245 @@
-import React, { useState, useEffect, } from 'react';
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import "./style.scss"
-import { Radio,
-         Rating,
-         FormLabel,
-         FormControl,
-         FormControlLabel,
-         RadioGroup, 
-         Card,
-         Stack,
-         Badge,
-         CardActions,
-         Button,
-        } from '@mui/material';
-import { useSelector, 
-         useDispatch 
-        } from "react-redux";
-import {toggleFilterOpen, 
-        resetNumberFilter,
-        udapteFilter,
-        FETCH_TAG,
-        } from "../../../store/Filter/action";
+import React, { useState, useEffect } from "react";
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import "./style.scss";
+import {
+  Radio,
+  Rating,
+  FormLabel,
+  FormControl,
+  FormControlLabel,
+  RadioGroup,
+  Card,
+  Stack,
+  Badge,
+  CardActions,
+  Button,
+} from "@mui/material";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  toggleFilterOpen,
+  resetNumberFilter,
+  udapteFilter,
+  FETCH_TAG,
+} from "../../../store/Filter/action";
 
+function FilterButton() {
+  const { isFilterOpen, numberFilter, grades, difficulty, time, tags } =
+    useSelector((state) => state.reducerFilter);
 
+  const dispatch = useDispatch();
 
-function FilterButton () {
+  const handleClickTime = (event) => {
+    const filterValue = event.target.value;
+    const filterTag = "time";
+    dispatch(udapteFilter(filterTag, filterValue));
+  };
 
-    const { isFilterOpen,
-            numberFilter,
-            grades,
-            difficulty,
-            time,
-            tags,
-         } = useSelector(
-        (state) => state.reducerFilter,
-      );
-      
+  const handleClickDifficulty = (event) => {
+    const filterValue = event.target.value;
+    const filterTag = "difficulty";
+    dispatch(udapteFilter(filterTag, filterValue));
+  };
 
-    const dispatch = useDispatch();
+  const handleClickGrades = (event) => {
+    console.log(event);
+    const filterValue = event.target.value;
 
-    const handleClickTime = (event) => {
-        
-        const filterValue = event.target.value;
-        const filterTag = "time"
-        dispatch(udapteFilter(filterTag, filterValue));
-        
-        
-    };
+    const filterTag = "grades";
+    dispatch(udapteFilter(filterTag, filterValue));
+  };
 
-    const handleClickDifficulty = (event) => {
-        
-        const filterValue = event.target.value;
-        const filterTag = "difficulty"
-        dispatch(udapteFilter(filterTag, filterValue));
+  const marks = [
+    {
+      value: 25,
+      label: "30min",
+    },
+    {
+      value: 50,
+      label: "1h",
+    },
+    {
+      value: 75,
+      label: "1h30",
+    },
+    {
+      value: 100,
+      label: "2h",
+    },
+  ];
 
-    };
+  useEffect(() => {
+    dispatch({ type: FETCH_TAG });
+  }, [dispatch]);
 
-    const handleClickGrades = (event) => {
-        
-        console.log(event)
-        const filterValue = event.target.value;
-        
-        const filterTag = "grades";
-        dispatch(udapteFilter(filterTag, filterValue));
+  return (
+    <div className="filterRecipies">
+      <div className="filterRecipies__title">
+        <Badge badgeContent={parseInt(`${numberFilter}`)} color="primary">
+          <FilterAltIcon
+            onClick={() => {
+              dispatch(toggleFilterOpen());
+            }}
+          />
+        </Badge>
+        <div>Filtre</div>
+      </div>
 
-    };
-
-
-    const marks = [
-        {
-          value: 25,
-          label: '30min',
-        },
-        {
-          value: 50,
-          label: '1h',
-        },
-        {
-          value: 75,
-          label: '1h30',
-        },
-        {
-          value: 100,
-          label: '2h',
-        },
-
-      ];
-
-      useEffect(() => {
-        dispatch({ type: FETCH_TAG });
-      }, [dispatch]);
-
-    return(
-
-        <div
-        className="filterRecipies"
-
+      {isFilterOpen && (
+        <Card
+          sx={{
+            maxWidth: 300,
+          }}
         >
-            <div
-            className="filterRecipies__title">
-                <Badge
-                
-                badgeContent={parseInt(`${numberFilter}`)
-                } 
-                color="primary">
+          <h2>Trier par:</h2>
 
-                    <FilterAltIcon
-                        
-                        onClick={() => {
+          <FormControl>
+            <FormLabel id="time">Temps</FormLabel>
 
-                        dispatch(toggleFilterOpen());
-                    
-                  }} 
+            <RadioGroup
+              aria-labelledby="demo-radio-buttons-group-label"
+              defaultValue={`${time}`}
+              name="radio-buttons-group"
+              className="test"
+            >
+              <div>
+                <FormControlLabel
+                  value="30"
+                  control={
+                    <Radio
+                      onClick={(event) => {
+                        handleClickTime(event);
+                      }}
                     />
-                </Badge>
-                <div>Filtre</div>
-            </div>
+                  }
+                  label="30min"
+                />
 
-                {isFilterOpen && (<Card sx={{ 
-                maxWidth: 300,
-                 }}>
+                <FormControlLabel
+                  value="60"
+                  control={
+                    <Radio
+                      onClick={(event) => {
+                        handleClickTime(event);
+                      }}
+                    />
+                  }
+                  label="1h"
+                />
 
-                <h2>Trier par:</h2>
+                <FormControlLabel
+                  value="90"
+                  control={
+                    <Radio
+                      onClick={(event) => {
+                        handleClickTime(event);
+                      }}
+                    />
+                  }
+                  label="1h30min"
+                />
+              </div>
+            </RadioGroup>
+          </FormControl>
 
+          <FormControl>
+            <FormLabel id="difficulty">Difficulté</FormLabel>
 
-                    <FormControl>
+            <RadioGroup
+              aria-labelledby="demo-radio-buttons-group-label"
+              defaultValue={`${difficulty}`}
+              name="radio-buttons-group"
+              className="test"
+            >
+              <div>
+                <FormControlLabel
+                  value="Facile"
+                  control={
+                    <Radio
+                      onClick={(event) => {
+                        handleClickDifficulty(event);
+                      }}
+                    />
+                  }
+                  label="Facile"
+                />
 
-                        <FormLabel id="time">Temps</FormLabel>
-                                
-                        <RadioGroup
-        
-                            aria-labelledby="demo-radio-buttons-group-label"
-                            defaultValue={`${time}`} 
-                            name="radio-buttons-group"
-                            className="test"
+                <FormControlLabel
+                  value="Moyen"
+                  control={
+                    <Radio
+                      onClick={(event) => {
+                        handleClickDifficulty(event);
+                      }}
+                    />
+                  }
+                  label="Moyen"
+                />
 
-                        >
-        
-                            <div>
-        
-                                <FormControlLabel
-        
-                                    value="30" 
-                                    control={<Radio 
-                                        onClick={(event) => {handleClickTime(event)}}/>} 
-                                    label="30min"
-                                    
-                                            
-                                />
-        
-                                <FormControlLabel
-        
-                                    value="60" 
-                                    control={<Radio 
-                                        onClick={(event) => {handleClickTime(event)}}/>} 
-                                    label="1h"
-                                    
-                                        
-                                />
-        
-                                <FormControlLabel 
-                                            
-                                    value="90" 
-                                    control={<Radio 
-                                        onClick={(event) => {handleClickTime(event)}}/>} 
-                                    label="1h30min"
-                                    
-                                        
-                                />
-                                    
-                            </div>
-        
-                        </RadioGroup>
+                <FormControlLabel
+                  value="Très facile"
+                  control={
+                    <Radio
+                      onClick={(event) => {
+                        handleClickDifficulty(event);
+                      }}
+                    />
+                  }
+                  label="Très facile"
+                />
+              </div>
+            </RadioGroup>
+          </FormControl>
 
-                    </FormControl>
-                
+          <FormControl>
+            <FormLabel id="Notes">Notes</FormLabel>
 
-                    <FormControl>
+            <RadioGroup
+              aria-labelledby="demo-radio-buttons-group-label"
+              defaultValue="female"
+              name="radio-buttons-group"
+              className="test"
+            ></RadioGroup>
+          </FormControl>
 
-                        <FormLabel id="difficulty">Difficulté</FormLabel>
-                                
-                        <RadioGroup
+          <Stack spacing={1}>
+            <Rating
+              name="half-rating"
+              defaultValue={parseFloat(`${grades}`)}
+              precision={0.5}
+              max={5}
+              size="medium"
+              onChange={(event) => {
+                handleClickGrades(event);
+              }}
+            />
+          </Stack>
 
-                            aria-labelledby="demo-radio-buttons-group-label"
-                            defaultValue={`${difficulty}`} 
-                            name="radio-buttons-group"
-                            className="test"
+          <CardActions>
+            <Button
+              size="small"
+              variant="outlined"
+              onClick={() => {
+                dispatch(resetNumberFilter());
+                dispatch(toggleFilterOpen());
+              }}
+            >
+              Annuler
+            </Button>
 
-
-                        >
-
-                            <div>
-
-                                <FormControlLabel
-
-                                    value="Facile" 
-                                    control={<Radio 
-                                        onClick={(event) => {handleClickDifficulty(event)}}/>} 
-                                    label="Facile"
-                                    
-                                    
-                                    
-                                />
-
-                                <FormControlLabel
-
-                                    value="Moyen" 
-                                    control={<Radio 
-                                        onClick={(event) => {handleClickDifficulty(event)}}/>} 
-                                    label="Moyen"
-                                    
-                                
-                                />
-
-                                <FormControlLabel 
-                                    
-                                    value="Très facile" 
-                                    control={<Radio 
-                                        onClick={(event) => {handleClickDifficulty(event)}}/>} 
-                                    label="Très facile"
-                                    
-                                
-                                />
-                            
-                            </div>
-
-                        </RadioGroup>
-
-                    </FormControl>
-
-                    <FormControl>
-
-                        <FormLabel id="Notes">Notes</FormLabel>
-                                
-                        <RadioGroup
-
-                            aria-labelledby="demo-radio-buttons-group-label"
-                            defaultValue="female"
-                            name="radio-buttons-group"
-                            className="test"
-                        
-                        >
-
-
-                        </RadioGroup>
-
-                    </FormControl>
-
-                    <Stack spacing={1}>
-
-                        <Rating
-
-                            name="half-rating" 
-                            defaultValue={parseFloat(`${grades}`)} 
-                            precision={0.5}
-                            max={5}
-                            size="medium"
-                            onChange={(event) => {handleClickGrades(event)}}
-
-                        />
-        
-                    </Stack>
-
-                    <CardActions>
-
-                        <Button 
-                            size="small"
-                            variant="outlined"
-                            onClick={() => {
-                                dispatch(resetNumberFilter());
-                                dispatch(toggleFilterOpen());
-                            }}>Annuler</Button
-                        >
-
-                        <Button 
-                            size="small"
-                            variant="contained"
-                            onClick={() => {
-                                dispatch(toggleFilterOpen());
-                            }}
-                            >Enregistrer</Button>
-                        
-                    </CardActions>
-
-                </Card>)}
-        </div>
-    )
+            <Button
+              size="small"
+              variant="contained"
+              onClick={() => {
+                dispatch(toggleFilterOpen());
+              }}
+            >
+              Enregistrer
+            </Button>
+          </CardActions>
+        </Card>
+      )}
+    </div>
+  );
 }
 
 export default FilterButton;
