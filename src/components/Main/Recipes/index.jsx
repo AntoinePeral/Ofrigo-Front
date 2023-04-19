@@ -1,9 +1,10 @@
+//import de react/react-redux
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { FETCH_RECIPES } from "../../../store/Recipes/action";
 
-// Import des composants
+// Import des composants et actions
 import Recipe from "../Recipe";
+import { FETCH_RECIPES } from "../../../store/Recipes/action";
 
 // Import des composants MUI
 import Switch from "@mui/material/Switch";
@@ -12,51 +13,54 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { Container } from "@mui/material";
 
 const Recipes = () => {
-  const test = useSelector((state) => state.reducerSearch);
-  console.log(test);
+  //Récupération des données du store Redux :
 
   const recipes = useSelector((state) => state.reducerRecipes.recipes);
-  console.log(recipes);
 
-  const selectedIngredients = useSelector(
-    (state) => state.reducerSearch.listFilter
+  const proposedIngredients = useSelector(
+    (state) => state.reducerSearch.proposedIngredient
   );
 
+  //Dispatch
   const dispatch = useDispatch();
 
+  //Etats locaux
   const [isToggled, setIsToggled] = useState(false);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
 
+  //Etat du switch
   const handleToggle = () => {
     setIsToggled(!isToggled);
   };
 
+  //Récupération des recettes
   useEffect(() => {
     dispatch({ type: FETCH_RECIPES });
   }, [dispatch]);
 
+  //Filtre et tri des recettes en fonction des ingrédients
   useEffect(() => {
     const newFilteredRecipes = recipes.filter((recipe) =>
       recipe.ingredient
         ? recipe.ingredient.some(
             (ingredient) =>
-              selectedIngredients &&
-              selectedIngredients.includes(ingredient.label)
+              proposedIngredients &&
+              proposedIngredients.includes(ingredient.label)
           )
         : false
     );
     newFilteredRecipes.sort((a, b) =>
       a.ingredient.filter((ingredient) =>
-        selectedIngredients.includes(ingredient.label)
+        proposedIngredients.includes(ingredient.label)
       ).length <
       b.ingredient.filter((ingredient) =>
-        selectedIngredients.includes(ingredient.label)
+        proposedIngredients.includes(ingredient.label)
       ).length
         ? 1
         : -1
     );
     setFilteredRecipes(newFilteredRecipes);
-  }, [selectedIngredients, recipes]);
+  }, [proposedIngredients, recipes]);
 
   return (
     <Container maxWidth="sm">

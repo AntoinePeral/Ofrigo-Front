@@ -49,7 +49,7 @@
     padding: 0;
     margin: 0;
   }
-  li:first-child{
+  li:first-child {
     margin-top: 70px;
   }
 
@@ -61,7 +61,8 @@
     display: block;
     transition: 0.3s;
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       color: #111;
       transform: scale(1.2);
     }
@@ -79,7 +80,7 @@
     cursor: pointer;
   }
   &:hover {
-    box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.3);
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -103,9 +104,10 @@
     color: #333333;
   }
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     transform: scale(1.1);
-    box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.3);
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.3);
   }
 }
 

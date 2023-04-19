@@ -8,8 +8,8 @@ const Container = styled("div")({
   alignItems: "center",
   marginTop: 50,
   padding: "50px",
-  width:"50%",
-  margin:"0 auto",
+  width: "50%",
+  margin: "0 auto",
 });
 
 const Title = styled("h1")({

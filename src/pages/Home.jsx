@@ -60,7 +60,12 @@ const Home = () => {
         <Typography variant="h5" align="center">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </Typography>
-        <StyledButton variant="contained" color="primary" component={Link} to="/">
+        <StyledButton
+          variant="contained"
+          color="primary"
+          component={Link}
+          to="/"
+        >
           Voir les recettes
         </StyledButton>
       </ImageBox>
@@ -73,7 +78,12 @@ const Home = () => {
         <Typography variant="h5" align="center">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </Typography>
-        <StyledButton variant="contained" color="primary" component={Link} to="/creer-compte">
+        <StyledButton
+          variant="contained"
+          color="primary"
+          component={Link}
+          to="/creer-compte"
+        >
           S'inscrire
         </StyledButton>
       </ImageBox>

@@ -12,7 +12,12 @@ import App from "./components/App";
 
 const store = createStore(
   reducer,
-  applyMiddleware(ingredientsMiddleware, tagsMiddleware,recipesMiddleware)
+  applyMiddleware(
+    ingredientsMiddleware,
+    tagsMiddleware,
+    recipesMiddleware,
+    thunk
+  )
 );
 
 ReactDOM.render(

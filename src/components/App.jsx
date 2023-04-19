@@ -13,23 +13,19 @@ import LoginPage from "../pages/LoginPage.jsx";
 import React from "react";
 import FilterButton from "./Main/FilterButton";
 
-
 function App() {
-
   return (
     <div
-    style={{
-
-      display: 'flex',
-      flexDirection: "column",
-      justifyContent: 'center',
-      alignItems: 'center'
-      
-          }}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
     >
       <Router>
         <Header />
-        <FilterButton/>
+        <FilterButton />
         <SearchBar />
         <ShoppingCart />
         <Routes>

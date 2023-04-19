@@ -11,13 +11,6 @@ import StarIcon from "@mui/icons-material/Star";
 import SoupKitchenRoundedIcon from "@mui/icons-material/SoupKitchenRounded";
 
 const Recipe = ({ recipe }) => {
-  // const getFilenameFromPath = (path) => {
-  //   const imagePath = path.split("/").pop().replace(/-/g, " ");
-  //   return imagePath;
-  // };
-  // const imageName = getFilenameFromPath(recipe.picture);
-  // const imageSrc = `./app/api/picture/${imageName}`;
-  // console.log(`"${recipe.picture}"`);
   return (
     <Card sx={{ minWidth: 275, mb: 2 }}>
       {/* Titre de la carte  */}
