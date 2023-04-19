@@ -45,6 +45,7 @@ $breakpoint-xl: 1200px;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-grow: 1;
 
   // Centrage pour les écrans plus petits
   @media only screen and (max-width: $breakpoint-md) {

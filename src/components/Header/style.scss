@@ -9,95 +9,105 @@
   left: 0;
   right: 0;
   z-index: 1;
+}
 
-  .logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 200px;
-    height: 80px;
-    margin-right: auto;
-    margin-left: auto;
+.searchBar {
+  position: absolute; /* ajout de la position absolute */
+  top: 100%; /* positionnement sous la barre de navigation */
+  left: 50%; /* centrage horizontal */
+  transform: translateX(-50%); /* ajustement horizontal */
+  z-index: 2; /* ajout du z-index */
+}
 
-    img {
-      max-width: 100%;
-      max-height: 100%;
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 80px;
+  margin-right: auto;
+  margin-left: auto;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
+
+.sidenav {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 1;
+  top: 0px;
+  left: -250px;
+  background-color: #e8e8e8;
+  transition: left 0.5s ease;
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  li:first-child {
+    margin-top: 70px;
+  }
+
+  a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+
+    &:hover,
+    &:focus {
+      color: #111;
+      transform: scale(1.2);
     }
   }
 
-  .sidenav {
-    height: 100%;
-    width: 250px;
-    position: fixed;
-    z-index: 1;
-    top: 0px;
-    left: -250px;
-    background-color: #e8e8e8;
-    transition: left 0.5s ease;
-
-    ul {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-    }
-    li:first-child{
-      margin-top: 70px;
-    }
-
-    a {
-      padding: 8px 8px 8px 32px;
-      text-decoration: none;
-      font-size: 25px;
-      color: #818181;
-      display: block;
-      transition: 0.3s;
-
-      &:hover, &:focus {
-        color: #111;
-        transform: scale(1.2);
-      }
-    }
-
-    &.active {
-      left: 0;
-    }
-
-    .close {
-      position: absolute;
-      top: 0;
-      right: 25px;
-      font-size: 36px;
-      cursor: pointer;
-    }
-    &:hover {
-      box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.3);
-    }
+  &.active {
+    left: 0;
   }
 
-  .menu-icon {
+  .close {
     position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 1;
-    width: 40px;
-    height: 40px;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background-color: white;
-    transition: all 0.3s ease-in-out;
+  }
+  &:hover {
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.3);
+  }
+}
 
-    svg {
-      font-size: 25px;
-      color: #333333;
-    }
+.menu-icon {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: white;
+  transition: all 0.3s ease-in-out;
 
-    &:hover, &:focus {
-      transform: scale(1.1);
-      box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.3);
-    }
+  svg {
+    font-size: 25px;
+    color: #333333;
+  }
+
+  &:hover,
+  &:focus {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -124,5 +134,10 @@
         padding: 8px;
       }
     }
+  }
+
+  .filterRecipes {
+    margin-top: 150px; /* ajout de la marge */
+    position: relative;
   }
 }
