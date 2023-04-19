@@ -5,7 +5,7 @@ const tagsMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case FETCH_TAG:
       axios
-        .get("http://antoineperal-server.eddi.cloud/tag")
+        .get("http://kevin-lienard-server.eddi.cloud/tag")
         .then((response) => {
           store.dispatch(saveTags(response.data));
         })

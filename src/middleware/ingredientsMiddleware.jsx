@@ -5,7 +5,7 @@ const ingredientsMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case FETCH_INGREDIENT:
       axios
-        .get("http://antoineperal-server.eddi.cloud/ingredient")
+        .get("http://kevin-lienard-server.eddi.cloud/ingredient")
         .then((response) => {
           store.dispatch(saveIngredients(response.data));
         })
