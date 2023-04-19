@@ -1,6 +1,5 @@
 export const FILTER_INGREDIENT = "FILTER_INGREDIENT";
 export const UPDATEFILTERLIST = "UPDATEFILTERLIST";
-export const RESETFILTERLIST = "RESETFILTERLIST";
 export const REMOVEANINGREDIENTFROMLIST = "REMOVEANINGREDIENTFROMLIST";
 export const SAVE_INGREDIENTS = "SAVE_INGREDIENT";
 export const FETCH_INGREDIENT = "FETCH_INGREDIENT";
@@ -20,11 +19,6 @@ export const UpdateFilterList =(ingredient, proposedIngredient) => ({
       ? proposedIngredient 
       : [...proposedIngredient, ingredient]
     : proposedIngredient
-});
-
-export const ResetFilterList =(ingredient, proposedIngredient) => ({
-    type : RESETFILTERLIST,
-    proposedIngredient: ""
 });
 
 export const RemoveAnIngredientFromList =(ingedientToRemove, proposedIngredient) =>({

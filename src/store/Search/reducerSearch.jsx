@@ -1,7 +1,6 @@
 import{
        FILTER_INGREDIENT,
        UPDATEFILTERLIST,
-       RESETFILTERLIST,
        REMOVEANINGREDIENTFROMLIST,
        SAVE_INGREDIENTS,
 } from "./action";
@@ -114,13 +113,10 @@ function reducerSearch(state = initialState, action) {
       case UPDATEFILTERLIST:
 
         return{...state,
-          proposedIngredient: action.proposedIngredient
+          proposedIngredient: action.proposedIngredient,
+          listFilter: ""
         };
 
-      case RESETFILTERLIST:
-        return{...state,
-          proposedIngredient: ""
-        };
 
       case REMOVEANINGREDIENTFROMLIST:
         return{...state,
