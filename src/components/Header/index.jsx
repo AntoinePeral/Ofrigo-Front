@@ -24,7 +24,7 @@ const Header = () => {
   };
 
   return (
-    <AppBar position="static" sx={{ bgcolor: "grey.200" }}>
+    <AppBar position="fixed" sx={{ bgcolor: "grey.200" }}>
       <Toolbar>
         <IconButton
           edge="start"
@@ -63,9 +63,18 @@ const Header = () => {
             <ListItem
               button
               component={Link}
+              to="/recipes"
+              onClick={handleDrawerClose}
+            >
+              <ListItemText primary="Recettes" />
+            </ListItem>
+            <ListItem
+              button
+              component={Link}
               to="/deconnexion"
               onClick={handleDrawerClose}
             >
+              
               <ListItemText primary="Déconnexion" />
             </ListItem>
           </List>

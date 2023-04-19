@@ -10,6 +10,7 @@ import Contact from "../pages/Contact.jsx";
 import Logout from "../pages/Logout.jsx";
 import CreateAccountPage from "../pages/CreateAccountPage.jsx";
 import LoginPage from "../pages/LoginPage.jsx";
+import NotFound from "../pages/NotFound.jsx";
 import React from "react";
 import FilterButton from "./Main/FilterButton";
 
@@ -36,6 +37,8 @@ function App() {
           <Route path="/creer-compte" element={<CreateAccountPage />} />
           <Route path="/connexion" element={<LoginPage />} />
           <Route path="/" element={<Recipes />} />
+          <Route path="*" element={<NotFound />} />
+
         </Routes>
         <Footer />
       </Router>
