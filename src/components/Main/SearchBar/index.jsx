@@ -1,4 +1,4 @@
-import { React } from "react";
+import { React, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -21,10 +21,13 @@ import {
   UpdateFilterList,
   ResetFilterList,
   RemoveAnIngredientFromList,
+  FETCH_INGREDIENT,
 } from "../../../store/Search/action";
 
 function SearchBar() {
   const dispatch = useDispatch();
+
+  const [reducerSearch] = useState(null);
 
   const { proposedIngredient, listFilter, ingredientList, listtest } =
     useSelector((state) => state.reducerSearch);
@@ -65,72 +68,122 @@ function SearchBar() {
 
   const handleOnChange = (event) => {
     const onChangeInput = event.target.value;
+
     dispatch(filterIngredient(onChangeInput, ingredientList));
-    console.log(onChangeInput);
     console.log(ingredientList);
   };
 
+  useEffect(() => {
+    dispatch({ type: FETCH_INGREDIENT });
+  }, [dispatch]);
+
   return (
-    <div>
-      <Paper
-        component="form"
-        sx={{ p: "2px 4px", display: "flex", alignItems: "center", width: 400 }}
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+        }}
       >
-        <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
-          <SearchIcon />
-        </IconButton>
-
-        <InputBase
-          sx={{ ml: 1, flex: 1 }}
-          placeholder="Ingredient"
-          inputProps={{ "aria-label": "Ingredient" }}
-          onChange={(event) => {
-            handleOnChange(event);
+        <Paper
+          component="form"
+          sx={{
+            p: "2px 4px",
+            display: "flex",
+            alignItems: "center",
+            maxWidth: 500,
           }}
-          onSubmit={(event) => {
-            handleSubmit(event);
-          }}
-        />
-      </Paper>
+        >
+          <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+            <SearchIcon />
+          </IconButton>
 
-      {proposedIngredient &&
-        proposedIngredient.map((ingredient, id) => {
-          return (
-            <Chip
-              label={ingredient}
-              onDelete={(event) => {
-                handleClickRemoveIngredient(event);
-              }}
-            />
-          );
-        })}
-
-      {listFilter &&
-        listFilter.map((ingredient, id) => {
-          return (
-            <div
-              onClick={(event) => {
-                handleClickIngredient(event);
-              }}
-            >
-              <Card sx={{ display: "flex", flexDirection: "row", width: 150 }}>
-                <CardMedia
-                  component="img"
-                  sx={{ width: 50 }}
-                  image="/static/images/cards/live-from-space.jpg"
-                  alt="Live from space album cover"
-                />
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                  <CardContent sx={{ flex: "1 0 auto" }}>
-                    <Typography component="div" variant="h5">
-                      {ingredient}
-                    </Typography>
-                  </CardContent>
-                </Box>
-              </Card>
-            </div>
-          );
-        })}
+          <InputBase
+            sx={{ ml: 1, flex: 1 }}
+            placeholder="Ingredient"
+            inputProps={{ "aria-label": "Ingredient" }}
+            onChange={(event) => {
+              handleOnChange(event);
+            }}
+            onSubmit={(event) => {
+              handleSubmit(event);
+            }}
+          />
+        </Paper>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          minWidth: 275,
+          flexWrap: "wrap",
+          justifyContent: "space-around",
+          maxWidth: 500,
+        }}
+      >
+        {proposedIngredient &&
+          proposedIngredient.map((ingredient, id) => {
+            return (
+              <Chip
+                label={ingredient}
+                onDelete={(event) => {
+                  handleClickRemoveIngredient(event);
+                }}
+              />
+            );
+          })}
+      </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          minWidth: 275,
+          flexWrap: "wrap",
+          justifyContent: "space-around",
+          maxWidth: 500,
+        }}
+      >
+        {listFilter &&
+          listFilter.map((ingredient, id) => {
+            return (
+              <div>
+                <Card
+                  sx={{ minWidth: 135, maxWidth: 135, mb: 2 }}
+                  onClick={(event) => {
+                    handleClickIngredient(event);
+                  }}
+                >
+                  <CardMedia
+                    component="img"
+                    height="50"
+                    width="50"
+                    image="https://assets.afcdn.com/recipe/20191204/103408_w1000h668c1cx3083cy1808cxb5600cyb3738.webp"
+                    alt={ingredient.label}
+                  />
+                  <Box sx={{ display: "flex", flexDirection: "column" }}>
+                    <CardContent
+                      sx={{
+                        flex: "1 0 auto",
+                      }}
+                    >
+                      <Typography component="div" variant="h7" align="left">
+                        {ingredient.label}
+                      </Typography>
+                    </CardContent>
+                  </Box>
+                </Card>
+              </div>
+            );
+          })}
+      </div>
     </div>
   );
 }
