@@ -13,6 +13,9 @@ import LoginPage from "../pages/LoginPage.jsx";
 import NotFound from "../pages/NotFound.jsx";
 import React from "react";
 import FilterButton from "./Main/FilterButton";
+import CGU from "../pages/CGU.jsx";
+import CGV from "../pages/CGV.jsx";
+import Copyright from "../pages/Copyright.jsx";
 
 function App() {
   return (
@@ -38,6 +41,9 @@ function App() {
           <Route path="/connexion" element={<LoginPage />} />
           <Route path="/" element={<Recipes />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/CGU" element={<CGU />} />
+          <Route path="/CGV" element={<CGV />} />
+          <Route path="/Copyright" element={<Copyright />} />
 
         </Routes>
         <Footer />
