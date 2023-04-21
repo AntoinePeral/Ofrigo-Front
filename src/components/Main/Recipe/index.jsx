@@ -1,3 +1,4 @@
+//Composants MaterialUI
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
@@ -11,6 +12,7 @@ import StarIcon from "@mui/icons-material/Star";
 import SoupKitchenRoundedIcon from "@mui/icons-material/SoupKitchenRounded";
 
 const Recipe = ({ recipe }) => {
+  
   return (
     <Card sx={{ minWidth: 275, mb: 2 }}>
       {/* Titre de la carte  */}
@@ -20,24 +22,24 @@ const Recipe = ({ recipe }) => {
         component="img"
         height="150"
         width="150"
-        src={`"${recipe.picture}"`}
+        image={recipe.picture}
         alt={recipe.label}
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
           {/* Ingredients de la carte */}
-          Ingrédients:
+          Ingredients:
         </Typography>
         <Grid container>
           {recipe.ingredient.map((ingredient, index) => (
             <Grid item xs={6} key={index}>
-              <Typography variant="body3" color="text.secondary">
-                {ingredient.label}
+              <Typography variant=""body3 color="text.secondary">
+                • {ingredient.label}
               </Typography>
             </Grid>
           ))}
         </Grid>
-        {/* Icones + Texte correspondant */}
+        {/* Icones + Texte corresspondant */}
         <Grid
           container
           alignItems="center"

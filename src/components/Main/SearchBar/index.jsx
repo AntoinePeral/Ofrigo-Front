@@ -62,7 +62,7 @@ function SearchBar() {
 
   const handleChange = (event) => {
     const { value: inputValue, name } = event.target;
-
+    
     //changeField(inputValue, name);
   };
 
@@ -140,6 +140,7 @@ function SearchBar() {
           proposedIngredient.map((ingredient, id) => {
             return (
               <Chip
+                key={ingredient.id}
                 label={ingredient}
                 onDelete={(event) => {
                   handleClickRemoveIngredient(event);
@@ -172,7 +173,7 @@ function SearchBar() {
                     component="img"
                     height="50"
                     width="50"
-                    image="https://assets.afcdn.com/recipe/20191204/103408_w1000h668c1cx3083cy1808cxb5600cyb3738.webp"
+                    image={`../../../../Pictures/Ingredients/${ingredient.label}.jpg`}
                     alt={ingredient.label}
                   />
                   <Box sx={{ display: "flex", flexDirection: "column" }}>
