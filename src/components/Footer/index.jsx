@@ -8,25 +8,25 @@ const Footer = () => {
         <div className="links-container">
           <ul className="links-list">
             <li className="link-item">
-              <a href="#">Contact</a>
+              <a href="/contact">Contact</a>
             </li>
             <li className="link-item">
               <span>|</span>
             </li>
             <li className="link-item">
-              <a href="#">CGU</a>
+              <a href="/CGU">CGU</a>
             </li>
             <li className="link-item">
               <span>|</span>
             </li>
             <li className="link-item">
-              <a href="#">CGV</a>
+              <a href="/CGV">CGV</a>
             </li>
             <li className="link-item">
               <span>|</span>
             </li>
             <li className="link-item">
-              <a href="#">Copyright</a>
+              <a href="/Copyright">Copyright</a>
             </li>
           </ul>
         </div>

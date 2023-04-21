@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TextField, Button } from "@mui/material";
 import { styled } from "@mui/system";
+import axios from "axios";
 
 const Container = styled("div")({
   display: "flex",
@@ -36,6 +37,7 @@ function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleEmailChange = (event) => {
     const emailValue = event.target.value;
@@ -47,10 +49,23 @@ function LoginPage() {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(`Email: ${email}`);
-    console.log(`Password: ${password}`);
+    try {
+      const response = await axios.post(
+        "http://kevin-lienard-server.eddi.cloud/login",
+        {
+          email: email,
+          password: password,
+        }
+      );
+      localStorage.setItem("token", response.data.token);
+      window.location.href = "/accueil";
+    } catch (error) {
+      setErrorMessage(
+        "Erreur lors de la connexion. Veuillez vérifier vos identifiants."
+      );
+    }
   };
 
   const validateEmail = (email) => {
@@ -77,6 +92,7 @@ function LoginPage() {
           value={password}
           onChange={handlePasswordChange}
         />
+        {errorMessage && <p>{errorMessage}</p>}
         <StyledButton variant="contained" color="primary" type="submit">
           Connexion
         </StyledButton>
