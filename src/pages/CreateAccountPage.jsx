@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+
 const RootBox = styled(Box)({
   display: "flex",
   flexDirection: "column",
@@ -25,8 +26,8 @@ function CreateAccountPage() {
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [passwordRequirements, setPasswordRequirements] = useState("");
 
   const handleLastNameChange = (event) => {
     setLastName(event.target.value);
@@ -44,28 +45,28 @@ function CreateAccountPage() {
     setPassword(event.target.value);
   };
 
-  const handleRoleChange = (event) => {
-    setRole(event.target.value);
-  };
-
   const handleCreateAccount = async (event) => {
     event.preventDefault();
-    try {
-      const response = await axios.post("http://kevin-lienard-server.eddi.cloud/register", {
-        last_name: lastName,
-        first_name: firstName,
-        email: email,
-        password: password,
-        role: role
-      });
-      localStorage.setItem("token", response.data.token);
-      // redirect to home page or dashboard
-    } catch (error) {
-      if (error.response.status === 400) {
-        setErrorMessage("Erreur lors de la création du compte. Veuillez vérifier les données saisies.");
-      } else {
-        setErrorMessage("Une erreur s'est produite. Veuillez réessayer plus tard.");
+    const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    if (password.match(passwordRegex)) {
+      try {
+        const response = await axios.post("http://kevin-lienard-server.eddi.cloud/register", {
+          last_name: lastName,
+          first_name: firstName,
+          email: email,
+          password: password,
+        });
+        localStorage.setItem("token", response.data.token);
+        window.location.href = "/accueil";
+      } catch (error) {
+        if (error.response.status === 400) {
+          setErrorMessage("Erreur lors de la création du compte. Veuillez vérifier les données saisies.");
+        } else {
+          setErrorMessage("Une erreur s'est produite. Veuillez réessayer plus tard.");
+        }
       }
+    } else {
+      setPasswordRequirements("Le mot de passe doit contenir au moins une majuscule, un chiffre, un caractère spécial et être composé d'au moins 8 caractères");
     }
   };
 
@@ -97,19 +98,15 @@ function CreateAccountPage() {
           type="password"
           value={password}
           onChange={handlePasswordChange}
+          helperText="Le mot de passe doit contenir au moins une majuscule, un chiffre, un caractère spécial et être composé d'au moins 8 caractères"
         />
-        <InputField
-          id="role"
-          label="Role"
-          value={role}
-          onChange={handleRoleChange}
-        />
+        {passwordRequirements && <p>{passwordRequirements}</p>}
         <SubmitButton variant="contained" type="submit">
           Créer un compte
         </SubmitButton>
       </form>
       {errorMessage && <p>{errorMessage}</p>}
-      <Link to="/">Vous avez déjà un compte ? Log in</Link>
+      <Link to="/connexion">Vous avez déjà un compte ? Log in</Link>
     </RootBox>
   );
 }

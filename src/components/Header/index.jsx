@@ -71,12 +71,22 @@ const Header = () => {
             <ListItem
               button
               component={Link}
+              to="/connexion"
+              onClick={handleDrawerClose}
+            >
+              
+              <ListItemText primary="Connexion" />
+            </ListItem>
+            <ListItem
+              button
+              component={Link}
               to="/deconnexion"
               onClick={handleDrawerClose}
             >
               
               <ListItemText primary="Déconnexion" />
             </ListItem>
+            
           </List>
         </Drawer>
         <div style={{ flex: 1 }}>
