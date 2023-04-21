@@ -4,6 +4,8 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
+import axios from "axios";
+
 
 const RootBox = styled(Box)({
   display: "flex",
@@ -17,91 +19,94 @@ const InputField = styled(TextField)({
   marginBottom: 20,
 });
 
-const SubmitButton = styled(Button)({
-  width: "100%",
-});
+const SubmitButton = styled(Button)({});
 
 function CreateAccountPage() {
-  // initialisation des variables d'état
-  const [nom, setNom] = useState("");
-  const [prenom, setPrenom] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState(false);
-  const [motDePasse, setMotDePasse] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [passwordRequirements, setPasswordRequirements] = useState("");
 
-  // gestionnaires d'événements pour mettre à jour les variables d'état
-  const handleNomChange = (event) => {
-    setNom(event.target.value);
+  const handleLastNameChange = (event) => {
+    setLastName(event.target.value);
   };
 
-  const handlePrenomChange = (event) => {
-    setPrenom(event.target.value);
+  const handleFirstNameChange = (event) => {
+    setFirstName(event.target.value);
   };
 
   const handleEmailChange = (event) => {
-    const email = event.target.value;
-    setEmail(email);
-    // Vérification du format de l'email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setEmailError(true);
-    } else {
-      setEmailError(false);
-    }
+    setEmail(event.target.value);
   };
 
-  const handleMotDePasseChange = (event) => {
-    setMotDePasse(event.target.value);
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
   };
 
-  // fonction de validation des données de formulaire
-  const handleSubmit = (event) => {
+  const handleCreateAccount = async (event) => {
     event.preventDefault();
-    console.log(`Nom : ${nom}`);
-    console.log(`Prénom : ${prenom}`);
-    console.log(`Email : ${email}`);
-    console.log(`Mot de passe : ${motDePasse}`);
+    const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    if (password.match(passwordRegex)) {
+      try {
+        const response = await axios.post("http://kevin-lienard-server.eddi.cloud/register", {
+          last_name: lastName,
+          first_name: firstName,
+          email: email,
+          password: password,
+        });
+        localStorage.setItem("token", response.data.token);
+        window.location.href = "/accueil";
+      } catch (error) {
+        if (error.response.status === 400) {
+          setErrorMessage("Erreur lors de la création du compte. Veuillez vérifier les données saisies.");
+        } else {
+          setErrorMessage("Une erreur s'est produite. Veuillez réessayer plus tard.");
+        }
+      }
+    } else {
+      setPasswordRequirements("Le mot de passe doit contenir au moins une majuscule, un chiffre, un caractère spécial et être composé d'au moins 8 caractères");
+    }
   };
 
   return (
     <RootBox>
-      <h1>Créer un compte</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleCreateAccount}>
         <InputField
-          label="Nom"
-          variant="outlined"
-          value={nom}
-          onChange={handleNomChange}
+          id="last-name"
+          label="Last name"
+          value={lastName}
+          onChange={handleLastNameChange}
         />
         <InputField
-          label="Prénom"
-          variant="outlined"
-          value={prenom}
-          onChange={handlePrenomChange}
+          id="first-name"
+          label="First name"
+          value={firstName}
+          onChange={handleFirstNameChange}
         />
         <InputField
+          id="email"
           label="Email"
-          variant="outlined"
+          type="email"
           value={email}
           onChange={handleEmailChange}
-          error={emailError}
-          helperText={emailError ? "Format d'email invalide" : ""}
         />
         <InputField
-          label="Mot de passe"
-          variant="outlined"
+          id="password"
+          label="Password"
           type="password"
-          value={motDePasse}
-          onChange={handleMotDePasseChange}
+          value={password}
+          onChange={handlePasswordChange}
+          helperText="Le mot de passe doit contenir au moins une majuscule, un chiffre, un caractère spécial et être composé d'au moins 8 caractères"
         />
-        <SubmitButton variant="contained" color="primary" type="submit">
+        {passwordRequirements && <p>{passwordRequirements}</p>}
+        <SubmitButton variant="contained" type="submit">
           Créer un compte
         </SubmitButton>
       </form>
-      <p>
-        Vous avez déjà un compte ?{" "}
-        <Link to="/Connexion">Connectez-vous ici.</Link>
-      </p>
+      {errorMessage && <p>{errorMessage}</p>}
+      <Link to="/connexion">Vous avez déjà un compte ? Log in</Link>
     </RootBox>
   );
 }
