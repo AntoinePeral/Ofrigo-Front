@@ -1,7 +1,18 @@
 import React from "react";
+import FilterButton from "../components/Main/FilterButton";
+import SearchBar from "../components/Main/SearchBar";
+import Recipes from "../components/Main/Recipes";
 
 const Profile = () => {
-  return <h2>Profil</h2>;
+
+  return (
+    <div>
+      <FilterButton/>
+      <SearchBar/>
+      <Recipes/>
+    </div>
+  );
+
 };
 
 export default Profile;

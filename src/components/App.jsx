@@ -1,8 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./Header";
-import SearchBar from "./Main/SearchBar";
-import ShoppingCart from "./Main/ShoppingCart";
-import Recipes from "./Main/Recipes";
+import Recipes from "../pages/Recipies.jsx";
 import Footer from "./Footer";
 import Profile from "../pages/Profile.jsx";
 import Home from "../pages/Home.jsx";
@@ -11,7 +9,7 @@ import Logout from "../pages/Logout.jsx";
 import CreateAccountPage from "../pages/CreateAccountPage.jsx";
 import LoginPage from "../pages/LoginPage.jsx";
 import React from "react";
-import FilterButton from "./Main/FilterButton";
+import Ingredients from "./Main/Stock";
 
 function App() {
   return (
@@ -25,9 +23,6 @@ function App() {
     >
       <Router>
         <Header />
-        <FilterButton />
-        <SearchBar />
-        <ShoppingCart />
         <Routes>
           <Route path="/profil" element={<Profile />} />
           <Route path="/accueil" element={<Home />} />
@@ -36,6 +31,8 @@ function App() {
           <Route path="/creer-compte" element={<CreateAccountPage />} />
           <Route path="/connexion" element={<LoginPage />} />
           <Route path="/" element={<Recipes />} />
+          <Route path="/profil/stock" element={<Ingredients />} />
+          <Route path="/recette" element={<Recipes />} />
         </Routes>
         <Footer />
       </Router>

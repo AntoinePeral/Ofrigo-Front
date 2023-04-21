@@ -2,16 +2,18 @@ import {
   testRecipesWithAllIngredients,
   testRecipesWithoutAllIngredients,
 } from "../../testData";
-import { TOGGLE_RECIPES, SAVE_RECIPES } from "../../store/Recipes/action";
+import { TOGGLE_RECIPES, SAVE_RECIPES, SAVE_CATEGORYS } from "../../store/Recipes/action";
 import recipesMiddleware from "../../middleware/recipesMiddleware";
+import categorysMiddleware from "../../middleware/categorysMiddleware";
 
-console.log(recipesMiddleware);
 const initialState = {
   recipes: [],
+  categorys: [],
   source: "testRecipesWithAllIngredients", // stockage de la source actuelle
 };
 
-function reducer(state = initialState, action) {
+function reducerRecipes(state = initialState, action) {
+  
   switch (action.type) {
     case TOGGLE_RECIPES:
       return {
@@ -23,10 +25,16 @@ function reducer(state = initialState, action) {
             : testRecipesWithoutAllIngredients,
       };
     case SAVE_RECIPES:
+      console.log(action.recipes)
       return { ...state, recipes: action.recipes };
+
+    case SAVE_CATEGORYS:
+      return{...state,
+        categorys: action.categorys
+      };
     default:
       return state;
+    }
   }
-}
 
-export default reducer;
+export default reducerRecipes;

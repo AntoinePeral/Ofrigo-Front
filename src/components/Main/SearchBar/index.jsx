@@ -21,6 +21,7 @@ import {
   UpdateFilterList,
   RemoveAnIngredientFromList,
   FETCH_INGREDIENT,
+  ClearListIngredient,
 } from "../../../store/Search/action";
 
 function SearchBar() {
@@ -67,10 +68,15 @@ function SearchBar() {
 
   const handleOnChange = (event) => {
     const onChangeInput = event.target.value;
+
     setInputValue(event.target.value);
 
     dispatch(filterIngredient(onChangeInput, ingredientList));
-    console.log(ingredientList);
+
+    if (onChangeInput=="") {
+        
+        dispatch(ClearListIngredient());
+    }
   };
 
   useEffect(() => {
@@ -109,7 +115,7 @@ function SearchBar() {
           <InputBase
             sx={{ ml: 1, flex: 1 }}
             placeholder="Ingredient"
-            autoFocus="true"
+            autoFocus="True"
             value={inputValue}
             inputProps={{ "aria-label": "Ingredient" }}
             onChange={(event) => {
@@ -135,6 +141,7 @@ function SearchBar() {
           proposedIngredient.map((ingredient, id) => {
             return (
               <Chip
+                key={ingredient.id}
                 label={ingredient}
                 onDelete={(event) => {
                   handleClickRemoveIngredient(event);
@@ -167,7 +174,7 @@ function SearchBar() {
                     component="img"
                     height="50"
                     width="50"
-                    image="https://assets.afcdn.com/recipe/20191204/103408_w1000h668c1cx3083cy1808cxb5600cyb3738.webp"
+                    image={`../../../../Pictures/Ingredients/${ingredient.label}.jpg`}
                     alt={ingredient.label}
                   />
                   <Box sx={{ display: "flex", flexDirection: "column" }}>
