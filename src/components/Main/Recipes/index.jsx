@@ -21,6 +21,10 @@ const Recipes = () => {
     (state) => state.reducerSearch.proposedIngredient
   );
 
+  const { difficulty, time, grades } = useSelector(
+    (state) => state.reducerFilter
+  );
+
   //Dispatch
   const dispatch = useDispatch();
 
@@ -40,15 +44,38 @@ const Recipes = () => {
 
   //Filtre et tri des recettes en fonction des ingrédients
   useEffect(() => {
-    const newFilteredRecipes = recipes.filter((recipe) =>
-      recipe.ingredient
-        ? recipe.ingredient.some(
-            (ingredient) =>
-              proposedIngredients &&
-              proposedIngredients.includes(ingredient.label)
-          )
-        : false
-    );
+    //Bouton Filtre
+
+    const applyFilters = (recipes) => {
+      return recipes.filter((recipe) => {
+        const filterByDifficulty = difficulty
+          ? recipe.difficulty === difficulty
+          : true;
+        const filterByTime = time ? recipe.time <= time : true;
+        const filterByGrades = grades ? recipe.grades >= grades : true;
+
+        const filterByIngredients = recipe.ingredient
+          ? recipe.ingredient.some(
+              (ingredient) =>
+                proposedIngredients &&
+                proposedIngredients.includes(ingredient.label)
+            )
+          : false;
+
+        console.log("filterByTime:", filterByTime);
+
+        return (
+          filterByDifficulty &&
+          filterByTime &&
+          filterByGrades &&
+          filterByIngredients
+        );
+      });
+    };
+
+    // Filtre en fonction du nombre d'ingrédients
+
+    const newFilteredRecipes = applyFilters(recipes);
     newFilteredRecipes.sort((a, b) =>
       a.ingredient.filter((ingredient) =>
         proposedIngredients.includes(ingredient.label)
@@ -59,8 +86,9 @@ const Recipes = () => {
         ? 1
         : -1
     );
+
     setFilteredRecipes(newFilteredRecipes);
-  }, [proposedIngredients, recipes]);
+  }, [proposedIngredients, recipes, difficulty, time, grades]);
 
   return (
     <Container maxWidth="sm">
