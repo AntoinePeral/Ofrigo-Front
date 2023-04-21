@@ -19,9 +19,9 @@ import {
 import {
   filterIngredient,
   UpdateFilterList,
-  ResetFilterList,
   RemoveAnIngredientFromList,
   FETCH_INGREDIENT,
+  ClearListIngredient,
 } from "../../../store/Search/action";
 
 function SearchBar() {
@@ -29,12 +29,10 @@ function SearchBar() {
 
   const [reducerSearch] = useState(null);
 
+  const [inputValue, setInputValue] = useState("");
+
   const { proposedIngredient, listFilter, ingredientList, listtest } =
     useSelector((state) => state.reducerSearch);
-
-  const handleClickResetFilter = (event) => {
-    dispatch(ResetFilterList());
-  };
 
   const handleClickRemoveIngredient = (event) => {
     const ingredient =
@@ -49,6 +47,7 @@ function SearchBar() {
 
   const handleClickIngredient = (event) => {
     const ingredient = event.target.innerText;
+    setInputValue("");
     dispatch(UpdateFilterList(ingredient, proposedIngredient));
   };
 
@@ -63,14 +62,20 @@ function SearchBar() {
 
   const handleChange = (event) => {
     const { value: inputValue, name } = event.target;
+
     //changeField(inputValue, name);
   };
 
   const handleOnChange = (event) => {
     const onChangeInput = event.target.value;
 
+    setInputValue(event.target.value);
+
     dispatch(filterIngredient(onChangeInput, ingredientList));
-    console.log(ingredientList);
+
+    if (onChangeInput == "") {
+      dispatch(ClearListIngredient());
+    }
   };
 
   useEffect(() => {
@@ -109,6 +114,8 @@ function SearchBar() {
           <InputBase
             sx={{ ml: 1, flex: 1 }}
             placeholder="Ingredient"
+            autoFocus={true}
+            value={inputValue}
             inputProps={{ "aria-label": "Ingredient" }}
             onChange={(event) => {
               handleOnChange(event);

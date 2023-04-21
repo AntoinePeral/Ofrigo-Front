@@ -1,18 +1,17 @@
-import{
+import {
   TOGGLE_FILTER_OPEN,
   RESET_NUMBER_FILTER,
   UPDATE_FILTER,
   SAVE_TAGS,
-} from "./action"
+} from "./action";
 
 const initialState = {
   isFilterOpen: false,
-  difficulty:"",
-  time:"",
-  grades:"",
+  difficulty: "",
+  time: "",
+  grades: "",
   numberFilter: 0,
-  ingredient : [
-
+  ingredient: [
     "Farine",
     "Levure chimique",
     "Beurre",
@@ -41,7 +40,7 @@ const initialState = {
     "Carotte",
     "Courgette",
     "Cumin",
-    "Patate douce", 
+    "Patate douce",
     "Echalotes",
     "Ail",
     "Crème coco",
@@ -89,7 +88,6 @@ const initialState = {
     "Tomate pelée",
     "Penne",
     "Herbe de provence",
-
   ],
   tags: [],
 };
@@ -97,28 +95,26 @@ const initialState = {
 function reducerFilter(state = initialState, action) {
   switch (action.type) {
     case TOGGLE_FILTER_OPEN:
-      return { ...state, 
-              isFilterOpen: !state.isFilterOpen };
+      return { ...state, isFilterOpen: !state.isFilterOpen };
 
     case RESET_NUMBER_FILTER:
-      return { ...state,
-              numberFilter: 0,
-              difficulty:"",
-              time:"",
-              grades:"",
-            };
+      return {
+        ...state,
+        numberFilter: 0,
+        difficulty: "",
+        time: "",
+        grades: "",
+      };
 
     case UPDATE_FILTER:
       const newState = { ...state, [action.filterTag]: action.filterValue };
-      if (action.filterTag && state[action.filterTag] === '') {
+      if (action.filterTag && state[action.filterTag] === "") {
         return { ...newState, numberFilter: state.numberFilter + 1 };
       }
       return newState;
 
     case SAVE_TAGS:
-      return{...state,
-        tags: action.tags
-      };
+      return { ...state, tags: action.tags };
 
     default:
       return state;

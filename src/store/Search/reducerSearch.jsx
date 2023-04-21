@@ -1,19 +1,15 @@
-import{
-       FILTER_INGREDIENT,
-       UPDATEFILTERLIST,
-       RESETFILTERLIST,
-       REMOVEANINGREDIENTFROMLIST,
-       SAVE_INGREDIENTS,
+import {
+  FILTER_INGREDIENT,
+  UPDATEFILTERLIST,
+  REMOVEANINGREDIENTFROMLIST,
+  SAVE_INGREDIENTS,
+  CLEAR_LIST_INGREDIENT,
 } from "./action";
 
 const initialState = {
-  
-  ingredientList: [   
-
-  ],
+  ingredientList: [],
 
   listFilter: [
-    
     "Farine",
     "Levure chimique",
     "Beurre",
@@ -42,7 +38,7 @@ const initialState = {
     "Carotte",
     "Courgette",
     "Cumin",
-    "Patate douce", 
+    "Patate douce",
     "Echalotes",
     "Ail",
     "Crème coco",
@@ -90,47 +86,32 @@ const initialState = {
     "Tomate pelée",
     "Penne",
     "Herbe de provence",
-  
   ],
 
-  proposedIngredient: [
-
-  ],
-
- 
-
+  proposedIngredient: [],
 };
 
 function reducerSearch(state = initialState, action) {
   switch (action.type) {
     default:
-      case FILTER_INGREDIENT:
-      
-        return{...state,
-          listFilter: action.listFilter,
-          
-        }
-      
-      case UPDATEFILTERLIST:
+    case FILTER_INGREDIENT:
+      return { ...state, listFilter: action.listFilter };
 
-        return{...state,
-          proposedIngredient: action.proposedIngredient
-        };
+    case UPDATEFILTERLIST:
+      return {
+        ...state,
+        proposedIngredient: action.proposedIngredient,
+        listFilter: "",
+      };
 
-      case RESETFILTERLIST:
-        return{...state,
-          proposedIngredient: ""
-        };
+    case REMOVEANINGREDIENTFROMLIST:
+      return { ...state, proposedIngredient: action.proposedIngredient };
 
-      case REMOVEANINGREDIENTFROMLIST:
-        return{...state,
-          proposedIngredient: action.proposedIngredient
-        };
+    case SAVE_INGREDIENTS:
+      return { ...state, ingredientList: action.ingredients };
 
-      case SAVE_INGREDIENTS:
-        return{...state,
-          ingredientList: action.ingredients
-        };
+    case CLEAR_LIST_INGREDIENT:
+      return { ...state, listFilter: "" };
   }
 }
 
