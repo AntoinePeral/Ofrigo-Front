@@ -12,12 +12,12 @@ import StarIcon from "@mui/icons-material/Star";
 import SoupKitchenRoundedIcon from "@mui/icons-material/SoupKitchenRounded";
 
 const Recipe = ({ recipe }) => {
-  
   return (
     <Card sx={{ minWidth: 275, mb: 2 }}>
       {/* Titre de la carte  */}
       <CardHeader title={recipe.label} />
       {/* Image de la carte  */}
+      {console.log(recipe.picture)}
       <CardMedia
         component="img"
         height="150"
@@ -33,7 +33,7 @@ const Recipe = ({ recipe }) => {
         <Grid container>
           {recipe.ingredient.map((ingredient, index) => (
             <Grid item xs={6} key={index}>
-              <Typography variant=""body3 color="text.secondary">
+              <Typography variant="" body3 color="text.secondary">
                 • {ingredient.label}
               </Typography>
             </Grid>

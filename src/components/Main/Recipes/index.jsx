@@ -24,7 +24,6 @@ const Recipes = () => {
   const { difficulty, time, grades } = useSelector(
     (state) => state.reducerFilter
   );
-
   //Dispatch
   const dispatch = useDispatch();
 
@@ -61,9 +60,6 @@ const Recipes = () => {
                 proposedIngredients.includes(ingredient.label)
             )
           : false;
-
-        console.log("filterByTime:", filterByTime);
-
         return (
           filterByDifficulty &&
           filterByTime &&
@@ -73,7 +69,7 @@ const Recipes = () => {
       });
     };
 
-    // Filtre en fonction du nombre d'ingrédients
+    // Barre de recherche
 
     const newFilteredRecipes = applyFilters(recipes);
     newFilteredRecipes.sort((a, b) =>
@@ -104,9 +100,11 @@ const Recipes = () => {
           label={isToggled ? "On" : "Off"}
         />
       </FormGroup>
+      <Container maxWidth="sm"
       {filteredRecipes.map((recipe) => (
         <Recipe key={recipe.id} recipe={recipe} />
       ))}
+      </Container>
     </Container>
   );
 };
