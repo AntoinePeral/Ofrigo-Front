@@ -1,7 +1,6 @@
 import React from "react";
 import { Button } from "@mui/material";
 import { styled } from "@mui/system";
-import axios from "axios";
 
 const Container = styled("div")({
   display: "flex",
@@ -24,18 +23,9 @@ const StyledButton = styled(Button)({
 });
 
 function LogoutPage() {
-  const handleLogout = async () => {
-    try {
-      await axios.post("http://kevin-lienard-server.eddi.cloud/logout", null, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      localStorage.removeItem("token");
-      window.location.href = "/connexion";
-    } catch (error) {
-      console.log(error);
-    }
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/connexion";
   };
 
   return (
