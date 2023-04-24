@@ -10,7 +10,7 @@ import { FETCH_RECIPES } from "../../../store/Recipes/action";
 import Switch from "@mui/material/Switch";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { Container } from "@mui/material";
+import { Container, Box } from "@mui/material";
 
 const Recipes = () => {
   //Récupération des données du store Redux :
@@ -53,13 +53,18 @@ const Recipes = () => {
         const filterByTime = time ? recipe.time <= time : true;
         const filterByGrades = grades ? recipe.grades >= grades : true;
 
-        const filterByIngredients = recipe.ingredient
-          ? recipe.ingredient.some(
+        const filterByIngredients = isToggled
+          ? recipe.ingredient.every(
               (ingredient) =>
                 proposedIngredients &&
                 proposedIngredients.includes(ingredient.label)
             )
-          : false;
+          : recipe.ingredient.some(
+              (ingredient) =>
+                proposedIngredients &&
+                proposedIngredients.includes(ingredient.label)
+            );
+
         return (
           filterByDifficulty &&
           filterByTime &&
@@ -84,27 +89,34 @@ const Recipes = () => {
     );
 
     setFilteredRecipes(newFilteredRecipes);
-  }, [proposedIngredients, recipes, difficulty, time, grades]);
+  }, [proposedIngredients, recipes, difficulty, time, grades, isToggled]);
 
   return (
     <Container maxWidth="sm">
-      <FormGroup>
-        <FormControlLabel
-          control={
-            <Switch
-              checked={isToggled}
-              onChange={handleToggle}
-              inputProps={{ "aria-label": "toggle source" }}
-            />
-          }
-          label={isToggled ? "On" : "Off"}
-        />
-      </FormGroup>
-      <Container maxWidth="sm"
-      {filteredRecipes.map((recipe) => (
-        <Recipe key={recipe.id} recipe={recipe} />
-      ))}
-      </Container>
+      <Box display="flex" justifyContent="center">
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={isToggled}
+                onChange={handleToggle}
+                inputProps={{ "aria-label": "toggle source" }}
+              />
+            }
+            label={
+              isToggled
+                ? "Vous avez tous les ingrédients !"
+                : "Il vous manque quelques ingrédients ..."
+            }
+          />
+        </FormGroup>
+      </Box>
+
+      <Box maxHeight="60vh" overflow="auto">
+        {filteredRecipes.map((recipe) => (
+          <Recipe key={recipe.id} recipe={recipe} />
+        ))}
+      </Box>
     </Container>
   );
 };
