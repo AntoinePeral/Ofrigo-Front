@@ -68,10 +68,6 @@ function LoginPage() {
         }
       );
       localStorage.setItem("token", response.data.accessToken);
-<<<<<<< HEAD
-      console.log(response.data.token)
-=======
->>>>>>> a3b26886c90e4a84fe6cfa3ffd1e1105d5644419
       window.location.href = "/accueil";
     } catch (error) {
       setErrorMessage(
