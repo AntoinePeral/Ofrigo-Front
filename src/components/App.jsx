@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./Header";
+// import Header from "./Header";
 import Recipes from "../pages/Recipies.jsx";
 import Footer from "./Footer";
 import Profile from "../pages/Profile.jsx";
@@ -27,7 +27,7 @@ function App() {
       }}
     >
       <Router>
-        <Header />
+        {/* <Header /> */}
         <Routes>
           <Route path="/profil" element={<Profile />} />
           <Route path="/accueil" element={<Home />} />

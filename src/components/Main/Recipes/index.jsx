@@ -24,7 +24,8 @@ const Recipes = () => {
   const { difficulty, time, grades } = useSelector(
     (state) => state.reducerFilter
   );
-
+  console.log("test1", { time });
+  console.log("test2", { grades });
   //Dispatch
   const dispatch = useDispatch();
 
@@ -52,6 +53,7 @@ const Recipes = () => {
           ? recipe.difficulty === difficulty
           : true;
         const filterByTime = time ? recipe.time <= time : true;
+        console.log("recipe.grades:", recipe.grades);
         const filterByGrades = grades ? recipe.grades >= grades : true;
 
         const filterByIngredients = recipe.ingredient
@@ -63,7 +65,7 @@ const Recipes = () => {
           : false;
 
         console.log("filterByTime:", filterByTime);
-
+        console.log("filterByGrades:", filterByGrades);
         return (
           filterByDifficulty &&
           filterByTime &&
@@ -73,7 +75,7 @@ const Recipes = () => {
       });
     };
 
-    // Filtre en fonction du nombre d'ingrédients
+    // Barre de recherche
 
     const newFilteredRecipes = applyFilters(recipes);
     newFilteredRecipes.sort((a, b) =>
