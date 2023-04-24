@@ -1,5 +1,5 @@
 import{
-    SAVE_CATEGORYS, SORT_INGREDIENT,
+    SAVE_CATEGORYS, SORT_INGREDIENT, FILTER_INGREDIENT,
 } from "./action";
 
 const initialState = {
@@ -33,12 +33,24 @@ const initialState = {
                 },
             ],
         }
-    ]
+    ],
+
+    ingredientUserStock:[
+        {
+            "label":"Farine",
+            "isStoked":"true",
+        }
+    ],
+
+    filteredIngredientList:[
+
+    ],
    
   
   };
 
 function reducerStock(state = initialState, action) {
+    
     switch (action.type) {
         default:
             case SAVE_CATEGORYS:
@@ -50,8 +62,11 @@ function reducerStock(state = initialState, action) {
             case SORT_INGREDIENT:
                 return{...state,
                 };
-            }
-}
+            
+            case FILTER_INGREDIENT:
+                return { ...state, filteredIngredientList: action.listFilter };
+
+    };
+};
     
-export default reducerStock;
-    
+export default reducerStock

@@ -59,7 +59,8 @@ function LoginPage() {
           password: password,
         }
       );
-      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("token", response.data.accessToken);
+      console.log(response.data.token)
       window.location.href = "/accueil";
     } catch (error) {
       setErrorMessage(

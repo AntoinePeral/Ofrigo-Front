@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./style.scss";
+import axios from "axios";
 import {
 
   } from "../../../store/Ingredient/action";
@@ -28,8 +29,10 @@ import SearchIcon from "@mui/icons-material/Search";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 import {
-    FETCH_CATEGORYS,
+    FETCH_CATEGORYS, filterIngredient,
   } from "../../../store/Stock/action";
+
+import { ADD_INGREDIENT, addIngredients, } from "../../../store/Ingredient/action";
 
   import {
     FETCH_INGREDIENT,
@@ -43,17 +46,26 @@ function isStored (userIngredient, ingredient) {
     
 };
 
+
+
 function Stock () {
 
     const dispatch = useDispatch();
 
+    const [errorMessage, setErrorMessage] = useState("");
+
     const handleOnChange = (event) => {
         const onChangeInput = event.target.value;
+        const ListUserIngredient = UserProfil[0].ingredient.map(ingredient =>ingredient.label)
+        console.log(ListUserIngredient)
+        console.log(localStorage)
+
+        dispatch(filterIngredient(onChangeInput, ingredientList))
 
         setInputValue(event.target.value);
         
     };
-
+    console.log(localStorage)
     const { ingredientList } =
     useSelector((state) => state.reducerSearch);
     
@@ -61,16 +73,38 @@ function Stock () {
         console.info("You clicked the Chip.");
     };
 
+
+
     const handleClickSortIngredient = (event) =>{
         const categorySelect = event.target.innerText
         
     }
 
       //Etat du switch
-  const handleToggle = (event) => {
-    console.log(event)
-    setIsToggled(!isToggled);
-  };
+  const handleToggle = async (event) => {
+    
+
+    const ingredient = event.target.name;
+
+    try {
+        const response = await axios.post(
+            "http://kevin-lienard-server.eddi.cloud/ingredient",
+            {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                Ingredient: ingredient
+            }
+
+        );
+
+        localStorage.setItem("token", response.data.token);
+        
+        window.location.href = "/accueil";
+        } catch (error) {
+            setErrorMessage(
+            "Erreur lors de la connexion. Veuillez vérifier vos identifiants."
+            );
+        }
+    };
 
     //Etats locaux
     const [inputValue, setInputValue] = useState('');
@@ -88,8 +122,6 @@ function Stock () {
     
       const { categoryList, UserProfil } =
       useSelector((state) => state.reducerStock);
-
-      console.log(UserProfil)
       
 
     return(
