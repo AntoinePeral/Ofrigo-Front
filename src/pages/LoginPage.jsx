@@ -68,10 +68,7 @@ function LoginPage() {
         }
       );
       localStorage.setItem("token", response.data.accessToken);
-      console.log(response.data.accessToken)
-      console.log(response.data)
-      console.log("hello")
-    
+      window.location.href = "/accueil";
     } catch (error) {
       setErrorMessage(
         "Erreur lors de la connexion. Veuillez vérifier vos identifiants."
