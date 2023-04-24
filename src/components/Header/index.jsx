@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios"
 import {
   AppBar,
   Toolbar,
@@ -8,12 +9,14 @@ import {
   List,
   ListItem,
   ListItemText,
+  Typography
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Logo from "../pictures/frigo.png";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState({ first_name: "", last_name: "" }); // ajout de l'état utilisateur
 
   const handleDrawerOpen = () => {
     setIsOpen(true);
@@ -22,6 +25,12 @@ const Header = () => {
   const handleDrawerClose = () => {
     setIsOpen(false);
   };
+
+  useEffect(() => { // utilisation de useEffect pour récupérer les informations de l'utilisateur connecté
+    axios.get("http://kevin-lienard-server.eddi.cloud/me/profile").then((response) => {
+      setUser(response.data);
+    });
+  }, []);
 
   return (
     <AppBar position="fixed" sx={{ bgcolor: "grey.200" }}>
@@ -96,6 +105,7 @@ const Header = () => {
             style={{ height: "50px", margin: "0 auto" }}
           />
         </div>
+        <Typography sx={{ mr: 2 }}>{user.firstName} {user.lastName}</Typography> {/* ajout de l'affichage du nom et prénom de l'utilisateur */}
       </Toolbar>
     </AppBar>
   );

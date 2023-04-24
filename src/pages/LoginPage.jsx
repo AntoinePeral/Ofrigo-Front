@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, Button } from "@mui/material";
 import { styled } from "@mui/system";
 import axios from "axios";
@@ -39,6 +39,14 @@ function LoginPage() {
   const [emailError, setEmailError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  useEffect(() => {
+    console.log("useEffect called");
+    const token = localStorage.getItem("token");
+    if (token) {
+      console.log(token);
+    }
+  }, []);
+
   const handleEmailChange = (event) => {
     const emailValue = event.target.value;
     setEmail(emailValue);
@@ -59,8 +67,11 @@ function LoginPage() {
           password: password,
         }
       );
-      localStorage.setItem("token", response.data.token);
-      window.location.href = "/accueil";
+      localStorage.setItem("token", response.data.accessToken);
+      console.log(response.data.accessToken)
+      console.log(response.data)
+      console.log("hello")
+    
     } catch (error) {
       setErrorMessage(
         "Erreur lors de la connexion. Veuillez vérifier vos identifiants."

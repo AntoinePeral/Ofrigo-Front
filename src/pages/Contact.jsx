@@ -3,6 +3,7 @@ import { styled } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import axios from "axios";
 
 const Container = styled(Box)({
   display: "flex",
@@ -31,13 +32,28 @@ const FormContainer = styled(Box)({
 
 const Contact = () => {
   const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  const [content, setContent] = useState("");
+  const [label, setLabel] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Email: ", email);
-    console.log("Message: ", message);
-    // mettre le formulaire à votre backend ici
+    console.log("Label: ", label);
+    console.log("Content: ", content);
+
+    axios.post("http://kevin-lienard-server.eddi.cloud/message", {
+      email: email,
+      label: label,
+      content: content,
+    })
+      .then((response) => {
+        console.log(response);
+        alert("Message envoyé avec succès!");
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("Une erreur est survenue. Veuillez réessayer plus tard.");
+      });
   };
 
   return (
@@ -55,12 +71,22 @@ const Contact = () => {
           fullWidth
         />
         <TextField
-          id="message"
+          id="label"
+          label="Titre"
+          variant="outlined"
+          margin="normal"
+          value={label}
+          onChange={(event) => setLabel(event.target.value)}
+          required
+          fullWidth
+        />
+        <TextField
+          id="content"
           label="Message"
           variant="outlined"
           margin="normal"
-          value={message}
-          onChange={(event) => setMessage(event.target.value)}
+          value={content}
+          onChange={(event) => setContent(event.target.value)}
           required
           fullWidth
           multiline

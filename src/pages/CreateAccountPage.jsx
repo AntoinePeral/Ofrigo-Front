@@ -56,7 +56,7 @@ function CreateAccountPage() {
           email: email,
           password: password,
         });
-        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("token", response.data.accessToken);
         window.location.href = "/accueil";
       } catch (error) {
         if (error.response.status === 400) {
