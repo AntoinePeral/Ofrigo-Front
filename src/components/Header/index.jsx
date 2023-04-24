@@ -63,7 +63,7 @@ const Header = () => {
             <ListItem
               button
               component={Link}
-              to="/recipes"
+              to="/recette"
               onClick={handleDrawerClose}
             >
               <ListItemText primary="Recettes" />

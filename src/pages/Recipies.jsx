@@ -25,7 +25,7 @@ const Recipies = () => {
     },[]);
     
     const { recipes } = useSelector((state) => state.reducerRecipes);
-    console.log(recipes)
+   
     
     return (
         <div>

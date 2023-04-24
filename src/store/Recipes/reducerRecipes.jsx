@@ -2,7 +2,7 @@ import {
   testRecipesWithAllIngredients,
   testRecipesWithoutAllIngredients,
 } from "../../testData";
-import { TOGGLE_RECIPES, SAVE_RECIPES, SAVE_CATEGORYS } from "../../store/Recipes/action";
+import { TOGGLE_RECIPES, SAVE_RECIPES, SAVE_CATEGORYS } from "./action";
 import recipesMiddleware from "../../middleware/recipesMiddleware";
 import categorysMiddleware from "../../middleware/categorysMiddleware";
 
@@ -25,7 +25,7 @@ function reducerRecipes(state = initialState, action) {
             : testRecipesWithoutAllIngredients,
       };
     case SAVE_RECIPES:
-      console.log(action.recipes)
+      
       return { ...state, recipes: action.recipes };
 
     case SAVE_CATEGORYS:

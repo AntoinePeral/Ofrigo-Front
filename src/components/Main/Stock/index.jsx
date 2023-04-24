@@ -19,14 +19,29 @@ import {
     Box,
     FormControlLabel,
     Switch,
+    Button,
+    ButtonGroup,
   } from "@mui/material";
 
+import CancelIcon from '@mui/icons-material/Cancel';
 import SearchIcon from "@mui/icons-material/Search";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 import {
     FETCH_CATEGORYS,
   } from "../../../store/Stock/action";
-import { Category } from "@mui/icons-material";
+
+  import {
+    FETCH_INGREDIENT,
+  } from "../../../store/Search/action";
+
+import { Category, Padding } from "@mui/icons-material";
+
+function isStored (userIngredient, ingredient) {
+
+    return (userIngredient[0].ingredient.map(ingredient => ingredient.label).includes(ingredient));
+    
+};
 
 function Stock () {
 
@@ -36,36 +51,46 @@ function Stock () {
         const onChangeInput = event.target.value;
 
         setInputValue(event.target.value);
-        console.log(event.target.value)
+        
     };
 
+    const { ingredientList } =
+    useSelector((state) => state.reducerSearch);
+    
     const handleSubmit = () => {
         console.info("You clicked the Chip.");
     };
 
     const handleClickSortIngredient = (event) =>{
         const categorySelect = event.target.innerText
-        console.log(categorySelect)
+        
     }
+
+      //Etat du switch
+  const handleToggle = (event) => {
+    console.log(event)
+    setIsToggled(!isToggled);
+  };
 
     //Etats locaux
     const [inputValue, setInputValue] = useState('');
     const [isToggled, setIsToggled] = useState(false);
     const [filteredRecipes, setFilteredRecipes] = useState([]);
 
-    //Etat du switch
-    const handleToggle = (event) => {
-        setIsToggled(!isToggled);
-        console.log(event)
-    };
+    useEffect(() => {
+        dispatch({ type:FETCH_INGREDIENT });
+      }, [dispatch]);
+
 
     useEffect(() => {
-        dispatch({ type: FETCH_CATEGORYS });
+        dispatch({ type:FETCH_CATEGORYS });
       }, [dispatch]);
     
-      const { categoryList } =
+      const { categoryList, UserProfil } =
       useSelector((state) => state.reducerStock);
-      console.log(categoryList)
+
+      console.log(UserProfil)
+      
 
     return(
         <div>
@@ -76,7 +101,9 @@ function Stock () {
                 p: "2px 4px",
                 display: "flex",
                 alignItems: "center",
-                maxWidth: 500,
+                maxWidth: 1200,
+                minWidth: 300,
+
             }}
             >
             <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
@@ -98,70 +125,95 @@ function Stock () {
             />
             </Paper>
                 <h2>Catégories</h2>
-                <Stack
-                
-                spacing={1}
-                display="flex"
-                flexDirection="row"
-                flexWrap="wrap"
-                variant={"outlined"}
-                color={"success"}>
+                <div
+                className="test2">
 
                     {categoryList && categoryList.map((categorie) =>{
                         return(
-    
-                            <Chip
-                                key={categorie.id}
-                                label={categorie.label}
-                                onClick={(event) => {
-                                    handleClickSortIngredient(event);
-                                }}
-                            />
+
+                                <Chip
+                                    sx={{
+                                        m:0.5
+                                    }}
+                                    key={categorie.id}
+                                    label={categorie.label}
+                                    onClick={(event) => {
+                                        handleClickSortIngredient(event);
+                                    }}
+                                />
+ 
                             
                         )
                     }
                     )}
 
-                </Stack>
+                </div>
+            
+            <div
+            className="test4">
+                
+                {ingredientList && ingredientList.map((ingredient) =>{
+                        
+                    return(
+    
+                        <div
+                        className="test5">
 
-                <div>
+                            <Card sx={{ maxWidth: 300,
+                                        minWidth:200 }}
+                                        key={ingredient.id}
+                            >
 
-                <Card sx={{ maxWidth: 345 }}>
-                    <CardActionArea
-                        sx={{ 
-                            display: "flex",
-                            flexDirection: "rows"
-                            }}>
-                        <CardMedia
-                            component="img"
-                            height="30"
-                            width="10"
-                            image={`../../../../Pictures/Ingredients/Farine.jpg`}
-                            alt="aubergine"
-                        />
-                        <CardContent>
+                                <CardActionArea
+                                    sx={{ 
+                                        display: "flex",
+                                        flexDirection: "rows",
+                                        justifyContent: "space-between",
+                                        Padding:5,
+                                        }}
+                                    
+                                    
+                                >
 
-                            <Typography gutterBottom variant="h5" component="div">
-                                aymeric
-                            </Typography>
-          
-                        </CardContent>
+                                    <FormControlLabel
+                                        sx={{ 
+                                            display: "flex",
+                                            flexDirection: "rows",
+                                            m:1,
+                                            
+                                            }}
 
-                        <FormControlLabel
-                            control={
-                                <Switch
-                                checked={isToggled}
-                                onChange={handleToggle}
-                                inputProps={{ "aria-label": "toggle source" }}
-                                />
-                                }
-                            label={isToggled ? "On" : "Off"}
-                        />
-                    </CardActionArea>
-                </Card>
+                                        control={
+                                            <Switch checked={isStored(UserProfil,ingredient.label)} onChange={(event) => {handleToggle(event)}} name={ingredient.label} />
+                                        }
+                                        label={ingredient.label}
+                                    />
+
+                                    <CardMedia
+                                        sx={{
+                                            borderRadius: 1,
+                                            gap: 2,
+                                            boxShadow: 5,
+                                            width: 100,
+                                            m:1,
+                                        }}
+                                        component="img"
+                                        height="30"
+                                        width={10}
+                                        image={`../../../../Pictures/Ingredients/${ingredient.label}.jpg`}
+                                        alt={`${ingredient.label}`}
+                                    />
+
+                                </CardActionArea>
+
+                            </Card>
+
+                        </div>
+                            
+                    )
+                })}
             </div>
         </div>
-
     )
 }
 

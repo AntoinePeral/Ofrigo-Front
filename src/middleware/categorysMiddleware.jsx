@@ -7,7 +7,7 @@ const categorysMiddleware = (store) => (next) => (action) => {
       axios
         .get("http://kevin-lienard-server.eddi.cloud/category")
         .then((response) => {
-          console.log(response.data)
+          
           store.dispatch(saveCategory(response.data));
         })
         .catch((err) => console.log(err));

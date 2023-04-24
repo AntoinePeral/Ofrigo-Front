@@ -37,7 +37,7 @@ function SearchBar() {
   const handleClickRemoveIngredient = (event) => {
     const ingredient =
       event.target.parentElement.parentElement.firstChild.innerText;
-    console.log(ingredient);
+    
     dispatch(RemoveAnIngredientFromList(ingredient, proposedIngredient));
   };
 
@@ -104,7 +104,8 @@ function SearchBar() {
             p: "2px 4px",
             display: "flex",
             alignItems: "center",
-            maxWidth: 500,
+            maxWidth: 2000,
+            marginBottom:5,
           }}
         >
           <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
@@ -112,7 +113,12 @@ function SearchBar() {
           </IconButton>
 
           <InputBase
-            sx={{ ml: 1, flex: 1 }}
+            sx={{ ml: 1, 
+              flex: 1,
+              minWidth:300,
+              maxWidth:600,
+              
+            }}
             placeholder="Ingredient"
             autoFocus={true}
             value={inputValue}
@@ -133,7 +139,7 @@ function SearchBar() {
           minWidth: 275,
           flexWrap: "wrap",
           justifyContent: "space-around",
-          maxWidth: 500,
+          
         }}
       >
         {proposedIngredient &&
@@ -156,7 +162,6 @@ function SearchBar() {
           minWidth: 275,
           flexWrap: "wrap",
           justifyContent: "space-around",
-          maxWidth: 500,
         }}
       >
         {listFilter &&
