@@ -73,6 +73,9 @@ const Header = () => {
             <ListItem button component={Link} to="/recette" onClick={handleDrawerClose}>
               <ListItemText primary="Recettes" />
             </ListItem>
+            <ListItem button component={Link} to="/profil/stock" onClick={handleDrawerClose}>
+              <ListItemText primary="Stock" />
+            </ListItem>
             <ListItem button component={Link} to="/connexion" onClick={handleDrawerClose}>
               <ListItemText primary="Connexion" />
             </ListItem>
