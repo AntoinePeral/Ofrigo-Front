@@ -41,14 +41,21 @@ const Contact = () => {
     console.log("Label: ", label);
     console.log("Content: ", content);
 
-    axios.post("http://kevin-lienard-server.eddi.cloud/message", {
-      email: email,
-      label: label,
-      content: content,
-    })
+    if (content.length < 40) {
+      alert("Le champ Message doit contenir au moins 40 caractères.");
+      return;
+    }
+
+    axios
+      .post("http://kevin-lienard-server.eddi.cloud/message", {
+        email: email,
+        label: label,
+        content: content,
+      })
       .then((response) => {
         console.log(response);
         alert("Message envoyé avec succès!");
+        window.location.reload(); // rafraîchir la page
       })
       .catch((error) => {
         console.log(error);
