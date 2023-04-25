@@ -59,6 +59,7 @@ function LoginPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log("ici")
     try {
       const response = await axios.post(
         "http://kevin-lienard-server.eddi.cloud/login",
@@ -67,6 +68,7 @@ function LoginPage() {
           password: password,
         }
       );
+      console.log(response)
       localStorage.setItem("token", response.data.accessToken);
       window.location.href = "/accueil";
     } catch (error) {

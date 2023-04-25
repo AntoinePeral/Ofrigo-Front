@@ -1,22 +1,28 @@
-// import axios from "axios";
-// import { FETCH_PROFIL, saveProfil } from "../store/Profil/action";
-// import { ADD_INGREDIENT } from "../store/Ingredient/action"
+import axios from "axios";
+import { FETCH_INGREDIENT_STOCK, saveUserStockIngredient } from "../store/Stock/action";
 
-// const profilMiddleware = (store) => (next) => (action) => {
-//   switch (action.type) {
-//     case FETCH_INGREDIENT:
-//       axios
-//         .get("http://kevin-lienard-server.eddi.cloud/me/profile")
-//         .then((response) => {
-//           store.dispatch(saveIProfil(response.data));
-//         })
-//         .catch((err) => console.log(err));
-//         break;
+const profilMiddleware = (store) => (next) => (action) => {
+  switch (action.type) {
+    case FETCH_INGREDIENT_STOCK:
 
-//     default:
-//   }
+      const jwtToken = localStorage.getItem("token");
 
-//   next(action);
-// };
+      axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
 
-// export default profilMiddleware;
+      axios
+        .get("http://kevin-lienard-server.eddi.cloud/me/profile/ingredient")
+        .then((response) => {
+          console.log(response.data)
+          store.dispatch(saveUserStockIngredient(response.data));
+        })
+        .catch((err) => console.log(err));
+        break;
+      
+    default:
+  }
+
+
+   next(action);
+};
+
+export default profilMiddleware;

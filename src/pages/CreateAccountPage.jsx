@@ -48,6 +48,7 @@ function CreateAccountPage() {
   const handleCreateAccount = async (event) => {
     event.preventDefault();
     const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    
     if (password.match(passwordRegex)) {
       try {
         const response = await axios.post("http://kevin-lienard-server.eddi.cloud/register", {

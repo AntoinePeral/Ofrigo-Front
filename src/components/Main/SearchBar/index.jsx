@@ -80,7 +80,7 @@ function SearchBar() {
 
   useEffect(() => {
     dispatch({ type: FETCH_INGREDIENT });
-  }, [dispatch]);
+  }, []);
 
   return (
     <div
