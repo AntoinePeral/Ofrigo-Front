@@ -18,7 +18,6 @@ const initialState = {
 
   ],
 
-  proposedIngredient: [],
 };
 
 function reducerSearch(state = initialState, action) {
