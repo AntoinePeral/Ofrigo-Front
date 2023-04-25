@@ -29,10 +29,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 import {
-    FETCH_CATEGORYS, filterIngredient,
+    FETCH_CATEGORYS, filterIngredient, filterCategory,FETCH_INGREDIENT_STOCK
   } from "../../../store/Stock/action";
-
-import { ADD_INGREDIENT, addIngredients, } from "../../../store/Ingredient/action";
 
   import {
     FETCH_INGREDIENT,
@@ -40,35 +38,35 @@ import { ADD_INGREDIENT, addIngredients, } from "../../../store/Ingredient/actio
 
 import { Category, Padding } from "@mui/icons-material";
 
-function isStored (userIngredient, ingredient) {
-
-    return (userIngredient[0].ingredient.map(ingredient => ingredient.label).includes(ingredient));
-    
-};
 
 
 
 function Stock () {
 
     const dispatch = useDispatch();
-
-    const [errorMessage, setErrorMessage] = useState("");
-
+    
     const handleOnChange = (event) => {
         const onChangeInput = event.target.value;
-        const ListUserIngredient = UserProfil[0].ingredient.map(ingredient =>ingredient.label)
-        console.log(ListUserIngredient)
-        console.log(localStorage)
 
         dispatch(filterIngredient(onChangeInput, ingredientList))
 
         setInputValue(event.target.value);
         
     };
-    console.log(localStorage)
+    
+    function isStored (UserIngredient, ingredient) {
+    
+        return (UserIngredient.map(ingredient => ingredient.label).includes(ingredient));
+        
+    };
+
     const { ingredientList } =
     useSelector((state) => state.reducerSearch);
-    
+
+    const { ListFilterStock, UserIngredient } =
+    useSelector((state) => state.reducerStock);
+
+
     const handleSubmit = () => {
         console.info("You clicked the Chip.");
     };
@@ -78,32 +76,67 @@ function Stock () {
     const handleClickSortIngredient = (event) =>{
         const categorySelect = event.target.innerText
         
+        dispatch(filterCategory(categorySelect, ingredientList))
+        
     }
-
+    
       //Etat du switch
   const handleToggle = async (event) => {
     
 
-    const ingredient = event.target.name;
+    const ingredientSelect = event.target.name;
+    
+    if (!isStored(UserIngredient,ingredientSelect)) {
 
-    try {
-        const response = await axios.post(
-            "http://kevin-lienard-server.eddi.cloud/ingredient",
-            {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-                Ingredient: ingredient
-            }
+        const jwtToken = localStorage.getItem("token");
 
-        );
+        axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
+    
+            const idIngredient = ingredientList.find(ingredient => ingredient.label == ingredientSelect).id
+            console.log(idIngredient)
+            let response;
+            
+            response = await axios
 
-        localStorage.setItem("token", response.data.token);
-        
-        window.location.href = "/accueil";
-        } catch (error) {
-            setErrorMessage(
-            "Erreur lors de la connexion. Veuillez vérifier vos identifiants."
-            );
-        }
+                .post("http://kevin-lienard-server.eddi.cloud/me/profile/ingredient",
+                        {
+                            ingredient_id: idIngredient
+                        }
+            
+                        )
+                    
+                .then((response) => {
+                    console.log(response);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+                dispatch({ type:FETCH_INGREDIENT_STOCK })
+                dispatch({ type:FETCH_INGREDIENT })
+    }else{
+
+        const jwtToken = localStorage.getItem("token");
+
+        axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
+        console.log("déjà en stock")
+
+            const idIngredient = ingredientList.find(ingredient => ingredient.label == ingredientSelect).id
+            
+            let response = await axios
+
+            .delete(`http://kevin-lienard-server.eddi.cloud/me/profile/ingredient/${idIngredient}`)
+    
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+            dispatch({ type:FETCH_INGREDIENT_STOCK })
+            dispatch({ type:FETCH_INGREDIENT })
+    }
+
+    
     };
 
     //Etats locaux
@@ -111,19 +144,24 @@ function Stock () {
     const [isToggled, setIsToggled] = useState(false);
     const [filteredRecipes, setFilteredRecipes] = useState([]);
 
-    useEffect(() => {
-        dispatch({ type:FETCH_INGREDIENT });
-      }, [dispatch]);
+    
+      const { categoryList, UserProfil } =
+      useSelector((state) => state.reducerStock);
 
 
     useEffect(() => {
         dispatch({ type:FETCH_CATEGORYS });
-      }, [dispatch]);
+      }, []);
     
-      const { categoryList, UserProfil } =
-      useSelector((state) => state.reducerStock);
+    
+      useEffect(() => {
+        dispatch({ type:FETCH_INGREDIENT });
+      }, []);
       
-
+      useEffect(() => {
+        dispatch({ type:FETCH_INGREDIENT_STOCK });
+      }, []);
+      
     return(
         <div>
             <h2>Dans ma cuisine, il y a ...</h2>
@@ -184,7 +222,7 @@ function Stock () {
             <div
             className="test4">
                 
-                {ingredientList && ingredientList.map((ingredient) =>{
+                {ListFilterStock && ListFilterStock.map((ingredient) =>{
                         
                     return(
     
@@ -216,7 +254,7 @@ function Stock () {
                                             }}
 
                                         control={
-                                            <Switch checked={isStored(UserProfil,ingredient.label)} onChange={(event) => {handleToggle(event)}} name={ingredient.label} />
+                                            <Switch checked={isStored(UserIngredient,ingredient.label)} onChange={(event) => {handleToggle(event)}} name={ingredient.label} />
                                         }
                                         label={ingredient.label}
                                     />

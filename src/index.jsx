@@ -7,6 +7,7 @@ import ingredientsMiddleware from "./middleware/ingredientsMiddleware";
 import tagsMiddleware from "./middleware/tagsMiddleware";
 import recipesMiddleware from "./middleware/recipesMiddleware";
 import categorysMiddleware from "./middleware/categorysMiddleware";
+import profilMiddleware from "./middleware/profilMiddleware"
 import thunk from "redux-thunk";
 
 import App from "./components/App";
@@ -19,6 +20,7 @@ const store = createStore(
     tagsMiddleware,
     recipesMiddleware,
     categorysMiddleware,
+    profilMiddleware,
     thunk
   )
 );
