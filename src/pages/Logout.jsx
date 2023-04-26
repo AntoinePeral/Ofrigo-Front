@@ -2,17 +2,18 @@ import React from "react";
 import { Button } from "@mui/material";
 import { styled } from "@mui/system";
 
+// Définition du style de la div Container avec MUI System
 const Container = styled("div")({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   marginTop: 50,
 });
-
+// Définition du style du titre avec MUI System
 const Title = styled("h1")({
   marginBottom: "50px",
 });
-
+// Définition du style du bouton de déconnexion avec MUI System
 const StyledButton = styled(Button)({
   width: "100%",
   marginTop: "20px",
@@ -23,9 +24,10 @@ const StyledButton = styled(Button)({
 });
 
 function LogoutPage() {
+  // Fonction pour gérer la déconnexion de l'utilisateur
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    window.location.href = "/connexion";
+    localStorage.removeItem("token");// Supprime le token stocké dans localStorage
+    window.location.href = "/connexion";// Redirige l'utilisateur vers la page de connexion
   };
 
   return (

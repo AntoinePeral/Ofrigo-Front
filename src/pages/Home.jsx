@@ -7,6 +7,7 @@ import { Typography } from "@mui/material";
 import frigoOuvert from "../components/pictures/frigo_ouvert.png";
 import frigoFerme from "../components/pictures/frigo_fermé.jpg";
 
+// Utilisation de la fonction styled pour créer des composants MUI personnalisés
 const RootBox = styled(Box)({
   display: "flex",
   flexDirection: "column",
@@ -43,21 +44,22 @@ const StyledButton = styled(Button)({
 });
 
 const images = [frigoOuvert, frigoFerme];
-
+// Définition de la composante Home
 const Home = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
+// Utilisation de useEffect pour gérer le changement d'image toutes les 5 secondes
   useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentImageIndex((currentImageIndex + 1) % images.length);
     }, 5000);
+    // Nettoyage de l'interval lorsque le composant est démonté
     return () => clearInterval(intervalId);
   }, [currentImageIndex]);
 
   return (
     <>
       <header>
-        {/* Insérer le contenu de votre en-tête ici */}
+        {/* Insérer le contenu de l'en-tête ici si on veut tout regrouper  */}
       </header>
       <main>
         <RootBox>
@@ -100,7 +102,7 @@ const Home = () => {
         </RootBox>
       </main>
       <footer>
-        {/* Insérer le contenu de votre pied de page ici */}
+        {/* Insérer le contenu du pied de page ici si on veut tout regrouper */}
       </footer>
     </>
   );

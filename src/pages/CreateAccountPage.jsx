@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-
+// Stylisation des composants MUI avec des styles en ligne
 const RootBox = styled(Box)({
   display: "flex",
   flexDirection: "column",
@@ -20,8 +20,9 @@ const InputField = styled(TextField)({
 });
 
 const SubmitButton = styled(Button)({});
-
+// Composant principal qui crée une page pour la création de compte
 function CreateAccountPage() {
+   // Déclaration des états pour les champs de saisie et les messages d'erreur
   const [lastName, setLastName] = useState("");
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
@@ -29,6 +30,7 @@ function CreateAccountPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [passwordRequirements, setPasswordRequirements] = useState("");
 
+  // Fonctions pour gérer les changements de valeurs dans les champs de saisie
   const handleLastNameChange = (event) => {
     setLastName(event.target.value);
   };
@@ -44,11 +46,11 @@ function CreateAccountPage() {
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
-
+// Fonction pour gérer la création du compte à partir des données saisies
   const handleCreateAccount = async (event) => {
     event.preventDefault();
     const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-    
+ // Vérification de la conformité du mot de passe avec l'expression régulière   
     if (password.match(passwordRegex)) {
       try {
         const response = await axios.post("http://kevin-lienard-server.eddi.cloud/register", {
@@ -57,9 +59,10 @@ function CreateAccountPage() {
           email: email,
           password: password,
         });
-        localStorage.setItem("token", response.data.accessToken);
+        localStorage.setItem("token", response.data.accessToken);// Stockage du token d'accès dans le local storage
         window.location.href = "/accueil";
       } catch (error) {
+        // Gestion des erreurs de requête HTTP
         if (error.response.status === 400) {
           setErrorMessage("Erreur lors de la création du compte. Veuillez vérifier les données saisies.");
         } else {
