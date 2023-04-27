@@ -25,6 +25,15 @@ const Recipes = () => {
   const { difficulty, time, grades } = useSelector(
     (state) => state.reducerFilter
   );
+
+  const userIngredient = useSelector(
+    (state) => state.reducerStock.UserIngredient
+  );
+  console.log(
+    "ceci est le console.log de mon composant Recipes :",
+    userIngredient
+  );
+
   //Dispatch
   const dispatch = useDispatch();
 
@@ -47,6 +56,16 @@ const Recipes = () => {
     dispatch({ type: FETCH_RECIPES });
   }, [dispatch]);
 
+  // Ingrédients provenant du stock utilisateur labelisé
+  const userIngredientLabels = userIngredient.map(
+    (ingredient) => ingredient.label
+  );
+
+  // Ingrédients du stock utilisateur combinés avec les ingrédients de la SearchBar
+  const combinedIngredients = Array.from(
+    new Set([...proposedIngredients, ...userIngredientLabels])
+  );
+
   //Filtre et tri des recettes en fonction des ingrédients
   useEffect(() => {
     //Bouton Filtre
@@ -63,13 +82,13 @@ const Recipes = () => {
           (isDesktop && alwaysIncludeAllIngredients) || isToggled
             ? recipe.ingredient.every(
                 (ingredient) =>
-                  proposedIngredients &&
-                  proposedIngredients.includes(ingredient.label)
+                  combinedIngredients &&
+                  combinedIngredients.includes(ingredient.label)
               )
             : recipe.ingredient.some(
                 (ingredient) =>
-                  proposedIngredients &&
-                  proposedIngredients.includes(ingredient.label)
+                  combinedIngredients &&
+                  combinedIngredients.includes(ingredient.label)
               );
 
         return (
@@ -86,7 +105,7 @@ const Recipes = () => {
     const newFilteredRecipes = applyFilters(recipes);
     newFilteredRecipes.sort((a, b) =>
       a.ingredient.filter((ingredient) =>
-        proposedIngredients.includes(ingredient.label)
+        combinedIngredients.includes(ingredient.label)
       ).length <
       b.ingredient.filter((ingredient) =>
         proposedIngredients.includes(ingredient.label)
