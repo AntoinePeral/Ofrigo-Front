@@ -125,6 +125,7 @@ const Recipes = () => {
     grades,
     isToggled,
     isDesktop,
+    combinedIngredients,
   ]);
 
   return (
