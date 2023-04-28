@@ -88,13 +88,24 @@ const Header = () => {
             <ListItem button component={Link} to="/recette" onClick={handleDrawerClose}>
               <ListItemText primary="Recettes" />
             </ListItem>
+            {jwtToken && (
             <ListItem button component={Link} to="/profil/stock" onClick={handleDrawerClose}>
               <ListItemText primary="Stock" />
             </ListItem>
+<<<<<<< HEAD
             
             {user.role === "admin" && (
               <ListItem button onClick={handleDashboardClick}>
                 <ListItemText primary="Dashboard" />
+=======
+            )}
+            <ListItem button component={Link} to="/connexion" onClick={handleDrawerClose}>
+              <ListItemText primary="Connexion" />
+            </ListItem>
+            {jwtToken && (
+              <ListItem button component={Link} to="/Accueil" onClick={handleLogout}>
+                <ListItemText primary="Déconnexion" />
+>>>>>>> fix_stockpage
               </ListItem>
             )}
           </List>

@@ -96,10 +96,13 @@ function FilterButton() {
       </div>
       <div>
 
+
         {isFilterOpen && (
           <Card
             sx={{
               maxWidth: 300,
+              display: "flex",
+              flexDirection: "column"
             }}
           >
             <h2>Trier par:</h2>
@@ -112,8 +115,15 @@ function FilterButton() {
                 defaultValue={`${time}`}
                 name="radio-buttons-group"
                 className="test"
+                
               >
-                <div>
+                <div
+                style={{
+                  maxWidth: 300,
+                  display: "flex",
+                  flexDirection: "row"
+                }}
+                >
                   <FormControlLabel
                     value="30"
                     control={
@@ -162,7 +172,13 @@ function FilterButton() {
                 name="radio-buttons-group"
                 className="test"
               >
-                <div>
+                <div
+                style={{
+                  maxWidth: 300,
+                  display: "flex",
+                  flexDirection: "row"
+                }}
+                >
                   <FormControlLabel
                     value="Facile"
                     control={

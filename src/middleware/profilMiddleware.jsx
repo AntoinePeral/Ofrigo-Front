@@ -12,7 +12,7 @@ const profilMiddleware = (store) => (next) => (action) => {
       axios
         .get("http://kevin-lienard-server.eddi.cloud/me/profile/ingredient")
         .then((response) => {
-          console.log(response.data)
+          
           store.dispatch(saveUserStockIngredient(response.data));
         })
         .catch((err) => console.log(err));
