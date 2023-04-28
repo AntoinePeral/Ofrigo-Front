@@ -1,6 +1,6 @@
 import axios from "axios";
 import { FETCH_INGREDIENT, saveIngredients } from "../store/Search/action";
-import { saveIngredientsStock } from "../store/Stock/action";
+import { saveListIngredients } from "../store/Stock/action";
 
 const ingredientsMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
@@ -9,7 +9,7 @@ const ingredientsMiddleware = (store) => (next) => (action) => {
         .get("http://kevin-lienard-server.eddi.cloud/ingredient")
         .then((response) => {
           store.dispatch(saveIngredients(response.data));
-          store.dispatch(saveIngredientsStock(response.data))
+          store.dispatch(saveListIngredients(response.data))
           
         })
         .catch((err) => console.log(err));
