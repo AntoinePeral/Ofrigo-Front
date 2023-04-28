@@ -1,4 +1,3 @@
-// Import des dépendances
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -11,57 +10,66 @@ import {
   ListItem,
   ListItemText,
   Typography,
+  Switch
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Logo from "../pictures/frigo.png";
 
-// Composant Header
 const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState({ first_name: "", last_name: "", role: "" });
+  const [isLoggedOut, setIsLoggedOut] = useState(false);
+  const jwtToken = localStorage.getItem("token");
 
-  // Initialisation des states
-  const [isOpen, setIsOpen] = useState(false); // State pour gérer l'ouverture/fermeture du menu latéral
-  const [user, setUser] = useState({ first_name: "", last_name: "" }); // State pour stocker les informations de l'utilisateur connecté
-  const [isLoggedOut, setIsLoggedOut] = useState(false); // State pour gérer la déconnexion de l'utilisateur
-  const jwtToken = localStorage.getItem("token"); // Récupération du token JWT stocké dans le LocalStorage du navigateur
-
-  // Fonction pour ouvrir le menu latéral
   const handleDrawerOpen = () => {
     setIsOpen(true);
   };
 
-  // Fonction pour fermer le menu latéral
   const handleDrawerClose = () => {
     setIsOpen(false);
   };
 
-  // Fonction pour gérer la déconnexion de l'utilisateur
   const handleLogout = () => {
-    localStorage.removeItem("token"); // Suppression du token JWT dans le LocalStorage
-    setUser({ first_name: "", last_name: "" }); // Réinitialisation des informations de l'utilisateur
-    setIsLoggedOut(true); // Activation du state pour déclencher une redirection vers la page d'accueil
+    localStorage.removeItem("token");
+    setUser({ first_name: "", last_name: "", role: "" });
+    setIsLoggedOut(true);
   };
 
-  // Effet secondaire pour récupérer les informations de l'utilisateur connecté
   useEffect(() => {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`; // Ajout du token JWT dans les headers des requêtes HTTP
+    axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;
     axios
-      .get("http://kevin-lienard-server.eddi.cloud/me/profile") // Requête HTTP pour récupérer les informations de l'utilisateur
+      .get("http://kevin-lienard-server.eddi.cloud/me/profile")
       .then((response) => {
-        setUser(response.data); // Stockage des informations de l'utilisateur dans le state correspondant
+        setUser(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [jwtToken]); // Déclenchement de l'effet uniquement si le token JWT est modifié
+  }, [jwtToken]);
 
-  // Redirection vers la page d'accueil si l'utilisateur se déconnecte
+  const handleDashboardClick = () => {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;
+    axios
+      .get("http://kevin-lienard-server.eddi.cloud/admin/dashboard")
+      .then((response) => {
+        setIsLoggedOut(false);
+        setUser(response.data);
+        window.location.replace("/admin/dashboard");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   if (isLoggedOut) {
     return window.location.replace("/accueil");
   }
 
-  // Rendu du composant
   return (
-    <AppBar position="fixed" sx={{ bgcolor: "grey.200" }}>
+    <AppBar position="fixed" sx={{ bgcolor: "#1C6EA4",
+    background: "-moz-linear-gradient(left, #1C6EA4 0%, #2388CB 50%, #144E75 100%)",
+    background: "-webkit-linear-gradient(left, #1C6EA4 0%, #2388CB 50%, #144E75 100%)",
+    background: "linear-gradient(to right, #1C6EA4 0%, #2388CB 50%, #144E75 100%)"}}>
       <Toolbar>
         <IconButton edge="start" color="inherit" onClick={handleDrawerOpen} sx={{ mr: 2 }}>
           <MenuIcon />
@@ -83,26 +91,36 @@ const Header = () => {
             <ListItem button component={Link} to="/profil/stock" onClick={handleDrawerClose}>
               <ListItemText primary="Stock" />
             </ListItem>
-            <ListItem button component={Link} to="/connexion" onClick={handleDrawerClose}>
-              <ListItemText primary="Connexion" />
-            </ListItem>
-            {jwtToken && (
-              <ListItem button component={Link} to="/Accueil" onClick={handleLogout}>
-                <ListItemText primary="Déconnexion" />
+            
+            {user.role === "admin" && (
+              <ListItem button onClick={handleDashboardClick}>
+                <ListItemText primary="Dashboard" />
               </ListItem>
             )}
           </List>
         </Drawer>
-        <div style={{ flex: 1 }}>
-          <img src={Logo} alt="Logo" style={{ height: "50px", margin: "0 auto" }} />
-        </div>
-        {jwtToken && (
-  <Typography sx={{ mr: 2, fontWeight: "bold", color: "black" }}>{user.first_name} {user.last_name}</Typography>
+        <div style={{flex: 1 }}>
+        <img src={Logo} alt="Logo" style={{ height: "50px", margin: "0 auto" }} />
+</div>
+<Typography sx={{ mr: 2, fontWeight: "bold", color: "black" }}>{user.first_name} {user.last_name}</Typography>
+<Toolbar sx={{ justifyContent: "space-between" }}>
+{jwtToken ? (
+<Switch
+checked={true}
+onChange={handleLogout}
+inputProps={{ "aria-label": "Déconnexion" }}
+/>
+) : (
+<Switch
+checked={false}
+onChange={() => window.location.replace("/connexion")}
+inputProps={{ "aria-label": "Connexion" }}
+/>
 )}
-
-      </Toolbar>
-    </AppBar>
-  );
+</Toolbar>
+</Toolbar>
+</AppBar>
+);
 };
 
 export default Header;

@@ -77,10 +77,11 @@ function LoginPage() {
       localStorage.setItem("token", response.data.accessToken);
       window.location.href = "/accueil";
     } catch (error) {
+      console.log(error.response.data);
       // Affichage d'un message d'erreur si la connexion échoue
       setErrorMessage(
-        "Erreur lors de la connexion. Veuillez vérifier vos identifiants."
-      );
+        error.response.data.message
+      )
     }
   };
 // Fonction de validation d'email

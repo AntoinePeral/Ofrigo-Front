@@ -64,7 +64,9 @@ function CreateAccountPage() {
       } catch (error) {
         // Gestion des erreurs de requête HTTP
         if (error.response.status === 400) {
-          setErrorMessage("Erreur lors de la création du compte. Veuillez vérifier les données saisies.");
+          setErrorMessage(
+            error.response.data.message
+          )
         } else {
           setErrorMessage("Une erreur s'est produite. Veuillez réessayer plus tard.");
         }
