@@ -10,7 +10,7 @@ const Container = styled("div")({
   alignItems: "center",
   marginTop: 50,
   padding: "50px",
-  width: "50%",
+  width: "70%",
   margin: "0 auto",
 });
 

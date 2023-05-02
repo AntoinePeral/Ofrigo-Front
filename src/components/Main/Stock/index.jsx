@@ -25,6 +25,7 @@ import {
   useTheme,
   useMediaQuery,
   Grid,
+  Container,
 } from "@mui/material";
 
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -44,7 +45,11 @@ import {
   Update_User_Stock_Ingredient,
 } from "../../../store/Search/action";
 
-import { Category, Padding } from "@mui/icons-material";
+import { Category, GpsFixed, Padding } from "@mui/icons-material";
+import { createTheme } from '@mui/material/styles';
+import blue from '@mui/material/colors/blue';
+import { pink } from "@mui/material/colors";
+
 
 function Stock() {
   /**
@@ -66,6 +71,7 @@ function Stock() {
   const [refreshUserIngredients, setRefreshUserIngredients] = useState(true);
   const [categories, setCategories] = useState([]);
   const [categorySelected, setCategorySelected] = useState(null);
+
 
 
   // On récupère les ingrédients seulement au chargement de la page
@@ -172,83 +178,105 @@ function Stock() {
 
   return (
     <>
-      <h2
-        style={{
-          marginLeft: 40,
-        }}
-      >
-        Dans ma cuisine, il y a ...
-      </h2>
-      <Paper
-        component="form"
-        sx={{
-          p: "2px 4px",
-          display: "flex",
-          alignItems: "center",
-          maxWidth: 1200,
-          minWidth: 300,
-          marginLeft: 5,
-        }}
-      >
-        <IconButton
-          type="button"
-          sx={{
-            p: "10px",
+      <box
+      sx={{
+        position:"fixed",
+        color:"pink",
+      }}>
+        <h2
+          style={{
+            
           }}
-          aria-label="search"
         >
-          <SearchIcon />
-        </IconButton>
-
-        <InputBase
+          Dans ma cuisine, il y a ...
+        </h2>
+        <Paper
+          component="form"
           sx={{
-            ml: 1,
-            flex: 1,
+            p: "2px 4px",
+            display: "flex",
+            alignItems: "center",
+            maxWidth: 1200,
+            minWidth: 300,
+            justifyContent: "center",
           }}
-          placeholder="Ingredient"
-          autoFocus="true"
-          inputProps={{ "aria-label": "Ingredient" }}
-          onChange={(event) => {
-            handleSearchChange(event);
-          }}
-        />
-      </Paper>
-      <h2
-        style={{
-          marginLeft: 40,
-        }}
-      >
-        Catégories
-      </h2>
+        >
+          <IconButton
+            type="button"
+            sx={{
+              p: "10px",
+            }}
+            aria-label="search"
+          >
+            <SearchIcon />
+          </IconButton>
 
-      <Stack direction="row" spacing={1}>
-        {categories &&
-          categories.map((category) => {
-            return (
-              <Chip
-                variant={
-                  categorySelected === category.id ? "filled" : "outlined"
-                }
-                color={
-                  categorySelected === category.id ? "primary" : "success"
-                }
-                key={category.id}
-                label={category.label}
-                onClick={(event) => {
-                  handleClickOnCategory(category.id);
-                }}
-              />
-            );
-          })}
-      </Stack>
-      <Box sx={{ flexGrow: 1 }}>
-      <Grid container maxWidth="lg" spacing={2}>
+          <InputBase
+            sx={{
+              ml: 1,
+              flex: 1,
+            }}
+            placeholder="Ingredient"
+            autoFocus="true"
+            inputProps={{ "aria-label": "Ingredient" }}
+            onChange={(event) => {
+              handleSearchChange(event);
+            }}
+          />
+        </Paper>
+        <h2
+          style={{
+            
+          }}
+        >
+          Catégories
+        </h2>
+        <box
+        sx={{
+
+        }}>
+        <Stack direction="row" spacing={1} overflow="scroll" minWidth={300} maxWidth={800}
+        sx={{
+          "@media (max-width: 600px)": {
+            maxWidth: "300px"
+          },
+          marginBottom:2,
+          
+        }}>
+          {categories &&
+            categories.map((category) => {
+              return (
+                <Chip
+                  variant={
+                    categorySelected === category.id ? "filled" : "outlined"
+                  }
+                  color={
+                    categorySelected === category.id ? "primary" : "primary"
+                  }
+                  key={category.id}
+                  label={category.label}
+                  onClick={(event) => {
+                    handleClickOnCategory(category.id);
+                  }}
+                />
+              );
+            })}
+        </Stack>
+        
+        </box>
+      </box>
+      <Box sx={{ flexGrow: 1 }} >
+      <Grid container maxWidth="lg" spacing={2} justifyContent="center" mb={12} maxHeight="50vh">
         {ingredients &&
           ingredients.map((ingredient) => {
             return (
-              <Grid item xs={6} sm={6} md={8} lg={3} key={ingredient.id}>
+              <Grid item  alignItems="center" key={ingredient.id} >
                 
-                <Card>
+                <Card
+                  sx={{
+                    minWidth: "300px",
+                    maxWidth: "300px"
+                  }}>
                   <CardActionArea
                     sx={{
                       display: "flex",
@@ -258,19 +286,19 @@ function Stock() {
                       minHeight: "100px",
                     }}
                   >
-                    <FormControlLabel
-                      sx={{
-                        display: "flex",
-                        flexDirection: "rows",
-                        m: 1,
-                      }}
-                      control={
-                        <Switch
-                          checked={isIngredientInUserStock(ingredient.id)}
-                          onChange={handleToggleOnIngredient}
-                          name={ingredient.label}
-                          value={ingredient.id}
-                        />
+                  <FormControlLabel
+                    sx={{
+                      display: "flex",
+                      flexDirection: "rows",
+                      m: 1,
+                    }}
+                    control={
+                      <Switch
+                        checked={isIngredientInUserStock(ingredient.id)}
+                        onChange={handleToggleOnIngredient}
+                        name={ingredient.label}
+                        value={ingredient.id}
+                      />
                       }
                       label={ingredient.label}
                     />
@@ -290,12 +318,13 @@ function Stock() {
                       image={`../../../../Pictures/Ingredients/${ingredient.label}.jpg`}
                       alt={`${ingredient.label}`}
                     />
-                  </CardActionArea>
+                    </CardActionArea>
                 </Card>
                 
               </Grid>
             );
           })}
+
       </Grid>
       </Box>
     </>
