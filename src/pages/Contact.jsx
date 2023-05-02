@@ -47,7 +47,7 @@ const Contact = () => {
     }
 
     axios
-      .post("http://kevin-lienard-server.eddi.cloud/message", {
+      .post("http://antoineperal-server.eddi.cloud/message", {
         email: email,
         label: label,
         content: content,

@@ -6,7 +6,6 @@ import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-
 const RootBox = styled(Box)({
   display: "flex",
   flexDirection: "column",
@@ -47,27 +46,37 @@ function CreateAccountPage() {
 
   const handleCreateAccount = async (event) => {
     event.preventDefault();
-    const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-    
+    const passwordRegex =
+      /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+
     if (password.match(passwordRegex)) {
       try {
-        const response = await axios.post("http://kevin-lienard-server.eddi.cloud/register", {
-          last_name: lastName,
-          first_name: firstName,
-          email: email,
-          password: password,
-        });
+        const response = await axios.post(
+          "http://antoineperal-server.eddi.cloud/register",
+          {
+            last_name: lastName,
+            first_name: firstName,
+            email: email,
+            password: password,
+          }
+        );
         localStorage.setItem("token", response.data.accessToken);
         window.location.href = "/accueil";
       } catch (error) {
         if (error.response.status === 400) {
-          setErrorMessage("Erreur lors de la création du compte. Veuillez vérifier les données saisies.");
+          setErrorMessage(
+            "Erreur lors de la création du compte. Veuillez vérifier les données saisies."
+          );
         } else {
-          setErrorMessage("Une erreur s'est produite. Veuillez réessayer plus tard.");
+          setErrorMessage(
+            "Une erreur s'est produite. Veuillez réessayer plus tard."
+          );
         }
       }
     } else {
-      setPasswordRequirements("Le mot de passe doit contenir au moins une majuscule, un chiffre, un caractère spécial et être composé d'au moins 8 caractères");
+      setPasswordRequirements(
+        "Le mot de passe doit contenir au moins une majuscule, un chiffre, un caractère spécial et être composé d'au moins 8 caractères"
+      );
     }
   };
 

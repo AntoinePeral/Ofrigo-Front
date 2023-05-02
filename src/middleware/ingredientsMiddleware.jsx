@@ -9,11 +9,10 @@ const ingredientsMiddleware = (store) => (next) => (action) => {
         .get("http://kevin-lienard-server.eddi.cloud/ingredient")
         .then((response) => {
           store.dispatch(saveIngredients(response.data));
-          store.dispatch(saveIngredientsStock(response.data))
-          
+          store.dispatch(saveIngredientsStock(response.data));
         })
         .catch((err) => console.log(err));
-        
+
       break;
     default:
   }

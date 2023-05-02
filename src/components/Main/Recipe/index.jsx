@@ -12,6 +12,7 @@ import StarIcon from "@mui/icons-material/Star";
 import SoupKitchenRoundedIcon from "@mui/icons-material/SoupKitchenRounded";
 
 const Recipe = ({ recipe }) => {
+  console.log({ recipe });
   return (
     <Card sx={{ minWidth: 275, mb: 2 }}>
       {/* Titre de la carte  */}
@@ -22,7 +23,7 @@ const Recipe = ({ recipe }) => {
         component="img"
         height="150"
         width="150"
-        image={recipe.picture}
+        image={`http://kevin-lienard-server.eddi.cloud${recipe.picture}`}
         alt={recipe.label}
       />
       <CardContent>

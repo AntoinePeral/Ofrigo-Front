@@ -59,16 +59,16 @@ function LoginPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("ici")
+    console.log("ici");
     try {
       const response = await axios.post(
-        "http://kevin-lienard-server.eddi.cloud/login",
+        "http://antoineperal-server.eddi.cloud/login",
         {
           email: email,
           password: password,
         }
       );
-      console.log(response)
+      console.log(response);
       localStorage.setItem("token", response.data.accessToken);
       window.location.href = "/accueil";
     } catch (error) {
