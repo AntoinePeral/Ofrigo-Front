@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Box, Grid } from "@mui/material";
 import { styled } from "@mui/system";
 import axios from "axios";
 
 // Styled components pour le formulaire de connexion
 const Container = styled("div")({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
   marginTop: 50,
+<<<<<<< HEAD
   padding: "50px",
   width: "70%",
   margin: "0 auto",
+=======
+>>>>>>> feat_color
 });
 
 const Title = styled("h1")({
@@ -49,17 +49,20 @@ function LoginPage() {
       console.log(token);
     }
   }, []);
-// Gestionnaire de changement d'email
+
+  // Gestionnaire de changement d'email
   const handleEmailChange = (event) => {
     const emailValue = event.target.value;
     setEmail(emailValue);
     setEmailError(!validateEmail(emailValue));
   };
-// Gestionnaire de changement de mot de passe
+
+  // Gestionnaire de changement de mot de passe
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
-// Gestionnaire de soumission du formulaire de connexion
+
+  // Gestionnaire de soumission du formulaire de connexion
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("ici")
@@ -84,37 +87,51 @@ function LoginPage() {
       )
     }
   };
-// Fonction de validation d'email
+
+  // Fonction de validation d'email
   const validateEmail = (email) => {
     const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     return regex.test(email);
   };
-// Rendu du composant
+
+  // Rendu du composant
   return (
-    <Container>
-      <Title>Se connecter avec son email</Title>
-      <LoginForm onSubmit={handleSubmit}>
-        <StyledTextField
-          label="Email"
-          variant="outlined"
-          value={email}
-          onChange={handleEmailChange}
-          error={emailError}
-          helperText={emailError ? "Email invalide" : ""}
-        />
-        <StyledTextField
-          label="Mot de passe"
-          variant="outlined"
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-        {errorMessage && <p>{errorMessage}</p>}
-        <StyledButton variant="contained" color="primary" type="submit">
-          Connexion
-        </StyledButton>
-      </LoginForm>
-    </Container>
+    <Box sx={{ maxHeight: "70vh", overflow: "auto", display: "flex", justifyContent: "center", alignItems: "center",marginRight: "12px",}}>
+      <Grid
+        container
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+        height="100%"
+      >
+        <Grid item>
+          <Container>
+            <Title>Se connecter avec son email</Title>
+            <LoginForm onSubmit={handleSubmit}>
+              <StyledTextField
+                label="Email"
+                variant="outlined"
+                value={email}
+                onChange={handleEmailChange}
+                error={emailError}
+                helperText={emailError ? "Email invalide" : ""}
+                />
+              <StyledTextField
+                label="Mot de passe"
+                variant="outlined"
+                type="password"
+                value={password}
+                onChange={handlePasswordChange}
+              />
+              {errorMessage && <p>{errorMessage}</p>}
+              <StyledButton variant="contained" color="primary" type="submit">
+                Connexion
+              </StyledButton>
+            </LoginForm>
+          </Container>
+        </Grid>
+      </Grid>
+    </Box>
   );
 }
 
