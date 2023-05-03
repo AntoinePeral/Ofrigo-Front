@@ -70,6 +70,7 @@ function Stock() {
   const [refreshUserIngredients, setRefreshUserIngredients] = useState(true);
   const [categories, setCategories] = useState([]);
   const [categorySelected, setCategorySelected] = useState(null);
+  const dispatch = useDispatch();
 
   // On récupère les ingrédients seulement au chargement de la page
   useEffect(() => {
@@ -104,6 +105,10 @@ function Stock() {
         });
     }
   }, [refreshUserIngredients]);
+
+  useEffect(() => {
+    dispatch({ type: FETCH_INGREDIENT_STOCK });
+  }, []);
 
   const isIngredientInUserStock = (ingredientId) => {
     const inUserStock = userIngredients.find(

@@ -47,7 +47,8 @@ function CreateAccountPage() {
 
   const handleCreateAccount = async (event) => {
     event.preventDefault();
-    const passwordRegex = /^(?=.\d)(?=.[!@#$%^&])(?=.[a-z])(?=.*[A-Z]).{8,}$/;
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&\/$.#!?§:;+\-%])[A-Za-z\d!?:;@$!%*?&\/$.#%\-]{8,}$/u;
     if (password.match(passwordRegex)) {
       try {
         const response = await axios.post(
