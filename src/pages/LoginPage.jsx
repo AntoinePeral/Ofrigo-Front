@@ -72,7 +72,7 @@ function LoginPage() {
       console.log(response);
       // Enregistrement du token d'accès dans le stockage local et redirection vers la page d'accueil
       localStorage.setItem("token", response.data.accessToken);
-      window.location.href = "/accueil";
+      window.location.href = "/profil";
     } catch (error) {
       console.log(error.response.data);
       // Affichage d'un message d'erreur si la connexion échoue

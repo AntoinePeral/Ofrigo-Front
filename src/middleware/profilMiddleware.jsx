@@ -15,6 +15,7 @@ const profilMiddleware = (store) => (next) => (action) => {
         .get("http://kevin-lienard-server.eddi.cloud/me/profile/ingredient")
         .then((response) => {
           store.dispatch(saveUserStockIngredient(response.data));
+          console.log(response.data)
         })
         .catch((err) => console.log(err));
       break;

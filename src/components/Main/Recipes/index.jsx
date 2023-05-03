@@ -11,6 +11,10 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { Container, Box } from "@mui/material";
 import Grid from "@mui/material/Grid";
+import {
+  FETCH_INGREDIENT_STOCK,
+  Update_User_Stock_Ingredient,
+} from "../../../store/Stock/action";
 
 const Recipes = () => {
   const recipes = useSelector((state) => state.reducerRecipes.recipes);
@@ -32,6 +36,10 @@ const Recipes = () => {
   useEffect(() => {
     dispatch({ type: FETCH_RECIPES });
   }, [dispatch]);
+  useEffect(() => {
+    dispatch({ type: FETCH_INGREDIENT_STOCK });
+  }, []);
+
   useEffect(() => {
     dispatch({ type: FETCH_INGREDIENT_STOCK });
   }, []);
@@ -115,7 +123,7 @@ const Recipes = () => {
 
   return (
     <Container maxWidth="lg">
-      <Box display="flex" justifyContent="center">
+      <Box display="flex" justifyContent="center" >
         <FormGroup>
           <FormControlLabel
             control={

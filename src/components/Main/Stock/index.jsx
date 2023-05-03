@@ -49,6 +49,7 @@ import { Category, GpsFixed, Padding } from "@mui/icons-material";
 import { createTheme } from "@mui/material/styles";
 import blue from "@mui/material/colors/blue";
 import { pink } from "@mui/material/colors";
+import { isDisabled } from "@testing-library/user-event/dist/utils";
 
 function Stock() {
   /**
@@ -70,6 +71,7 @@ function Stock() {
   const [refreshUserIngredients, setRefreshUserIngredients] = useState(true);
   const [categories, setCategories] = useState([]);
   const [categorySelected, setCategorySelected] = useState(null);
+  const dispatch = useDispatch();
 
   const dispatch = useDispatch();
 
@@ -184,7 +186,7 @@ function Stock() {
       <box
         sx={{
           position: "fixed",
-          color: "pink",
+          
         }}
       >
         <h2 style={{}}>Dans ma cuisine, il y a ...</h2>
@@ -258,7 +260,7 @@ function Stock() {
           </Stack>
         </box>
       </box>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 1, position:"fixed", top:"320px", overflow:"scroll", marginBottom:"10", }} >
         <Grid
           container
           maxWidth="lg"
@@ -315,7 +317,8 @@ function Stock() {
                         component="img"
                         height="30"
                         width={10}
-                        image={`../../../../Pictures/Ingredients/${ingredient.label}.jpg`}
+                        image={`http://kevin-lienard-server.eddi.cloud${ingredient.picture}`}
+                        /*image={`../../../../Pictures/Ingredients/${ingredient.label}.jpg`}*/
                         alt={`${ingredient.label}`}
                       />
                     </CardActionArea>

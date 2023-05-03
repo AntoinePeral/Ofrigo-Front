@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import Card from "@mui/material/Card";
 import { ListItemButton, ListItemText, Checkbox } from "@mui/material";
@@ -11,6 +11,7 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
 import Container from "@mui/material/Container";
+import { fetchRecipes } from "../store/Recipes/action"
 
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import StarIcon from "@mui/icons-material/Star";
@@ -18,14 +19,22 @@ import SoupKitchenRoundedIcon from "@mui/icons-material/SoupKitchenRounded";
 
 const RecipeDetails = () => {
   const [selectedIndex, setSelectedIndex] = useState(null);
+  const dispatch = useDispatch();
+  
+
+  
 
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
+    console.log(selectedIndex)
   };
 
-  const { recipeId } = useParams();
+  /*const { recipeId } = useParams();*/
+  const recipeId = 1
   const recipes = useSelector((state) => state.reducerRecipes.recipes);
   const [recipe, setRecipe] = useState(null);
+
+  console.log(recipe)
 
   useEffect(() => {
     const foundRecipe = recipes.find((r) => r.id === parseInt(recipeId, 10));
@@ -34,11 +43,16 @@ const RecipeDetails = () => {
     }
   }, [recipes, recipeId]);
 
+  useEffect(() => {
+    dispatch(fetchRecipes());
+},[]);
+
   if (!recipe) {
     return <div>Loading...</div>;
   }
 
   return (
+    /*{recipe &&*/
     <Container
       maxWidth="md"
       sx={{
@@ -119,7 +133,7 @@ const RecipeDetails = () => {
         </CardContent>
       </Card>
     </Container>
-  );
+                    /*}*/);
 };
 
 export default RecipeDetails;
