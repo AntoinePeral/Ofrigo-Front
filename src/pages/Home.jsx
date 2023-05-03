@@ -21,36 +21,29 @@ const Home = () => {
   }, [currentImageIndex, images.length]);
 
   return (
-    <>
-      <main style={{ height: "100vh",}}>
+    
+      <main style={{ marginBottom:"60",}}>
         <div style={{ flex: 1, display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
-          <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "100%", height: "100%" }}>
+          <div style={{ flex: 1, display: "flex", overflow:"scroll", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "100%", height: "750px", }}>
             <img
               src={images[currentImageIndex]}
               alt="Recettes"
-              style={{ width: "50%", height: "auto", objectFit: "contain", boxShadow: "-16px -8px 12px 4px rgba(39,112,255,0.61)" }}
+              style={{ width: "50%", height: "auto", objectFit: "contain", marginTop:"300px"}}
             />
             <Typography variant="h5" align="justify" padding="20px">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elit
+            Bienvenue sur OFrigo, votre assistant culinaire intelligent pour cuisiner de délicieux repas et réduire le gaspillage alimentaire. En cliquant sur le bouton "Recettes", découvrez un large choix de recettes adaptées à vos ingrédients et préférences.
             </Typography>
             <Button
               variant="contained"
               color="primary"
               component={Link}
-              to="/"
+              to="/recette"
               sx={{ marginTop: 2 }}
             >
               Voir les recettes
             </Button>
-          </div>
-          <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "100%", height: "100%" }}>
-            <img
-              src={images[(currentImageIndex + 1) % images.length]}
-              alt="Inscrivez-vous"
-              style={{ width: "50%", height: "auto", objectFit: "contain", boxShadow: "-16px -8px 12px 4px rgba(39,112,255,0.61)" }}
-            />
             <Typography variant="h5" align="justify" padding="20px">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elit
+            Pour une expérience optimale, créez un compte et renseignez votre stock utilisateur. Ainsi, OFrigo vous proposera des recettes sur mesure, en tenant compte de la difficulté, du temps de préparation et des notes attribuées par la communauté. Rejoignez-nous et cuisinons ensemble de manière responsable et savoureuse ! 
             </Typography>
             <Button
               variant="contained"
@@ -63,9 +56,10 @@ const Home = () => {
               S'inscrire
             </Button>
           </div>
+          
         </div>
       </main>
-    </>
+    
   );
 };
 
