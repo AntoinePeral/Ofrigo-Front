@@ -10,10 +10,7 @@ import {
   ListItem,
   ListItemText,
   Typography,
-<<<<<<< HEAD
-=======
-  Switch
->>>>>>> 840cedf7d19c52d30139689d41c07243ac7fa552
+  Switch,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Logo from "../pictures/frigo.png";
@@ -69,10 +66,18 @@ const Header = () => {
   }
 
   return (
-    <AppBar position="fixed" sx={{ bgcolor: "#1C6EA4",
-    background: "-moz-linear-gradient(left, #1C6EA4 0%, #2388CB 50%, #144E75 100%)",
-    background: "-webkit-linear-gradient(left, #1C6EA4 0%, #2388CB 50%, #144E75 100%)",
-    background: "linear-gradient(to right, #1C6EA4 0%, #2388CB 50%, #144E75 100%)"}}>
+    <AppBar
+      position="fixed"
+      sx={{
+        bgcolor: "#1C6EA4",
+        background:
+          "-moz-linear-gradient(left, #1C6EA4 0%, #2388CB 50%, #144E75 100%)",
+        background:
+          "-webkit-linear-gradient(left, #1C6EA4 0%, #2388CB 50%, #144E75 100%)",
+        background:
+          "linear-gradient(to right, #1C6EA4 0%, #2388CB 50%, #144E75 100%)",
+      }}
+    >
       <Toolbar>
         <IconButton
           edge="start"
@@ -116,29 +121,22 @@ const Header = () => {
             >
               <ListItemText primary="Recettes" />
             </ListItem>
-<<<<<<< HEAD
-            <ListItem
-              button
-              component={Link}
-              to="/profil/stock"
-              onClick={handleDrawerClose}
-            >
-              <ListItemText primary="Stock" />
-            </ListItem>
+            {jwtToken && (
+              <ListItem
+                button
+                component={Link}
+                to="/profil/stock"
+                onClick={handleDrawerClose}
+              >
+                <ListItemText primary="Stock" />
+              </ListItem>
+            )}
             <ListItem
               button
               component={Link}
               to="/connexion"
               onClick={handleDrawerClose}
             >
-=======
-            {jwtToken && (
-              <ListItem button component={Link} to="/profil/stock" onClick={handleDrawerClose}>
-                <ListItemText primary="Stock" />
-              </ListItem>
-            )}
-            <ListItem button component={Link} to="/connexion" onClick={handleDrawerClose}>
->>>>>>> 840cedf7d19c52d30139689d41c07243ac7fa552
               <ListItemText primary="Connexion" />
             </ListItem>
             {jwtToken && (
@@ -153,7 +151,6 @@ const Header = () => {
             )}
           </List>
         </Drawer>
-<<<<<<< HEAD
         <div style={{ flex: 1 }}>
           <img
             src={Logo}
@@ -161,38 +158,27 @@ const Header = () => {
             style={{ height: "50px", margin: "0 auto" }}
           />
         </div>
-        {jwtToken && (
-          <Typography sx={{ mr: 2, fontWeight: "bold", color: "black" }}>
-            {user.first_name} {user.last_name}
-          </Typography>
-        )}
+        <Typography sx={{ mr: 2, fontWeight: "bold", color: "black" }}>
+          {user.first_name} {user.last_name}
+        </Typography>
+        <Toolbar sx={{ justifyContent: "space-between" }}>
+          {jwtToken ? (
+            <Switch
+              checked={true}
+              onChange={handleLogout}
+              inputProps={{ "aria-label": "Déconnexion" }}
+            />
+          ) : (
+            <Switch
+              checked={false}
+              onChange={() => window.location.replace("/connexion")}
+              inputProps={{ "aria-label": "Connexion" }}
+            />
+          )}
+        </Toolbar>
       </Toolbar>
     </AppBar>
   );
-=======
-        <div style={{flex: 1 }}>
-        <img src={Logo} alt="Logo" style={{ height: "50px", margin: "0 auto" }} />
-</div>
-<Typography sx={{ mr: 2, fontWeight: "bold", color: "black" }}>{user.first_name} {user.last_name}</Typography>
-<Toolbar sx={{ justifyContent: "space-between" }}>
-{jwtToken ? (
-<Switch
-checked={true}
-onChange={handleLogout}
-inputProps={{ "aria-label": "Déconnexion" }}
-/>
-) : (
-<Switch
-checked={false}
-onChange={() => window.location.replace("/connexion")}
-inputProps={{ "aria-label": "Connexion" }}
-/>
-)}
-</Toolbar>
-</Toolbar>
-</AppBar>
-);
->>>>>>> 840cedf7d19c52d30139689d41c07243ac7fa552
 };
 
 export default Header;

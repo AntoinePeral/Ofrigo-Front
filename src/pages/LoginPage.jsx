@@ -6,12 +6,6 @@ import axios from "axios";
 // Styled components pour le formulaire de connexion
 const Container = styled("div")({
   marginTop: 50,
-<<<<<<< HEAD
-  padding: "50px",
-  width: "70%",
-  margin: "0 auto",
-=======
->>>>>>> feat_color
 });
 
 const Title = styled("h1")({
@@ -75,20 +69,14 @@ function LoginPage() {
           password: password,
         }
       );
-<<<<<<< HEAD
       console.log(response);
-=======
-      console.log(response)
       // Enregistrement du token d'accès dans le stockage local et redirection vers la page d'accueil
->>>>>>> 840cedf7d19c52d30139689d41c07243ac7fa552
       localStorage.setItem("token", response.data.accessToken);
       window.location.href = "/accueil";
     } catch (error) {
       console.log(error.response.data);
       // Affichage d'un message d'erreur si la connexion échoue
-      setErrorMessage(
-        error.response.data.message
-      )
+      setErrorMessage(error.response.data.message);
     }
   };
 
@@ -100,7 +88,16 @@ function LoginPage() {
 
   // Rendu du composant
   return (
-    <Box sx={{ maxHeight: "70vh", overflow: "auto", display: "flex", justifyContent: "center", alignItems: "center",marginRight: "12px",}}>
+    <Box
+      sx={{
+        maxHeight: "70vh",
+        overflow: "auto",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        marginRight: "12px",
+      }}
+    >
       <Grid
         container
         direction="column"
@@ -119,7 +116,7 @@ function LoginPage() {
                 onChange={handleEmailChange}
                 error={emailError}
                 helperText={emailError ? "Email invalide" : ""}
-                />
+              />
               <StyledTextField
                 label="Mot de passe"
                 variant="outlined"
