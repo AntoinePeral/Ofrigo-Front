@@ -61,7 +61,7 @@ function App() {
           <Route path="/deconnexion" element={<Logout />} />
           <Route path="/creer-compte" element={<CreateAccountPage />} />
           <Route path="/connexion" element={<LoginPage />} />
-          <Route path="/" element={<Recipes />} />
+          <Route path="/" element={<Home />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/CGU" element={<CGU />} />
           <Route path="/CGV" element={<CGV />} />

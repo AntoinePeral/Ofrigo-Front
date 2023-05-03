@@ -110,12 +110,16 @@ return (
 </Grid>
 <Grid item>
 <InputField
-id="password"
-label="Password"
-type="password"
-value={password}
-onChange={handlePasswordChange}
-/>
+              id="password"
+              label="Password"
+              type="password"
+              value={password}
+              onChange={handlePasswordChange}
+           />
+
+           
+
+
 {passwordRequirements && <p>{passwordRequirements}</p>}
 </Grid>
 <Grid item>

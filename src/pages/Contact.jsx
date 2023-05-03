@@ -11,7 +11,6 @@ display: "flex",
 flexDirection: "column",
 alignItems: "center",
 justifyContent: "flex-start",
-<<<<<<< HEAD
 /*
 background: "-moz-linear-gradient(left, #1C6EA4 0%, #2388CB 50%, #144E75 100%)",
 background: "-webkit-linear-gradient(left, #1C6EA4 0%, #2388CB 50%, #144E75 100%)",
@@ -22,15 +21,10 @@ minHeight: "100vh",
 /*
 boxShadow: "-16px -8px 12px 4px rgba(39,112,255,0.61)",
 */
-=======
-background: "#F6F1F1",
-minHeight: "100vh",
->>>>>>> feat_color
 width: "100%",
 });
 
 const FormContainer = styled(Box)({
-<<<<<<< HEAD
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -48,17 +42,6 @@ const FormContainer = styled(Box)({
 "@media (min-width: 600px)": {
 width: "80%",
 },
-=======
-display: "flex",
-flexDirection: "column",
-alignItems: "center",
-justifyContent: "flex-start",
-background: "#F6F1F1",
-minHeight: "80vh",
-width: "90%",
-maxWidth: "800px",
-padding: "20px",
->>>>>>> feat_color
 });
 
 const Contact = () => {

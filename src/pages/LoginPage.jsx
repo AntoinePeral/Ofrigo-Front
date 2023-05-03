@@ -6,12 +6,9 @@ import axios from "axios";
 // Styled components pour le formulaire de connexion
 const Container = styled("div")({
   marginTop: 50,
-<<<<<<< HEAD
   padding: "50px",
   width: "70%",
   margin: "0 auto",
-=======
->>>>>>> feat_color
 });
 
 const Title = styled("h1")({
