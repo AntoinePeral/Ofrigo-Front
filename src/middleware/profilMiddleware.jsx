@@ -14,7 +14,11 @@ const profilMiddleware = (store) => (next) => (action) => {
       axios
         .get("http://kevin-lienard-server.eddi.cloud/me/profile/ingredient")
         .then((response) => {
+<<<<<<< HEAD
           console.log(response.data);
+=======
+          
+>>>>>>> 840cedf7d19c52d30139689d41c07243ac7fa552
           store.dispatch(saveUserStockIngredient(response.data));
         })
         .catch((err) => console.log(err));

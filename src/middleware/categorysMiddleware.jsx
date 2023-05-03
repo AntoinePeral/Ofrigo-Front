@@ -10,6 +10,7 @@ const categorysMiddleware = (store) => (next) => (action) => {
           store.dispatch(saveCategory(response.data));
         })
         .catch((err) => console.log(err));
+        console.log('ok')
 
       break;
     default:

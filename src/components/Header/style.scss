@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   height: 80px;
-  background-color: #e8e8e8;
+  background-color: #87CEFA;
   position: fixed;
   top: 0;
   left: 0;
@@ -41,7 +41,7 @@
   z-index: 1;
   top: 0px;
   left: -250px;
-  background-color: #e8e8e8;
+  background-color: #87CEFA;
   transition: left 0.5s ease;
 
   ul {
@@ -57,7 +57,7 @@
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
-    color: #818181;
+    color: #87CEFA;
     display: block;
     transition: 0.3s;
 
@@ -96,7 +96,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background-color: white;
+  background-color: #87CEFA;
   transition: all 0.3s ease-in-out;
 
   svg {

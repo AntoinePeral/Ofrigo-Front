@@ -6,6 +6,7 @@ $breakpoint-xl: 1200px;
 
 // Style pour le pied de page
 .footer {
+<<<<<<< HEAD
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,6 +18,21 @@ $breakpoint-xl: 1200px;
   right: 0;
   z-index: 1;
   width: 100%; // Ajout de la largeur à 100%
+=======
+display: flex;
+align-items: center;
+justify-content: center;
+height: 60px;
+background: -moz-linear-gradient(left, #1C6EA4 0%, #2388CB 50%, #144E75 100%);
+background: -webkit-linear-gradient(left, #1C6EA4 0%, #2388CB 50%, #144E75 100%);
+background: linear-gradient(to right, #1C6EA4 0%, #2388CB 50%, #144E75 100%);
+position: fixed;
+bottom: 0;
+left: 0;
+right: 0;
+z-index: 1;
+width: 100%; // Ajout de la largeur à 100%
+>>>>>>> 840cedf7d19c52d30139689d41c07243ac7fa552
 }
 
 // Styles pour les écrans de bureau
