@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import Recipe from "../Recipe";
 import { FETCH_RECIPES } from "../../../store/Recipes/action";
+import { FETCH_INGREDIENT_STOCK } from "../../../store/Stock/action";
 
 import Switch from "@mui/material/Switch";
 import FormGroup from "@mui/material/FormGroup";
@@ -19,6 +20,7 @@ const Recipes = () => {
   const { difficulty, time, grades } = useSelector(
     (state) => state.reducerFilter
   );
+
   const userIngredient = useSelector(
     (state) => state.reducerStock.UserIngredient
   );
@@ -30,6 +32,9 @@ const Recipes = () => {
   useEffect(() => {
     dispatch({ type: FETCH_RECIPES });
   }, [dispatch]);
+  useEffect(() => {
+    dispatch({ type: FETCH_INGREDIENT_STOCK });
+  }, []);
 
   const getCombinedIngredients = useCallback(() => {
     const userIngredientLabels = userIngredient.map(
@@ -44,12 +49,13 @@ const Recipes = () => {
   const applyFilters = useCallback(
     (recipes, alwaysIncludeAllIngredients = false) => {
       const combinedIngredients = getCombinedIngredients();
-      return recipes.filter((recipe) => {
+
+      const filteredRecipes = recipes.filter((recipe) => {
         const filterByDifficulty = difficulty
           ? recipe.difficulty === difficulty
           : true;
         const filterByTime = time ? recipe.time <= time : true;
-        const filterByGrades = grades ? recipe.grades >= grades : true;
+        const filterByGrades = grades ? recipe.rate >= grades : true;
         const filterByIngredients =
           alwaysIncludeAllIngredients || isToggled
             ? recipe.ingredient.every(
@@ -69,6 +75,11 @@ const Recipes = () => {
           filterByIngredients
         );
       });
+
+      // Trier les recettes par leur note
+      const sortedRecipes = filteredRecipes.sort((a, b) => b.grades - a.grades);
+
+      return sortedRecipes;
     },
     [difficulty, time, grades, isToggled, getCombinedIngredients]
   );

@@ -38,7 +38,7 @@ const Header = () => {
   useEffect(() => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;
     axios
-      .get("http://antoineperal-server.eddi.cloud/me/profile")
+      .get("http://kevin-lienard-server.eddi.cloud/me/profile")
       .then((response) => {
         setUser(response.data);
       })

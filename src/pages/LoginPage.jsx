@@ -63,7 +63,7 @@ function LoginPage() {
     try {
       // Appel à l'API pour se connecter avec les informations saisies par l'utilisateur
       const response = await axios.post(
-        "http://antoineperal-server.eddi.cloud/login",
+        "http://kevin-lienard-server.eddi.cloud/login",
         {
           email: email,
           password: password,
