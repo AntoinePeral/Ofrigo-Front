@@ -52,7 +52,7 @@ const RecipeDetails = () => {
   }
 
   return (
-    /*{recipe &&*/
+
     <Container
       maxWidth="md"
       sx={{

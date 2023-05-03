@@ -73,7 +73,6 @@ function Stock() {
   const [categorySelected, setCategorySelected] = useState(null);
   const dispatch = useDispatch();
 
-  const dispatch = useDispatch();
 
   // On récupère les ingrédients seulement au chargement de la page
   useEffect(() => {
