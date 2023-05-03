@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
 import Container from "@mui/material/Container";
-import { fetchRecipes } from "../store/Recipes/action"
+import { fetchRecipes } from "../store/Recipes/action";
 
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import StarIcon from "@mui/icons-material/Star";
@@ -20,21 +20,17 @@ import SoupKitchenRoundedIcon from "@mui/icons-material/SoupKitchenRounded";
 const RecipeDetails = () => {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const dispatch = useDispatch();
-  
-
-  
 
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
-    console.log(selectedIndex)
+    console.log(selectedIndex);
   };
 
-  /*const { recipeId } = useParams();*/
-  const recipeId = 1
+  const { recipeId } = useParams();
   const recipes = useSelector((state) => state.reducerRecipes.recipes);
   const [recipe, setRecipe] = useState(null);
 
-  console.log(recipe)
+  console.log(recipe);
 
   useEffect(() => {
     const foundRecipe = recipes.find((r) => r.id === parseInt(recipeId, 10));
@@ -45,19 +41,17 @@ const RecipeDetails = () => {
 
   useEffect(() => {
     dispatch(fetchRecipes());
-},[]);
+  }, []);
 
   if (!recipe) {
     return <div>Loading...</div>;
   }
 
   return (
-
     <Container
-      maxWidth="md"
+      maxWidth="sm"
       sx={{
-        maxHeight: "90vh",
-        overflow: "auto",
+        overflow: "scroll",
         marginTop: "1rem",
       }}
     >
@@ -133,7 +127,8 @@ const RecipeDetails = () => {
         </CardContent>
       </Card>
     </Container>
-                    /*}*/);
+    /*}*/
+  );
 };
 
 export default RecipeDetails;

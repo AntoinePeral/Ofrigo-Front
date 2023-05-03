@@ -13,7 +13,8 @@ import {
   Switch,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import Logo from "../pictures/frigo.png";
+// import Logo from "../pictures/frigo.png";
+import Logo from "../pictures/frigoLogo.png";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -79,14 +80,28 @@ const Header = () => {
       }}
     >
       <Toolbar>
-        <IconButton
-          edge="start"
-          color="inherit"
-          onClick={handleDrawerOpen}
-          sx={{ mr: 2 }}
-        >
-          <MenuIcon />
-        </IconButton>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <IconButton
+            edge="start"
+            color="inherit"
+            onClick={handleDrawerOpen}
+            sx={{ mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <img src={Logo} alt="Logo" style={{ height: "70px" }} />
+          <Typography
+            sx={{
+              fontFamily: "Pacifico, cursive",
+              fontSize: "1.5rem",
+              fontWeight: "bold",
+              color: "white",
+            }}
+          >
+            O'Frigo
+          </Typography>
+        </div>
+        <div style={{ flex: 1 }}></div>
         <Drawer open={isOpen} onClose={handleDrawerClose}>
           <List sx={{ width: 250 }}>
             <ListItem
@@ -151,13 +166,6 @@ const Header = () => {
             )}
           </List>
         </Drawer>
-        <div style={{ flex: 1 }}>
-          <img
-            src={Logo}
-            alt="Logo"
-            style={{ height: "50px", margin: "0 auto" }}
-          />
-        </div>
         <Typography sx={{ mr: 2, fontWeight: "bold", color: "black" }}>
           {user.first_name} {user.last_name}
         </Typography>
