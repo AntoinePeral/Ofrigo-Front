@@ -7,25 +7,41 @@ import Grid from "@mui/material/Grid";
 import axios from "axios";
 
 const Container = styled(Box)({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "flex-start",
-  background: "#F6F1F1",
-  minHeight: "100vh",
-  width: "100%",
+display: "flex",
+flexDirection: "column",
+alignItems: "center",
+justifyContent: "flex-start",
+/*
+background: "-moz-linear-gradient(left, #1C6EA4 0%, #2388CB 50%, #144E75 100%)",
+background: "-webkit-linear-gradient(left, #1C6EA4 0%, #2388CB 50%, #144E75 100%)",
+background: "linear-gradient(to right, #1C6EA4 0%, #2388CB 50%, #144E75 100%)",
+*/
+/*backgroundColor:"#F6F1F1",*/
+minHeight: "100vh",
+/*
+boxShadow: "-16px -8px 12px 4px rgba(39,112,255,0.61)",
+*/
+width: "100%",
 });
 
 const FormContainer = styled(Box)({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "flex-start",
-  background: "#F6F1F1",
-  minHeight: "80vh",
-  width: "90%",
-  maxWidth: "800px",
-  padding: "20px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    /*
+    background: "-moz-linear-gradient(left, #1C6EA4 0%, #C9FFE5 50%, #144E75 100%)",
+    background: "-webkit-linear-gradient(left, #1C6EA4 0%, #C9FFE5 50%, #144E75 100%)",
+    background: "linear-gradient(to right, #1C6EA4 0%, #C9FFE5 50%, #144E75 100%)",
+    */
+    minHeight: "100vh",
+    /*
+    boxShadow: "-16px -8px 12px 4px rgba(39,112,255,0.61)",
+    */
+    width: "100%",
+"@media (min-width: 600px)": {
+width: "80%",
+},
 });
 
 const Contact = () => {

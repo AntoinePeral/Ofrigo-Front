@@ -10,6 +10,7 @@ import Logout from "../pages/Logout.jsx";
 import CreateAccountPage from "../pages/CreateAccountPage.jsx";
 import LoginPage from "../pages/LoginPage.jsx";
 import NotFound from "../pages/NotFound.jsx";
+import UpdateAccount from "../pages/UpdateAccountPage.jsx"
 import CGU from "../pages/CGU.jsx";
 import CGV from "../pages/CGV.jsx";
 import Copyright from "../pages/Copyright.jsx";
@@ -78,6 +79,7 @@ function App() {
             <Route path="/profil/stock" element={<Ingredients />} />
             <Route path="/recette" element={<Recipes />} />
             <Route path="/recipes/:recipeId" element={<RecipeDetails />} />
+            <Route path="/UpdateAccount" element={<UpdateAccount/>} />
           </Routes>
           <Footer />
         </Router>
