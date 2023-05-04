@@ -102,6 +102,8 @@ function FilterButton() {
               maxWidth: 300,
               display: "flex",
               flexDirection: "column",
+              position: "absolute",
+              zIndex: 9999,
             }}
           >
             <h2>Trier par:</h2>

@@ -23,7 +23,7 @@ $breakpoint-xl: 1200px;
   left: 0;
   right: 0;
   z-index: 1;
-  width: 100%; // Ajout de la largeur à 100%
+  width: 100%;
 }
 
 // Styles pour les écrans de bureau
@@ -124,9 +124,9 @@ $breakpoint-xl: 1200px;
 
 // Empêche les éléments de la page principale de passer en dessous du pied de page
 main {
-  // padding-bottom: 60px; // hauteur du pied de page pour les écrans de bureau
+  padding-bottom: 60px; // hauteur du pied de page pour les écrans de bureau
   @media only screen and (max-width: $breakpoint-md) {
-    // padding-bottom: 0; // annule le padding pour les écrans plus petits
+    padding-bottom: 0; // annule le padding pour les écrans plus petits
   }
 }
 
@@ -143,5 +143,5 @@ main {
 
 body {
   overflow-x: hidden; // empêche le scroll horizontal
-  // padding-bottom: 60px; // ajoute un padding
+  padding-bottom: 60px; // ajoute un padding
 }
