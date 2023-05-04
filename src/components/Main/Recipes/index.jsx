@@ -1,77 +1,77 @@
-//import de react/react-redux
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
-// Import des composants et actions
 import Recipe from "../Recipe";
 import { FETCH_RECIPES } from "../../../store/Recipes/action";
+import { FETCH_INGREDIENT_STOCK } from "../../../store/Stock/action";
 
-// Import des composants MUI
 import Switch from "@mui/material/Switch";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { Container, Box, useTheme, useMediaQuery } from "@mui/material";
+import { Container, Box } from "@mui/material";
 import Grid from "@mui/material/Grid";
 
 const Recipes = () => {
-  //Récupération des données du store Redux :
-
   const recipes = useSelector((state) => state.reducerRecipes.recipes);
-
   const proposedIngredients = useSelector(
     (state) => state.reducerSearch.proposedIngredient
   );
-
   const { difficulty, time, grades } = useSelector(
     (state) => state.reducerFilter
   );
-  //Dispatch
+
+  const userIngredient = useSelector(
+    (state) => state.reducerStock.UserIngredient
+  );
   const dispatch = useDispatch();
 
-  //MediaQuery
-  const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
-
-  //Etats locaux
   const [isToggled, setIsToggled] = useState(false);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
-  const [filteredRecipes2, setFilteredRecipes2] = useState([]);
 
-  //Etat du switch
-  const handleToggle = () => {
-    setIsToggled(!isToggled);
-  };
-
-  //Récupération des recettes
   useEffect(() => {
     dispatch({ type: FETCH_RECIPES });
   }, [dispatch]);
-
-  //Filtre et tri des recettes en fonction des ingrédients
   useEffect(() => {
-    //Bouton Filtre
+    dispatch({ type: FETCH_INGREDIENT_STOCK });
+  }, []);
 
-    const applyFilters = (recipes, alwaysIncludeAllIngredients = false) => {
-      return recipes.filter((recipe) => {
+  useEffect(() => {
+    dispatch({ type: FETCH_INGREDIENT_STOCK });
+  }, []);
+
+  const getCombinedIngredients = useCallback(() => {
+    const userIngredientLabels = userIngredient.map(
+      (ingredient) => ingredient.label
+    );
+    return Array.from(
+      new Set([...proposedIngredients, ...userIngredientLabels])
+    );
+  }, [proposedIngredients, userIngredient]);
+
+  //Tri des recettes en fonction du composant Filtre
+  const applyFilters = useCallback(
+    (recipes, alwaysIncludeAllIngredients = false) => {
+      const combinedIngredients = getCombinedIngredients();
+
+      const filteredRecipes = recipes.filter((recipe) => {
         const filterByDifficulty = difficulty
           ? recipe.difficulty === difficulty
           : true;
         const filterByTime = time ? recipe.time <= time : true;
-        const filterByGrades = grades ? recipe.grades >= grades : true;
-
+        const filterByGrades = grades ? recipe.rate >= grades : true;
         const filterByIngredients =
-          (isDesktop && alwaysIncludeAllIngredients) || isToggled
+          alwaysIncludeAllIngredients || isToggled
             ? recipe.ingredient.every(
                 (ingredient) =>
-                  proposedIngredients &&
-                  proposedIngredients.includes(ingredient.label)
+                  combinedIngredients &&
+                  combinedIngredients.includes(ingredient.label)
               )
             : recipe.ingredient.some(
                 (ingredient) =>
-                  proposedIngredients &&
-                  proposedIngredients.includes(ingredient.label)
+                  combinedIngredients &&
+                  combinedIngredients.includes(ingredient.label)
               );
-
         return (
           filterByDifficulty &&
           filterByTime &&
@@ -79,76 +79,80 @@ const Recipes = () => {
           filterByIngredients
         );
       });
-    };
 
-    // Barre de recherche
+      // Trier les recettes par leur note
+      const sortedRecipes = filteredRecipes.sort((a, b) => b.grades - a.grades);
 
+      return sortedRecipes;
+    },
+    [difficulty, time, grades, isToggled, getCombinedIngredients]
+  );
+
+  //  tri des recettes en fonction des ingrédients ajoutées dans le panier
+  useEffect(() => {
+    const combinedIngredients = getCombinedIngredients();
     const newFilteredRecipes = applyFilters(recipes);
     newFilteredRecipes.sort((a, b) =>
       a.ingredient.filter((ingredient) =>
-        proposedIngredients.includes(ingredient.label)
+        combinedIngredients.includes(ingredient.label)
       ).length <
       b.ingredient.filter((ingredient) =>
-        proposedIngredients.includes(ingredient.label)
+        combinedIngredients.includes(ingredient.label)
       ).length
         ? 1
         : -1
     );
-    const newFilteredRecipes2 = applyFilters(recipes, true);
-    setFilteredRecipes2(newFilteredRecipes2);
-
     setFilteredRecipes(newFilteredRecipes);
   }, [
-    proposedIngredients,
     recipes,
     difficulty,
     time,
     grades,
     isToggled,
-    isDesktop,
+    applyFilters,
+    getCombinedIngredients,
   ]);
 
-  return (
-    <Container maxWidth="md">
-      <Box display="flex" justifyContent="center">
-        {!isDesktop && (
-          <FormGroup>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={isToggled}
-                  onChange={handleToggle}
-                  inputProps={{ "aria-label": "toggle source" }}
-                />
-              }
-              label={
-                isToggled
-                  ? "Vous avez tous les ingrédients !"
-                  : "Il vous manque quelques ingrédients ..."
-              }
-            />
-          </FormGroup>
-        )}
-      </Box>
+  const handleToggle = () => {
+    setIsToggled(!isToggled);
+  };
 
-      <Grid container spacing={4}>
-        <Grid item xs={12} md={6}>
-          <Box maxHeight="60vh" overflow="auto">
-            {filteredRecipes.map((recipe) => (
-              <Recipe key={recipe.id} recipe={recipe} />
-            ))}
-          </Box>
+  return (
+    <Container maxWidth="lg">
+      <Box display="flex" justifyContent="center" >
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={isToggled}
+                onChange={handleToggle}
+                inputProps={{ "aria-label-label": "toggle source" }}
+              />
+            }
+            label={
+              isToggled
+                ? "Vous avez tous les ingrédients !"
+                : "Il vous manque quelques ingrédients ..."
+            }
+          />
+        </FormGroup>
+      </Box>
+      <Box maxHeight="70vh" overflow="auto">
+        <Grid container spacing={2}>
+          {filteredRecipes.map((recipe) => (
+            <Grid item xs={12} sm={6} md={4} lg={3} key={recipe.id}>
+              <Link
+                to={`/recipes/${recipe.id}`}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <div>
+                  <Recipe recipe={recipe} />
+                </div>
+              </Link>
+            </Grid>
+          ))}
         </Grid>
-        {isDesktop && (
-          <Grid item xs={12} md={6}>
-            <Box maxHeight="60vh" overflow="auto">
-              {filteredRecipes2.map((recipe) => (
-                <Recipe key={recipe.id} recipe={recipe} />
-              ))}
-            </Box>
-          </Grid>
-        )}
-      </Grid>
+      </Box>
     </Container>
   );
 };

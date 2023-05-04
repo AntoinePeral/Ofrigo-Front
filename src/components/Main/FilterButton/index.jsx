@@ -31,7 +31,7 @@ function FilterButton() {
   const handleClickTime = (event) => {
     const filterValue = event.target.value;
     const filterTag = "time";
-    console.log(difficulty)
+    console.log(difficulty);
     dispatch(udapteFilter(filterTag, filterValue));
   };
 
@@ -74,15 +74,16 @@ function FilterButton() {
 
   return (
     <div>
-
-      <div className="filterRecipies"
+      <div
+        className="filterRecipies"
         style={{
           display: "flex",
           flexDirection: "row",
-          minWidth:300,
-          maxWidth:600,
-          marginBottom:10,
-          }}>
+          minWidth: 300,
+          maxWidth: 600,
+          marginBottom: 10,
+        }}
+      >
         <div className="filterRecipies__title">
           <Badge badgeContent={parseInt(`${numberFilter}`)} color="primary">
             <FilterAltIcon
@@ -95,14 +96,12 @@ function FilterButton() {
         <div>Filtre</div>
       </div>
       <div>
-
-
         {isFilterOpen && (
           <Card
             sx={{
               maxWidth: 300,
               display: "flex",
-              flexDirection: "column"
+              flexDirection: "column",
             }}
           >
             <h2>Trier par:</h2>
@@ -115,14 +114,13 @@ function FilterButton() {
                 defaultValue={`${time}`}
                 name="radio-buttons-group"
                 className="test"
-                
               >
                 <div
-                style={{
-                  maxWidth: 300,
-                  display: "flex",
-                  flexDirection: "row"
-                }}
+                  style={{
+                    maxWidth: 300,
+                    display: "flex",
+                    flexDirection: "row",
+                  }}
                 >
                   <FormControlLabel
                     value="30"
@@ -173,11 +171,11 @@ function FilterButton() {
                 className="test"
               >
                 <div
-                style={{
-                  maxWidth: 300,
-                  display: "flex",
-                  flexDirection: "row"
-                }}
+                  style={{
+                    maxWidth: 300,
+                    display: "flex",
+                    flexDirection: "row",
+                  }}
                 >
                   <FormControlLabel
                     value="Facile"
@@ -192,7 +190,7 @@ function FilterButton() {
                   />
 
                   <FormControlLabel
-                    value="Moyen"
+                    value="Moyenne"
                     control={
                       <Radio
                         onClick={(event) => {
@@ -200,7 +198,7 @@ function FilterButton() {
                         }}
                       />
                     }
-                    label="Moyen"
+                    label="Moyenne"
                   />
 
                   <FormControlLabel
@@ -267,9 +265,7 @@ function FilterButton() {
           </Card>
         )}
       </div>
-
     </div>
-    
   );
 }
 

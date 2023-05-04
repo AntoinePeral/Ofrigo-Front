@@ -6,12 +6,12 @@ import reducer from "./store/index";
 import ingredientsMiddleware from "./middleware/ingredientsMiddleware";
 import tagsMiddleware from "./middleware/tagsMiddleware";
 import recipesMiddleware from "./middleware/recipesMiddleware";
+import recipeMiddleware from "./middleware/recipeMiddleware";
 import categorysMiddleware from "./middleware/categorysMiddleware";
-import profilMiddleware from "./middleware/profilMiddleware"
+import profilMiddleware from "./middleware/profilMiddleware";
 import thunk from "redux-thunk";
 
 import App from "./components/App";
-
 
 const store = createStore(
   reducer,
@@ -19,6 +19,7 @@ const store = createStore(
     ingredientsMiddleware,
     tagsMiddleware,
     recipesMiddleware,
+    recipeMiddleware,
     categorysMiddleware,
     profilMiddleware,
     thunk

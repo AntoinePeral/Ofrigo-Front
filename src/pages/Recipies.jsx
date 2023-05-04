@@ -9,7 +9,9 @@ import {
     CardContent,
     Typography,
     Grid,
+    Box,
   } from "@mui/material";
+import { Link } from "react-router-dom";
   
 // Icons MaterialUI
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -31,30 +33,37 @@ const Recipies = () => {
         <div>
             <h2>Vous pouvez trouver toutes nos recettes</h2>
 
-            <FilterButton />
+            <FilterButton />    
 
-
+            <Box maxHeight="70vh" overflow="auto">
+            <Grid container spacing={2}>
             {recipes && recipes.map((recipe) => (
                 
-                <Card sx={{ minWidth: 275, mb: 2 }} key={recipe.id}>
+                <Grid item xs={12} sm={6} md={4} lg={3} key={recipe.id}>
+                    <Link
+                to={`/recipes/${recipe.id}`}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <Card sx={{ minWidth: 275, mb: 2 , height:500,}} key={recipe.id}>
+
                     {/* Titre de la carte  */}
-                    <CardHeader title={recipe.label} />
+                    <CardHeader title={recipe.label} sx={{height:60}} />
                           {/* Image de la carte  */}
                         <CardMedia
                             component="img"
                             height="150"
                             width="150"
-                            image={recipe.picture}
+                            image={`http://kevin-lienard-server.eddi.cloud${recipe.picture}`}
                             alt={recipe.label}
                         />
                     <CardContent>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" color="text.secondary" sx={{height:30}}>
                         {/* Ingredients de la carte */}
                         Ingredients:
                         </Typography>
-                        <Grid container>
+                        <Grid container sx={{height:120}}>
                         {recipe.ingredient.map((ingredient, index) => (
-                            <Grid item xs={6} key={index}>
+                            <Grid item xs={6} key={index} >
                             <Typography variant=""body3 color="text.secondary">
                                 • {ingredient.label}
                             </Typography>
@@ -88,8 +97,13 @@ const Recipies = () => {
                     </CardContent>
 
                 </Card>
+                </Link>
+                </Grid>
+                
             )
             )}
+            </Grid>
+            </Box>
 
         </div>
   );

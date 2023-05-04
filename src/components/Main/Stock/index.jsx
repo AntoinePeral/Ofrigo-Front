@@ -46,10 +46,10 @@ import {
 } from "../../../store/Search/action";
 
 import { Category, GpsFixed, Padding } from "@mui/icons-material";
-import { createTheme } from '@mui/material/styles';
-import blue from '@mui/material/colors/blue';
+import { createTheme } from "@mui/material/styles";
+import blue from "@mui/material/colors/blue";
 import { pink } from "@mui/material/colors";
-
+import { isDisabled } from "@testing-library/user-event/dist/utils";
 
 function Stock() {
   /**
@@ -71,7 +71,7 @@ function Stock() {
   const [refreshUserIngredients, setRefreshUserIngredients] = useState(true);
   const [categories, setCategories] = useState([]);
   const [categorySelected, setCategorySelected] = useState(null);
-
+  const dispatch = useDispatch();
 
 
   // On récupère les ingrédients seulement au chargement de la page
@@ -107,6 +107,10 @@ function Stock() {
         });
     }
   }, [refreshUserIngredients]);
+
+  useEffect(() => {
+    dispatch({ type: FETCH_INGREDIENT_STOCK });
+  }, []);
 
   const isIngredientInUserStock = (ingredientId) => {
     const inUserStock = userIngredients.find(
@@ -179,17 +183,12 @@ function Stock() {
   return (
     <>
       <box
-      sx={{
-        position:"fixed",
-        color:"pink",
-      }}>
-        <h2
-          style={{
-            
-          }}
-        >
-          Dans ma cuisine, il y a ...
-        </h2>
+        sx={{
+          position: "fixed",
+          
+        }}
+      >
+        <h2 style={{}}>Dans ma cuisine, il y a ...</h2>
         <Paper
           component="form"
           sx={{
@@ -224,113 +223,112 @@ function Stock() {
             }}
           />
         </Paper>
-        <h2
-          style={{
-            
-          }}
-        >
-          Catégories
-        </h2>
-        <box
-        sx={{
-
-        }}>
-        <Stack direction="row" spacing={1} overflow="scroll" minWidth={300} maxWidth={800}
-        sx={{
-          "@media (max-width: 600px)": {
-            maxWidth: "300px"
-          },
-          marginBottom:2,
-          
-        }}>
-          {categories &&
-            categories.map((category) => {
-              return (
-                <Chip
-                  variant={
-                    categorySelected === category.id ? "filled" : "outlined"
-                  }
-                  color={
-                    categorySelected === category.id ? "primary" : "primary"
-                  }
-                  key={category.id}
-                  label={category.label}
-                  onClick={(event) => {
-                    handleClickOnCategory(category.id);
-                  }}
-                />
-              );
-            })}
-        </Stack>
-        
+        <h2 style={{}}>Catégories</h2>
+        <box sx={{}}>
+          <Stack
+            direction="row"
+            spacing={1}
+            overflow="scroll"
+            minWidth={300}
+            maxWidth={800}
+            sx={{
+              "@media (max-width: 600px)": {
+                maxWidth: "300px",
+              },
+              marginBottom: 2,
+            }}
+          >
+            {categories &&
+              categories.map((category) => {
+                return (
+                  <Chip
+                    variant={
+                      categorySelected === category.id ? "filled" : "outlined"
+                    }
+                    color={
+                      categorySelected === category.id ? "primary" : "primary"
+                    }
+                    key={category.id}
+                    label={category.label}
+                    onClick={(event) => {
+                      handleClickOnCategory(category.id);
+                    }}
+                  />
+                );
+              })}
+          </Stack>
         </box>
       </box>
-      <Box sx={{ flexGrow: 1 }} >
-      <Grid container maxWidth="lg" spacing={2} justifyContent="center" mb={12} maxHeight="50vh">
-        {ingredients &&
-          ingredients.map((ingredient) => {
-            return (
-              <Grid item  alignItems="center" key={ingredient.id} >
-                
-                <Card
-                  sx={{
-                    minWidth: "300px",
-                    maxWidth: "300px"
-                  }}>
-                  <CardActionArea
+      <Box sx={{ flexGrow: 1, position:"fixed", top:"320px", overflow:"scroll", marginBottom:"10", }} >
+        <Grid
+          container
+          maxWidth="lg"
+          spacing={2}
+          justifyContent="center"
+          mb={12}
+          maxHeight="50vh"
+        >
+          {ingredients &&
+            ingredients.map((ingredient) => {
+              return (
+                <Grid item alignItems="center" key={ingredient.id}>
+                  <Card
                     sx={{
-                      display: "flex",
-                      flexDirection: "rows",
-                      justifyContent: "space-between",
-                      Padding: 5,
-                      minHeight: "100px",
+                      minWidth: "300px",
+                      maxWidth: "300px",
                     }}
                   >
-                  <FormControlLabel
-                    sx={{
-                      display: "flex",
-                      flexDirection: "rows",
-                      m: 1,
-                    }}
-                    control={
-                      <Switch
-                        checked={isIngredientInUserStock(ingredient.id)}
-                        onChange={handleToggleOnIngredient}
-                        name={ingredient.label}
-                        value={ingredient.id}
-                      />
-                      }
-                      label={ingredient.label}
-                    />
-
-                    <CardMedia
+                    <CardActionArea
                       sx={{
-                        borderRadius: 1,
-                        gap: 2,
-                        boxShadow: 5,
-                        minwidth: 100,
-                        maxWidth: 100,
-                        m: 1,
+                        display: "flex",
+                        flexDirection: "rows",
+                        justifyContent: "space-between",
+                        Padding: 5,
+                        minHeight: "100px",
                       }}
-                      component="img"
-                      height="30"
-                      width={10}
-                      image={`../../../../Pictures/Ingredients/${ingredient.label}.jpg`}
-                      alt={`${ingredient.label}`}
-                    />
-                    </CardActionArea>
-                </Card>
-                
-              </Grid>
-            );
-          })}
+                    >
+                      <FormControlLabel
+                        sx={{
+                          display: "flex",
+                          flexDirection: "rows",
+                          m: 1,
+                        }}
+                        control={
+                          <Switch
+                            checked={isIngredientInUserStock(ingredient.id)}
+                            onChange={handleToggleOnIngredient}
+                            name={ingredient.label}
+                            value={ingredient.id}
+                          />
+                        }
+                        label={ingredient.label}
+                      />
 
-      </Grid>
+                      <CardMedia
+                        sx={{
+                          borderRadius: 1,
+                          gap: 2,
+                          boxShadow: 5,
+                          minwidth: 100,
+                          maxWidth: 100,
+                          m: 1,
+                        }}
+                        component="img"
+                        height="30"
+                        width={10}
+                        image={`http://kevin-lienard-server.eddi.cloud${ingredient.picture}`}
+                        /*image={`../../../../Pictures/Ingredients/${ingredient.label}.jpg`}*/
+                        alt={`${ingredient.label}`}
+                      />
+                    </CardActionArea>
+                  </Card>
+                </Grid>
+              );
+            })}
+        </Grid>
       </Box>
     </>
   );
-
-  // const dispatch = useDispatch();
 
   // //Etats locaux
   // const [inputValue, setInputValue] = useState("");
