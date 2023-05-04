@@ -27,6 +27,9 @@ function LogoutPage() {
   // Fonction pour gérer la déconnexion de l'utilisateur
   const handleLogout = () => {
     localStorage.removeItem("token");// Supprime le token stocké dans localStorage
+    localStorage.removeItem("first_name");
+    localStorage.removeItem("last_name");
+    localStorage.removeItem("email_name");
     window.location.href = "/connexion";// Redirige l'utilisateur vers la page de connexion
   };
 

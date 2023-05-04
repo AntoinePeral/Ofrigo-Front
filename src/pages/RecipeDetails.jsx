@@ -29,8 +29,8 @@ const RecipeDetails = () => {
     console.log(selectedIndex)
   };
 
-  /*const { recipeId } = useParams();*/
-  const recipeId = 1
+  const { recipeId } = useParams();
+
   const recipes = useSelector((state) => state.reducerRecipes.recipes);
   const [recipe, setRecipe] = useState(null);
 

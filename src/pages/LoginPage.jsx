@@ -69,12 +69,19 @@ function LoginPage() {
           password: password,
         }
       );
-      console.log(response);
+      console.log("dodo", response);
+
       // Enregistrement du token d'accès dans le stockage local et redirection vers la page d'accueil
       localStorage.setItem("token", response.data.accessToken);
+      localStorage.setItem("first_name",response.data.account.first_name)
+      localStorage.setItem("last_name",response.data.account.last_name)
+      localStorage.setItem("email",response.data.account.email)
       window.location.href = "/profil";
     } catch (error) {
-      console.log(error.response.data);
+      console.log("1", error);
+      console.log("2", error.response);
+      console.log("3", error.response.data);
+      console.log("4", error.response.data.message);
       // Affichage d'un message d'erreur si la connexion échoue
       setErrorMessage(error.response.data.message);
     }
