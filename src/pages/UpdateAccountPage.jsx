@@ -31,8 +31,7 @@ function UpdateAccountPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [passwordRequirements, setPasswordRequirements] = useState("");
 
-
-  console.log(localStorage)
+  console.log(localStorage);
 
   const handleLastNameChange = (event) => {
     setLastName(event.target.value);
@@ -42,13 +41,12 @@ function UpdateAccountPage() {
     event.preventDefault();
 
     try {
-
       const jwtToken = localStorage.getItem("token");
 
       axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;
 
       const response = await axios.delete(
-        "http://kevin-lienard-server.eddi.cloud/me/profile",
+        "http://antoineperal-server.eddi.cloud/me/profile",
         {
           last_name: lastName,
           first_name: firstName,
@@ -56,10 +54,10 @@ function UpdateAccountPage() {
           password: password,
         }
       );
-      localStorage.removeItem("token");// Supprime le token stocké dans localStorage
-      localStorage.removeItem("first_name");// Supprime le token stocké dans localStorage
-      localStorage.removeItem("last_name");// Supprime le token stocké dans localStorage
-      localStorage.removeItem("email");// Supprime le token stocké dans localStorage
+      localStorage.removeItem("token"); // Supprime le token stocké dans localStorage
+      localStorage.removeItem("first_name"); // Supprime le token stocké dans localStorage
+      localStorage.removeItem("last_name"); // Supprime le token stocké dans localStorage
+      localStorage.removeItem("email"); // Supprime le token stocké dans localStorage
       window.location.href = "/accueil";
     } catch (error) {
       if (error.response.status === 400) {
@@ -70,7 +68,7 @@ function UpdateAccountPage() {
         );
       }
     }
-  }
+  };
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
@@ -90,13 +88,12 @@ function UpdateAccountPage() {
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&\/$.#!?§:;+\-%])[A-Za-z\d!?:;@$!%*?&\/$.#%\-]{8,}$/u;
     if (password.match(passwordRegex)) {
       try {
-
         const jwtToken = localStorage.getItem("token");
 
         axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;
 
         const response = await axios.put(
-          "http://kevin-lienard-server.eddi.cloud/me/profile",
+          "http://antoineperal-server.eddi.cloud/me/profile",
           {
             last_name: lastName,
             first_name: firstName,
@@ -105,9 +102,9 @@ function UpdateAccountPage() {
           }
         );
         localStorage.setItem("token", response.data.accessToken);
-        localStorage.setItem("first_name",response.data.account.first_name)
-        localStorage.setItem("last_name",response.data.account.last_name)
-        localStorage.setItem("email",response.data.account.email)
+        localStorage.setItem("first_name", response.data.account.first_name);
+        localStorage.setItem("last_name", response.data.account.last_name);
+        localStorage.setItem("email", response.data.account.email);
         window.location.href = "/profil/stock";
       } catch (error) {
         if (error.response.status === 400) {
@@ -166,28 +163,32 @@ function UpdateAccountPage() {
               />
               {passwordRequirements && <p>{passwordRequirements}</p>}
             </Grid>
-            <Grid item spacing={2} sx={{display: "flex", flexDirection:"column", }}>
+            <Grid
+              item
+              spacing={2}
+              sx={{ display: "flex", flexDirection: "column" }}
+            >
               <Stack spacing={2}>
-              <SubmitButton variant="contained" type="submit" size="large">
-                Sauvegarder
-              </SubmitButton>
-              <Button
-                size="small"
-                variant="contained"
-                color="error"
-                size="large"
-                
-                onClick={(event) => {handleClickDelete(event)}}
-              >
-                Supprimer
-              </Button>
+                <SubmitButton variant="contained" type="submit" size="large">
+                  Sauvegarder
+                </SubmitButton>
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="error"
+                  size="large"
+                  onClick={(event) => {
+                    handleClickDelete(event);
+                  }}
+                >
+                  Supprimer
+                </Button>
               </Stack>
               <Box marginBottom="12px" />
             </Grid>
           </Grid>
         </form>
         {errorMessage && <p>{errorMessage}</p>}
-
       </Box>
     </Box>
   );

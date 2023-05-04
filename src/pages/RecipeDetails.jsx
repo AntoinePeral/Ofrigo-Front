@@ -61,7 +61,7 @@ const RecipeDetails = () => {
           component="img"
           height="200"
           width="200"
-          image={`http://kevin-lienard-server.eddi.cloud${recipe.picture}`}
+          image={`http://antoineperal-server.eddi.cloud${recipe.picture}`}
           alt={recipe.label}
         />
         <CardContent>

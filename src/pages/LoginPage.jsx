@@ -66,7 +66,7 @@ function LoginPage() {
     try {
       // Appel à l'API pour se connecter avec les informations saisies par l'utilisateur
       const response = await axios.post(
-        "http://kevin-lienard-server.eddi.cloud/login",
+        "http://antoineperal-server.eddi.cloud/login",
         {
           email: email,
           password: password,
@@ -76,9 +76,9 @@ function LoginPage() {
 
       // Enregistrement du token d'accès dans le stockage local et redirection vers la page d'accueil
       localStorage.setItem("token", response.data.accessToken);
-      localStorage.setItem("first_name",response.data.account.first_name)
-      localStorage.setItem("last_name",response.data.account.last_name)
-      localStorage.setItem("email",response.data.account.email)
+      localStorage.setItem("first_name", response.data.account.first_name);
+      localStorage.setItem("last_name", response.data.account.last_name);
+      localStorage.setItem("email", response.data.account.email);
       window.location.href = "/profil";
     } catch (error) {
       console.log("1", error);

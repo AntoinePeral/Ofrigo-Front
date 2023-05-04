@@ -73,7 +73,6 @@ function Stock() {
   const [categorySelected, setCategorySelected] = useState(null);
   const dispatch = useDispatch();
 
-
   // On récupère les ingrédients seulement au chargement de la page
   useEffect(() => {
     api
@@ -185,7 +184,6 @@ function Stock() {
       <box
         sx={{
           position: "fixed",
-          
         }}
       >
         <h2 style={{}}>Dans ma cuisine, il y a ...</h2>
@@ -259,7 +257,15 @@ function Stock() {
           </Stack>
         </box>
       </box>
-      <Box sx={{ flexGrow: 1, position:"fixed", top:"320px", overflow:"scroll", marginBottom:"10", }} >
+      <Box
+        sx={{
+          flexGrow: 1,
+          position: "fixed",
+          top: "320px",
+          overflow: "scroll",
+          marginBottom: "10",
+        }}
+      >
         <Grid
           container
           maxWidth="lg"
@@ -316,7 +322,7 @@ function Stock() {
                         component="img"
                         height="30"
                         width={10}
-                        image={`http://kevin-lienard-server.eddi.cloud${ingredient.picture}`}
+                        image={`http://antoineperal-server.eddi.cloud${ingredient.picture}`}
                         /*image={`../../../../Pictures/Ingredients/${ingredient.label}.jpg`}*/
                         alt={`${ingredient.label}`}
                       />
@@ -410,7 +416,7 @@ function Stock() {
 
   //     response = await axios
 
-  //       .post("http://kevin-lienard-server.eddi.cloud/me/profile/ingredient", {
+  //       .post("http://antoineperal-server.eddi.cloud/me/profile/ingredient", {
   //         ingredient_id: idIngredient,
   //       })
 
@@ -438,7 +444,7 @@ function Stock() {
   //     let response = await axios
 
   //       .delete(
-  //         `http://kevin-lienard-server.eddi.cloud/me/profile/ingredient/${idIngredient}`
+  //         `http://antoineperal-server.eddi.cloud/me/profile/ingredient/${idIngredient}`
   //       )
 
   //       .then((response) => {

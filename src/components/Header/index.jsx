@@ -18,7 +18,11 @@ import Logo from "../pictures/frigoLogo.png";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState({ first_name: localStorage.first_name, last_name: localStorage.last_name, role: "" });
+  const [user, setUser] = useState({
+    first_name: localStorage.first_name,
+    last_name: localStorage.last_name,
+    role: "",
+  });
   const [isLoggedOut, setIsLoggedOut] = useState(false);
   const jwtToken = localStorage.getItem("token");
 
@@ -32,9 +36,9 @@ const Header = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("last_name")
-    localStorage.removeItem("first_name")
-    localStorage.removeItem("email")
+    localStorage.removeItem("last_name");
+    localStorage.removeItem("first_name");
+    localStorage.removeItem("email");
     setUser({ first_name: "", last_name: "", role: "" });
     setIsLoggedOut(true);
   };
@@ -42,7 +46,7 @@ const Header = () => {
   useEffect(() => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;
     axios
-      .get("http://kevin-lienard-server.eddi.cloud/me/profile")
+      .get("http://antoineperal-server.eddi.cloud/me/profile")
       .then((response) => {
         setUser(response.data);
       })
@@ -54,7 +58,7 @@ const Header = () => {
   const handleDashboardClick = () => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;
     axios
-      .get("http://kevin-lienard-server.eddi.cloud/admin/home")
+      .get("http://antoineperal-server.eddi.cloud/admin/home")
       .then((response) => {
         setIsLoggedOut(false);
         setUser(response.data);
@@ -156,7 +160,7 @@ const Header = () => {
                 to="/UpdateAccount"
                 onClick={handleDrawerClose}
               >
-              <ListItemText primary="Profilbis" />
+                <ListItemText primary="Profilbis" />
               </ListItem>
             )}
             <ListItem

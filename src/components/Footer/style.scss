@@ -18,7 +18,7 @@ $breakpoint-xl: 1200px;
     #144e75 100%
   );
   background: linear-gradient(to right, #1c6ea4 0%, #2388cb 50%, #144e75 100%);
-  position: fixed;
+  position: sticky;
   bottom: 0;
   left: 0;
   right: 0;
@@ -124,13 +124,24 @@ $breakpoint-xl: 1200px;
 
 // Empêche les éléments de la page principale de passer en dessous du pied de page
 main {
-  padding-bottom: 60px; // hauteur du pied de page pour les écrans de bureau
+  // padding-bottom: 60px; // hauteur du pied de page pour les écrans de bureau
   @media only screen and (max-width: $breakpoint-md) {
-    padding-bottom: 0; // annule le padding pour les écrans plus petits
+    // padding-bottom: 0; // annule le padding pour les écrans plus petits
+  }
+}
+
+.main-content {
+  min-height: calc(
+    100vh - 60px
+  ); // La hauteur de l'écran moins la hauteur du footer
+  @media only screen and (max-width: $breakpoint-md) {
+    min-height: calc(
+      100vh - 80px
+    ); // Ajustez la valeur si nécessaire pour les écrans plus petits
   }
 }
 
 body {
   overflow-x: hidden; // empêche le scroll horizontal
-  padding-bottom: 60px; // ajoute un padding
+  // padding-bottom: 60px; // ajoute un padding
 }

@@ -12,10 +12,10 @@ const profilMiddleware = (store) => (next) => (action) => {
       axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;
 
       axios
-        .get("http://kevin-lienard-server.eddi.cloud/me/profile/ingredient")
+        .get("http://antoineperal-server.eddi.cloud/me/profile/ingredient")
         .then((response) => {
           store.dispatch(saveUserStockIngredient(response.data));
-          console.log(response.data)
+          console.log(response.data);
         })
         .catch((err) => console.log(err));
       break;

@@ -5,7 +5,7 @@ const recipeMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case FETCH_RECIPE:
       axios
-        .get(`http://kevin-lienard-server.eddi.cloud/recipe/${action.id}`)
+        .get(`http://antoineperal-server.eddi.cloud/recipe/${action.id}`)
         .then((response) => {
           store.dispatch(saveRecipe(response.data));
         })

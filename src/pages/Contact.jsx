@@ -7,45 +7,45 @@ import Grid from "@mui/material/Grid";
 import axios from "axios";
 
 const Container = styled(Box)({
-display: "flex",
-flexDirection: "column",
-alignItems: "center",
-justifyContent: "flex-start",
-/*
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "flex-start",
+  /*
 background: "-moz-linear-gradient(left, #1C6EA4 0%, #2388CB 50%, #144E75 100%)",
 background: "-webkit-linear-gradient(left, #1C6EA4 0%, #2388CB 50%, #144E75 100%)",
 background: "linear-gradient(to right, #1C6EA4 0%, #2388CB 50%, #144E75 100%)",
 */
-/*backgroundColor:"#F6F1F1",*/
-minHeight: "100vh",
-/*
+  /*backgroundColor:"#F6F1F1",*/
+  minHeight: "100vh",
+  /*
 boxShadow: "-16px -8px 12px 4px rgba(39,112,255,0.61)",
 */
-width: "100%",
+  width: "100%",
 });
 
 const FormContainer = styled(Box)({
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    /*
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "flex-start",
+  /*
     background: "-moz-linear-gradient(left, #1C6EA4 0%, #C9FFE5 50%, #144E75 100%)",
     background: "-webkit-linear-gradient(left, #1C6EA4 0%, #C9FFE5 50%, #144E75 100%)",
     background: "linear-gradient(to right, #1C6EA4 0%, #C9FFE5 50%, #144E75 100%)",
     */
-    minHeight: "100vh",
-    /*
+  minHeight: "100vh",
+  /*
     boxShadow: "-16px -8px 12px 4px rgba(39,112,255,0.61)",
     */
-    width: "100%",
-"@media (min-width: 600px)": {
-width: "80%",
-},
+  width: "100%",
+  "@media (min-width: 600px)": {
+    width: "80%",
+  },
 });
 
 const Contact = () => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(localStorage.email);
   const [content, setContent] = useState("");
   const [label, setLabel] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -60,7 +60,7 @@ const Contact = () => {
       return;
     }
     axios
-      .post("http://kevin-lienard-server.eddi.cloud/contact", {
+      .post("http://antoineperal-server.eddi.cloud/contact", {
         email: email,
         label: label,
         content: content,
