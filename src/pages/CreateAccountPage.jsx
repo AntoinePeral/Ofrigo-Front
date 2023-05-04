@@ -69,6 +69,9 @@ password: password,
 }
 );
 localStorage.setItem("token", response.data.accessToken);
+localStorage.setItem("first_name",response.data.account.first_name)
+localStorage.setItem("last_name",response.data.account.last_name)
+localStorage.setItem("email",response.data.account.email)
 window.location.href = "/profil/stock";
 } catch (error) {
 if (error.response.status === 400) {

@@ -133,12 +133,13 @@ function SearchBar() {
         </Paper>
       </div>
       <div
+        
         style={{
           display: "flex",
           flexDirection: "row",
           minWidth: 275,
           flexWrap: "wrap",
-          justifyContent: "space-around",
+          justifyContent: "space-around", 
           
         }}
       >
@@ -146,6 +147,7 @@ function SearchBar() {
           proposedIngredient.map((ingredient, id) => {
             return (
               <Chip
+                sx={{m:"1px"}}
                 key={ingredient.id}
                 label={ingredient}
                 onDelete={(event) => {
