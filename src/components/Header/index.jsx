@@ -50,7 +50,7 @@ const Header = () => {
   const handleDashboardClick = () => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;
     axios
-      .get("http://kevin-lienard-server.eddi.cloud/admin/dashboard")
+      .get("http://kevin-lienard-server.eddi.cloud/admin/home")
       .then((response) => {
         setIsLoggedOut(false);
         setUser(response.data);

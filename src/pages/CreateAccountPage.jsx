@@ -8,46 +8,55 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const RootBox = styled(Box)({
-display: "flex",
-flexDirection: "column",
-alignItems: "center",
-marginTop: 50,
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  marginTop: 50,
 });
 
 const InputField = styled(TextField)({
-width: "100%",
-marginBottom: 20,
+  width: "100%",
+  marginBottom: 20,
 });
 
 const SubmitButton = styled(Button)({});
 
 function CreateAccountPage() {
-const [lastName, setLastName] = useState("");
-const [firstName, setFirstName] = useState("");
-const [email, setEmail] = useState("");
-const [password, setPassword] = useState("");
-const [errorMessage, setErrorMessage] = useState("");
-const [passwordRequirements, setPasswordRequirements] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [passwordRequirements, setPasswordRequirements] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-const handleLastNameChange = (event) => {
-setLastName(event.target.value);
-};
+  const handleLastNameChange = (event) => {
+    setLastName(event.target.value);
+  };
 
-const handleFirstNameChange = (event) => {
-setFirstName(event.target.value);
-};
+  const handleFirstNameChange = (event) => {
+    setFirstName(event.target.value);
+  };
 
-const handleEmailChange = (event) => {
-setEmail(event.target.value);
-};
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
 
-const handlePasswordChange = (event) => {
-setPassword(event.target.value);
-};
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
 
-const handleCreateAccount = async (event) => {
-event.preventDefault();
-const passwordRegex = /^(?=.\d)(?=.[!@#$%^&])(?=.[a-z])(?=.*[A-Z]).{8,}$/;
+  const handleConfirmPasswordChange = (event) => {
+    setConfirmPassword(event.target.value);
+  };
+
+  const handleCreateAccount = async (event) => {
+    event.preventDefault();
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&\/$.#!?§:;+\-%])[A-Za-z\d!?:;@$!%*?&\/$.#%\-]{8,}$/u;
+
+    if (password !== confirmPassword) {setErrorMessage("Les mots de passe ne correspondent pas.");
+return;
+}
 if (password.match(passwordRegex)) {
 try {
 const response = await axios.post(
@@ -84,12 +93,12 @@ return (
 <Grid container direction="column" alignItems="center">
 <Grid item>
 <InputField
-             id="last-name"
-             label="Last name"
-             value={lastName}
-             onChange={handleLastNameChange}
-             style={{ marginTop: '12px' }}
-           />
+id="last-name"
+label="Last name"
+value={lastName}
+onChange={handleLastNameChange}
+style={{ marginTop: "12px" }}
+/>
 </Grid>
 <Grid item>
 <InputField
@@ -110,18 +119,23 @@ return (
 </Grid>
 <Grid item>
 <InputField
-              id="password"
-              label="Password"
-              type="password"
-              value={password}
-              onChange={handlePasswordChange}
+             id="password"
+             label="Password"
+             type="password"
+             value={password}
+             onChange={handlePasswordChange}
            />
-
-           
-
-
-{passwordRequirements && <p>{passwordRequirements}</p>}
 </Grid>
+<Grid item>
+<InputField
+             id="confirm-password"
+             label="Confirm password"
+             type="password"
+             value={confirmPassword}
+             onChange={handleConfirmPasswordChange}
+           />
+</Grid>
+{passwordRequirements && <Grid item>{passwordRequirements}</Grid>}
 <Grid item>
 <SubmitButton variant="contained" type="submit">
 Créer un compte
@@ -129,7 +143,6 @@ Créer un compte
 <Box marginBottom="12px" />
 </Grid>
 </Grid>
-
 </form>
 {errorMessage && <p>{errorMessage}</p>}
 <Box display="flex" justifyContent="center">
@@ -138,5 +151,13 @@ Créer un compte
 </Box>
 </Box>
 );
-};
+}
+
 export default CreateAccountPage;
+
+
+
+
+
+
+
