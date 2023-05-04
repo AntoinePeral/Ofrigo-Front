@@ -92,12 +92,11 @@ $breakpoint-xl: 1200px;
   }
 
   a {
-    color: #000;
+    color: white;
     text-decoration: none;
     position: relative;
     transition: all 0.2s ease;
     &:hover {
-      color: #555;
       transform: scale(1.1);
     }
     &:before {

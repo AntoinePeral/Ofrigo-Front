@@ -14,6 +14,7 @@ import {
   Typography,
   Card,
   Box,
+  Grid,
 } from "@mui/material";
 
 import {
@@ -37,7 +38,7 @@ function SearchBar() {
   const handleClickRemoveIngredient = (event) => {
     const ingredient =
       event.target.parentElement.parentElement.firstChild.innerText;
-    
+
     dispatch(RemoveAnIngredientFromList(ingredient, proposedIngredient));
   };
 
@@ -62,7 +63,7 @@ function SearchBar() {
 
   const handleChange = (event) => {
     const { value: inputValue, name } = event.target;
-    
+
     //changeField(inputValue, name);
   };
 
@@ -83,121 +84,97 @@ function SearchBar() {
   }, []);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-        }}
-      >
-        <Paper
-          component="form"
-          sx={{
-            p: "2px 4px",
-            display: "flex",
-            alignItems: "center",
-            maxWidth: 2000,
-            marginBottom:5,
-          }}
-        >
-          <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
-            <SearchIcon />
-          </IconButton>
+    <Grid container direction="column" alignItems="center">
+      <Grid item>
+        <Grid container justifyContent="center">
+          <Paper
+            component="form"
+            sx={{
+              p: "2px 4px",
+              display: "flex",
+              alignItems: "center",
+              maxWidth: 2000,
+              marginBottom: 5,
+            }}
+          >
+            <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+              <SearchIcon />
+            </IconButton>
 
-          <InputBase
-            sx={{ ml: 1, 
-              flex: 1,
-              minWidth:300,
-              maxWidth:600,
-              
-            }}
-            placeholder="Ingredient"
-            autoFocus={true}
-            value={inputValue}
-            inputProps={{ "aria-label": "Ingredient" }}
-            onChange={(event) => {
-              handleOnChange(event);
-            }}
-            onSubmit={(event) => {
-              handleSubmit(event);
-            }}
-          />
-        </Paper>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          minWidth: 275,
-          flexWrap: "wrap",
-          justifyContent: "space-around",
-          
-        }}
-      >
-        {proposedIngredient &&
-          proposedIngredient.map((ingredient, id) => {
-            return (
-              <Chip
-                key={ingredient.id}
-                label={ingredient}
-                onDelete={(event) => {
-                  handleClickRemoveIngredient(event);
-                }}
-              />
-            );
-          })}
-      </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          minWidth: 275,
-          flexWrap: "wrap",
-          justifyContent: "space-around",
-        }}
-      >
-        {listFilter &&
-          listFilter.map((ingredient, id) => {
-            return (
-              <div>
-                <Card
-                  sx={{ minWidth: 135, maxWidth: 135, mb: 2 }}
-                  onClick={(event) => {
-                    handleClickIngredient(event);
+            <InputBase
+              sx={{
+                ml: 1,
+                flex: 1,
+                minWidth: 300,
+                maxWidth: 600,
+              }}
+              placeholder="Ingredient"
+              autoFocus={true}
+              value={inputValue}
+              inputProps={{ "aria-label": "Ingredient" }}
+              onChange={(event) => {
+                handleOnChange(event);
+              }}
+              onSubmit={(event) => {
+                handleSubmit(event);
+              }}
+            />
+          </Paper>
+        </Grid>
+      </Grid>
+      <Grid item>
+        <Grid container justifyContent="center" minWidth={275} flexWrap="wrap">
+          {proposedIngredient &&
+            proposedIngredient.map((ingredient, id) => {
+              return (
+                <Chip
+                  key={ingredient.id}
+                  label={ingredient}
+                  onDelete={(event) => {
+                    handleClickRemoveIngredient(event);
                   }}
-                >
-                  <CardMedia
-                    component="img"
-                    height="50"
-                    width="50"
-                    image={`../../../../Pictures/Ingredients/${ingredient.label}.jpg`}
-                    alt={ingredient.label}
-                  />
-                  <Box sx={{ display: "flex", flexDirection: "column" }}>
-                    <CardContent
-                      sx={{
-                        flex: "1 0 auto",
-                      }}
-                    >
-                      <Typography component="div" variant="h7" align="left">
-                        {ingredient.label}
-                      </Typography>
-                    </CardContent>
-                  </Box>
-                </Card>
-              </div>
-            );
-          })}
-      </div>
-    </div>
+                />
+              );
+            })}
+        </Grid>
+      </Grid>
+      <Grid item>
+        <Grid container justifyContent="center" minWidth={275} flexWrap="wrap">
+          {listFilter &&
+            listFilter.map((ingredient, id) => {
+              return (
+                <Grid item>
+                  <Card
+                    sx={{ minWidth: 135, maxWidth: 135, mb: 2 }}
+                    onClick={(event) => {
+                      handleClickIngredient(event);
+                    }}
+                  >
+                    <CardMedia
+                      component="img"
+                      height="50"
+                      width="50"
+                      image={`../../../../Pictures/Ingredients/${ingredient.label}.jpg`}
+                      alt={ingredient.label}
+                    />
+                    <Box sx={{ display: "flex", flexDirection: "column" }}>
+                      <CardContent
+                        sx={{
+                          flex: "1 0 auto",
+                        }}
+                      >
+                        <Typography component="div" variant="h7" align="left">
+                          {ingredient.label}
+                        </Typography>
+                      </CardContent>
+                    </Box>
+                  </Card>
+                </Grid>
+              );
+            })}
+        </Grid>
+      </Grid>
+    </Grid>
   );
 }
 

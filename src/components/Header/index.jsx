@@ -166,7 +166,7 @@ const Header = () => {
             )}
           </List>
         </Drawer>
-        <Typography sx={{ mr: 2, fontWeight: "bold", color: "black" }}>
+        <Typography sx={{ fontWeight: "bold", color: "white" }}>
           {user.first_name} {user.last_name}
         </Typography>
         <Toolbar sx={{ justifyContent: "space-between" }}>

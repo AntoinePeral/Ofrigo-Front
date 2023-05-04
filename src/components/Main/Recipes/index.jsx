@@ -120,72 +120,77 @@ const Recipes = () => {
 
   return (
     <Container maxWidth="lg">
-      <Box display="flex" justifyContent="center">
-        <FormGroup>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={isToggled}
-                onChange={handleToggle}
-                inputProps={{ "aria-label-label": "toggle source" }}
-              />
-            }
-            label={
-              isToggled
-                ? "Vous avez tous les ingrédients !"
-                : "Il vous manque quelques ingrédients ..."
-            }
-          />
-        </FormGroup>
-      </Box>
-      {filteredRecipes.length === 0 && !initialLoad ? (
-        <Box
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-          minHeight="70vh"
-        >
-          <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
-            <Typography
-              textAlign="center"
-              variant="h4"
-              mb={2}
-              style={{ fontFamily: "'Pacifico', cursive" }}
-            >
-              Bienvenue sur O'Frigo !
-            </Typography>
-            <Typography variant="body1" textAlign="center" mb={2}>
-              Pour commencer, tapez le nom d'un ingrédient dans la barre de
-              recherche ci-dessus. Vous pouvez également utiliser les filtres
-              pour affiner votre recherche.
-            </Typography>
-            <Typography variant="body1" textAlign="center">
-              Par exemple, essayez de rechercher "lait" pour découvrir des
-              recettes délicieuses à base de lait.
-            </Typography>
-          </Paper>
-        </Box>
-      ) : (
-        <Box maxHeight="70vh" overflow="auto">
-          <Grid container spacing={2}>
-            {filteredRecipes.map((recipe) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={recipe.id}>
-                <Link
-                  to={`/recipes/${recipe.id}`}
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  <div>
-                    <Recipe recipe={recipe} />
-                  </div>
-                </Link>
-              </Grid>
-            ))}
+      <Grid container direction="column" alignItems="center" spacing={2}>
+        <Grid item>
+          <Grid container direction="column" alignItems="center">
+            <Grid item>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={isToggled}
+                      onChange={handleToggle}
+                      inputProps={{ "aria-label-label": "toggle source" }}
+                    />
+                  }
+                />
+              </FormGroup>
+            </Grid>
+            <Grid item>
+              <Typography
+                component="div"
+                variant="subtitle1"
+                textAlign="center"
+              >
+                {isToggled
+                  ? "Vous avez tous les ingrédients !"
+                  : "Il vous manque quelques ingrédients ..."}
+              </Typography>
+            </Grid>
           </Grid>
-        </Box>
-      )}
+        </Grid>
+        <Grid item>
+          {initialLoad ? (
+            <Paper
+              sx={{
+                padding: 2,
+                textAlign: "center",
+              }}
+            >
+              <Typography variant="h4" mb={2}>
+                Bienvenue sur O'Frigo !
+              </Typography>
+              <Typography variant="body1" textAlign="center" mb={2}>
+                Pour commencer, tapez le nom d'un ingrédient dans la barre de
+                recherche ci-dessus. Vous pouvez également utiliser les filtres
+                pour affiner votre recherche.
+              </Typography>
+              <Typography variant="body1" textAlign="center">
+                Par exemple, essayez de rechercher "tomate" pour découvrir des
+                recettes délicieuses à base de tomates.
+              </Typography>
+            </Paper>
+          ) : (
+            <Box maxHeight="70vh" overflow="auto">
+              <Grid container spacing={2}>
+                {filteredRecipes.map((recipe) => (
+                  <Grid item xs={12} sm={6} md={4} lg={3} key={recipe.id}>
+                    <Link
+                      to={`/recipes/${recipe.id}`}
+                      style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                      <div>
+                        <Recipe recipe={recipe} />
+                      </div>
+                    </Link>
+                  </Grid>
+                ))}
+              </Grid>
+            </Box>
+          )}
+        </Grid>
+      </Grid>
     </Container>
   );
 };
-
 export default Recipes;
