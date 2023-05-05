@@ -117,7 +117,7 @@ const Header = () => {
               to="/profil"
               onClick={handleDrawerClose}
             >
-              <ListItemText primary="Profil" />
+              <ListItemText primary="Frig-O-Matic" />
             </ListItem>
             <ListItem
               button
@@ -160,7 +160,7 @@ const Header = () => {
                 to="/UpdateAccount"
                 onClick={handleDrawerClose}
               >
-                <ListItemText primary="Profilbis" />
+                <ListItemText primary="Profil" />
               </ListItem>
             )}
             <ListItem

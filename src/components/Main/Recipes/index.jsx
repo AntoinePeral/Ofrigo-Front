@@ -174,7 +174,7 @@ const Recipes = () => {
             <Box maxHeight="70vh" overflow="auto">
               <Grid container spacing={2}>
                 {filteredRecipes.map((recipe) => (
-                  <Grid item xs={12} sm={6} md={4} lg={3} key={recipe.id}>
+                  <Grid item xs={12} sm={6} md={4} key={recipe.id}>
                     <Link
                       to={`/recipes/${recipe.id}`}
                       style={{ textDecoration: "none", color: "inherit" }}

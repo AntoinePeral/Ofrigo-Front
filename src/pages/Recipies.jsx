@@ -78,7 +78,22 @@ const Recipies = () => {
                       key={recipe.id}
                     >
                       {/* Titre de la carte  */}
-                      <CardHeader title={recipe.label} sx={{ height: 60 }} />
+                      <CardHeader
+                        sx={{ height: 60 }}
+                        title={
+                          <Typography
+                            variant="h6"
+                            sx={{
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              maxWidth: "100%",
+                            }}
+                          >
+                            {recipe.label}
+                          </Typography>
+                        }
+                      />
                       {/* Image de la carte  */}
                       <CardMedia
                         component="img"

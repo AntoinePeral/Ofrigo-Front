@@ -40,7 +40,7 @@ const About = () => {
         "Référent technique git",
         "Rédaction de la documentation technique",
       ],
-      image: "/static/images/cards/contemplative-reptile.jpg",
+      image: "../Pictures/equipe/freddy.jpg",
     },
     {
       name: "Kevin LIENARD",
